@@ -19,6 +19,7 @@ import {
 } from '@fluentui/react-icons';
 import { api } from '../api';
 import { CourseBriefForm } from '../components/CourseBriefForm';
+import { CourseGenerationDialog } from '../components/CourseGenerationDialog';
 import { DataStatePanel, type DataStatus } from '../components/DataStatePanel';
 import type {
   Course,
@@ -219,6 +220,7 @@ export function CourseLibraryPage() {
           </div>
         </DataStatePanel>
       </section>
+      <CourseGenerationDialog open={isGenerating} request={lastRequest} />
     </div>
   );
 }
