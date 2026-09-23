@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Course API (debug)",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "127.0.0.1",
+        "port": 5678
+      },
+      "justMyCode": true,
+      "preLaunchTask": "course-api: uvicorn"
+    },
+    {
+      "name": "Course Web (debug)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/services/course-web",
+      "preLaunchTask": "course-web: dev"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug All Services",
+      "configurations": [
+        "Course API (debug)",
+        "Course Web (debug)"
+      ],
+      "preLaunchTask": "course-studio: start services",
+      "stopAll": true
+    }
+  ]
+}

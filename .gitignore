@@ -1,0 +1,235 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+services/course-api/.venv/
+services/course-web/node_modules/
+services/course-web/dist/
+services/course-web/coverage/
+node_modules/
+
+venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# =========================
+# Dependencies
+# =========================
+node_modules/
+jspm_packages/
+web_modules/
+bower_components
+__pypackages__/
+/.pnp
+.pnp.js
+.pnp.*
+
+# Yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# =========================
+# Python bytecode / compiled
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# =========================
+# Python packaging
+# =========================
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# =========================
+# Python tools / caches
+# =========================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+.pdm.toml
+.ipynb_checkpoints
+.hypothesis/
+.pytest_cache/
+celerybeat-schedule
+celerybeat.pid
+*.sage.py
+
+# Spyder / Rope
+.spyderproject
+.spyproject
+.ropeproject
+
+# =========================
+# Testing / Coverage
+# =========================
+coverage/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+cover/
+*.lcov
+lib-cov
+.nyc_output/
+cypress/videos
+cypress/screenshots
+
+# =========================
+# Build outputs
+# =========================
+build/
+dist/
+out/
+.svelte-kit/
+.next/
+.nuxt/
+.docusaurus
+.cache/
+.parcel-cache
+target/
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# VuePress
+.vuepress/dist
+.temp
+
+# =========================
+# Pyodide
+# =========================
+static/pyodide/*
+!static/pyodide/pyodide-lock.json
+
+# =========================
+# Database files
+# =========================
+*.db
+db.sqlite3
+db.sqlite3-journal
+
+# =========================
+# Environment / config files
+# =========================
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# =========================
+# Secrets / credentials
+# =========================
+.webui_secret_key
+
+# =========================
+# Lock files (generated)
+# =========================
+package-lock.json
+!open-webui/package-lock.json
+uv.lock
+
+# =========================
+# Temporary / generated files
+# =========================
+temp
+uploads
+_old
+_test
+Pipfile
+
+# =========================
+# Editor / IDE
+# =========================
+.idea/
+.vscode/settings.json
+.vscode-test
+.eslintcache
+.stylelintcache
+
+# =========================
+# Logs / runtime data
+# =========================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Node caches / misc
+# =========================
+.npm
+.grunt
+.lock-wscript
+*.tsbuildinfo
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.node_repl_history
+*.tgz
+.yarn-integrity
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.cache
+
+# =========================
+# Sphinx / mkdocs documentation
+# =========================
+docs/_build/
+/site
+
+# =========================
+# Translations
+# =========================
+*.mo
+*.pot

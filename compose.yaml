@@ -1,0 +1,20 @@
+services:
+  course-api:
+    build:
+      context: ./services/course-api
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://apidev.hku.hk/openai/v1/responses}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-6-luna}
+      OPENAI_REASONING_EFFORT: ${OPENAI_REASONING_EFFORT:-xhigh}
+      OPENAI_TIMEOUT_SECONDS: ${OPENAI_TIMEOUT_SECONDS:-90}
+    ports:
+      - "8000:8000"
+
+  course-web:
+    build:
+      context: ./services/course-web
+    depends_on:
+      - course-api
+    ports:
+      - "5173:5173"

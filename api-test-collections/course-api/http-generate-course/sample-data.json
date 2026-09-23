@@ -1,0 +1,9 @@
+{
+  "title": "Linear Algebra",
+  "courseCode": "MATH 221",
+  "level": "Undergraduate",
+  "learningOutcomes": [
+    "Solve linear systems and interpret their solution sets."
+  ],
+  "testMode": true
+}

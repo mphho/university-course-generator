@@ -1,0 +1,81 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "course-api: install",
+      "command": "python3 -m pip install -e '.[dev]'",
+      "options": {
+        "cwd": "${workspaceFolder}/services/course-api"
+      },
+      "problemMatcher": [],
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "course-api: uvicorn",
+      "command": "python3 -m debugpy --listen 127.0.0.1:5678 -m uvicorn app.main:app --host 127.0.0.1 --port 8000",
+      "options": {
+        "cwd": "${workspaceFolder}/services/course-api"
+      },
+      "dependsOn": [
+        "course-api: install"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "course-api",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Started server process.*$",
+          "endsPattern": "^.*Uvicorn running on.*$"
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "course-web: dev",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/services/course-web"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE",
+          "endsPattern": "Local:"
+        }
+      },
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    },
+    {
+      "label": "course-studio: start services",
+      "dependsOn": [
+        "course-api: uvicorn",
+        "course-web: dev"
+      ],
+      "dependsOrder": "sequence",
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "silent"
+      }
+    }
+  ]
+}

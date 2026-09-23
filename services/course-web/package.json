@@ -1,0 +1,38 @@
+{
+  "name": "course-studio-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.68.0",
+    "@fluentui/react-icons": "^2.0.303",
+    "docx": "^9.7.1",
+    "framer-motion": "^12.23.0",
+    "jspdf": "^4.2.1",
+    "marked": "^18.0.14",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.8.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "jsdom": "^26.1.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
