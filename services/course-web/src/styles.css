@@ -998,6 +998,18 @@ select {
   text-underline-offset: 3px;
 }
 
+.lecture-markdown .katex {
+  font-size: 1.05em;
+}
+
+.lecture-markdown .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px 0 9px;
+  text-align: center;
+}
+
 .lecture-aside-markdown {
   display: flex;
   flex-direction: column;

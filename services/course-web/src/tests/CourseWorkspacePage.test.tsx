@@ -84,7 +84,7 @@ function makeTestModeCourse(): Course {
         motivatingQuestion: 'What makes evidence reliable?',
         prerequisiteCheck: 'Recall how to compare claims with records.',
         intuitiveExplanation: 'Evidence supports a claim when it can be checked.\n\n- Check provenance\n- Seek corroboration',
-        formalDevelopment: '## Source check\n\n**Corroboration** compares independent records.',
+        formalDevelopment: '## Source check\n\n**Corroboration** compares independent records. Inline: $x^2 + 1$.\n\n$$\n\\frac{d}{dx}x^2 = 2x\n$$',
         workedExamples: [{
           prompt: 'Assess a short historical claim.',
           reasoningSteps: ['Identify its source.', 'Compare independent records.'],
@@ -145,6 +145,8 @@ describe('CourseWorkspacePage', () => {
     expect(screen.getByRole('heading', { name: 'Source check' })).toBeInTheDocument();
     expect(screen.getByText('Check provenance').closest('li')).toBeInTheDocument();
     expect(screen.getByText('Corroboration').tagName).toBe('STRONG');
+    expect(document.querySelector('.katex-mathml')).toBeInTheDocument();
+    expect(document.querySelector('.katex-display .katex-html')).toBeInTheDocument();
     expect(screen.getByText(/words · target 5,000–8,000 · practice excluded/)).toBeInTheDocument();
     expect(screen.getByText('Assess a short historical claim.')).toBeInTheDocument();
     expect(screen.getByText('Compare competing accounts.')).toBeInTheDocument();

@@ -32,7 +32,9 @@ import {
   MathFormatLinearRegular,
 } from '@fluentui/react-icons';
 import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../api';
 import { AssessmentCard } from '../components/AssessmentCard';
@@ -609,7 +611,19 @@ function NoteSection({ title, number, children }: { title: string; number?: stri
 }
 
 function MarkdownContent({ children }: { children: string }) {
-  return <div className="lecture-markdown"><ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown></div>;
+  return (
+    <div className="lecture-markdown">
+      <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
+        {normalizeLatexDelimiters(children)}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
+function normalizeLatexDelimiters(markdown: string): string {
+  return markdown
+    .replace(/\\\[([\s\S]+?)\\\]/g, (_, formula: string) => `\n\n$$\n${formula.trim()}\n$$\n\n`)
+    .replace(/\\\(([\s\S]+?)\\\)/g, (_, formula: string) => `$${formula.trim()}$`);
 }
 
 function countLectureNotes(content: NonNullable<Lecture['content']>): number {

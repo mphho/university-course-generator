@@ -17,11 +17,13 @@ from app.models.generation import (
     ConceptDependency,
     CoursePlan,
     CourseUnit,
+    LectureContextSections,
     LectureExpansion,
     LectureFoundations,
+    LectureFormalSection,
     LecturePlan,
     LecturePractice,
-    LectureTeaching,
+    LectureSynthesis,
     WorkedExample,
 )
 from app.models.requests import AssignmentRequest, ExamRequest, FinalExamRequest
@@ -108,8 +110,16 @@ class StubResponsesClient:
         request = json.loads(user_prompt)
         if request.get("schemaName") == "LectureFoundations":
             return make_foundations().model_dump(by_alias=True)
-        if request.get("schemaName") == "LectureTeaching":
-            return make_teaching().model_dump(by_alias=True)
+        if request.get("schemaName", "").startswith("LectureFormalSection"):
+            return make_formal_section(request["schemaName"]).model_dump(by_alias=True)
+        if request.get("schemaName", "").startswith("WorkedExample"):
+            return make_worked_example(request["schemaName"]).model_dump(by_alias=True)
+        if request.get("schemaName") == "LectureContextSections":
+            return make_context_sections().model_dump(by_alias=True)
+        if request.get("schemaName") == "LectureSynthesis":
+            return make_synthesis().model_dump(by_alias=True)
+        if request.get("schemaName") == "LecturePractice":
+            return make_practice().model_dump(by_alias=True)
         if request.get("schemaName") == "LectureExpansion":
             return make_expansion().model_dump(by_alias=True)
         if '"requiredLectureCount": 12' in user_prompt:
@@ -280,37 +290,53 @@ def repeated_words(label: str, count: int) -> str:
     return " ".join([label] * count)
 
 
-def make_foundations() -> LectureFoundations:
+def make_foundations(short: bool = False) -> LectureFoundations:
     return LectureFoundations(
+        motivating_question="How can we model a changing quantity?",
         prerequisite_check=repeated_words("Prerequisite", 400),
-        intuitive_explanation=repeated_words("Intuitive", 1200),
-        formal_development=repeated_words("Formal", 1700),
+        intuitive_explanation=repeated_words("Intuitive", 1200 if not short else 1200),
     )
 
 
-def make_teaching() -> LectureTeaching:
-    return LectureTeaching(
-        motivating_question="How can we model a changing quantity?",
-        worked_examples=[
-            WorkedExample(
-                prompt=repeated_words(f"Example{index}", 40),
-                reasoning_steps=[repeated_words("Reasoning", 80)],
-                conclusion=repeated_words("Conclusion", 45),
-            )
-            for index in range(1, 4)
-        ],
+def make_formal_section(name: str, word_count: int = 900) -> LectureFormalSection:
+    return LectureFormalSection(
+        title=f"Formal module {name[-1]}",
+        content=repeated_words("Formal", word_count),
+    )
+
+
+def make_worked_example(name: str, word_count: int = 500) -> WorkedExample:
+    return WorkedExample(
+        prompt=repeated_words(f"Example{name[-1]}", word_count // 3),
+        reasoning_steps=[repeated_words("Reasoning", word_count // 3)],
+        conclusion=repeated_words("Conclusion", word_count - 2 * (word_count // 3)),
+    )
+
+
+def make_context_sections(short: bool = False) -> LectureContextSections:
+    word_count = 2 if short else 220
+    misconception_count = 3 if short else 150
+    return LectureContextSections(
         applications=[repeated_words("Application", 220) for _ in range(2)],
-        misconceptions=[repeated_words("Misconception", 150) for _ in range(3)],
-        extension=repeated_words("Advanced extension", 600),
-        summary=repeated_words("Lecture summary", 250),
-        practice=LecturePractice(
-            prompt="Explain the method for a new example.",
-            learning_outcome="Explain core concepts and apply them to a new problem.",
-            points=4,
-            hints=["Identify the relevant definition."],
-            solution="Apply the definition and explain each step.",
-            rubric=["Use correct notation.", "Justify the reasoning."],
-        ),
+        misconceptions=[repeated_words("Misconception", misconception_count) for _ in range(3)],
+    )
+
+
+def make_synthesis(short: bool = False) -> LectureSynthesis:
+    return LectureSynthesis(
+        extension="Short extension." if short else repeated_words("Advanced", 600),
+        summary="Short summary." if short else repeated_words("Summary", 250),
+    )
+
+
+def make_practice() -> LecturePractice:
+    return LecturePractice(
+        prompt="Explain the method for a new example.",
+        learning_outcome="Explain core concepts and apply them to a new problem.",
+        points=4,
+        hints=["Identify the relevant definition."],
+        solution="Apply the definition and explain each step.",
+        rubric=["Use correct notation.", "Justify the reasoning."],
     )
 
 
@@ -322,27 +348,37 @@ def make_expansion() -> LectureExpansion:
     )
 
 
-def make_short_foundations() -> LectureFoundations:
-    return LectureFoundations(
-        prerequisite_check=repeated_words("Prerequisite", 400),
-        intuitive_explanation=repeated_words("Intuitive", 1200),
-        formal_development=repeated_words("Formal", 1400),
+def make_staged_responses(short: bool = False) -> list[dict[str, Any]]:
+    example_words = 4 if short else 500
+    foundation = make_foundations(short)
+    if short:
+        foundation.intuitive_explanation = repeated_words("Intuitive", 1200)
+    responses = [foundation.model_dump(by_alias=True)]
+    responses.extend(
+        make_formal_section(f"LectureFormalSection{index}", 700 if short else 900).model_dump(
+            by_alias=True
+        )
+        for index in range(1, 3)
     )
+    responses.extend(
+        make_worked_example(f"WorkedExample{index}", example_words).model_dump(by_alias=True)
+        for index in range(1, 4)
+    )
+    responses.append(make_context_sections(short).model_dump(by_alias=True))
+    responses.append(make_synthesis(short).model_dump(by_alias=True))
+    responses.append(make_practice().model_dump(by_alias=True))
+    return responses
 
 
-def make_short_teaching() -> LectureTeaching:
-    return LectureTeaching(
-        motivating_question="What is the central question?",
-        worked_examples=[
-            WorkedExample(prompt="Example.", reasoning_steps=["Step."], conclusion="Result.")
-            for _ in range(3)
-        ],
-        applications=["Application one.", "Application two."],
-        misconceptions=["Misconception one.", "Misconception two.", "Misconception three."],
-        extension="A short extension.",
-        summary="A short summary.",
-        practice=make_teaching().practice,
-    )
+def make_expanded_short_responses() -> list[dict[str, Any]]:
+    return [
+        *make_staged_responses(short=True),
+        LectureExpansion(
+            intuitive_explanation=repeated_words("Insight", 1100),
+            formal_development=repeated_words("Derivation", 1100),
+            extension="",
+        ).model_dump(by_alias=True),
+    ]
 
 
 def test_test_mode_preserves_twelve_lecture_map_and_drafts_one_lecture() -> None:
@@ -361,25 +397,15 @@ def test_test_mode_preserves_twelve_lecture_map_and_drafts_one_lecture() -> None
     assert len(course.lecture_plan) == 12
     assert len(course.lectures) == 1
     assert course.lectures[0].content is not None
-    assert client.calls == 3
+    assert client.calls == 10
     assert "GitHub-flavored Markdown" in client.system_prompts[1]
-    assert "5,000-8,000 words" in client.system_prompts[2]
+    assert "LaTeX" in client.system_prompts[1]
+    assert "750-950 words" in client.system_prompts[2]
 
 
 def test_short_lecture_notes_get_one_expansion_and_practice_is_not_counted() -> None:
     plan = make_plan()
-    expansion = LectureExpansion(
-        intuitive_explanation=repeated_words("Insight", 1100),
-        formal_development=repeated_words("Derivation", 1100),
-        extension="",
-    )
-    client = QueueJsonClient(
-        [
-            make_short_foundations().model_dump(by_alias=True),
-            make_short_teaching().model_dump(by_alias=True),
-            expansion.model_dump(by_alias=True),
-        ]
-    )
+    client = QueueJsonClient(make_expanded_short_responses())
     service = GenerationService(Settings(openai_api_key="test-key"), client)
 
     content = asyncio.run(
@@ -397,7 +423,7 @@ def test_short_lecture_notes_get_one_expansion_and_practice_is_not_counted() -> 
 
     assert 5000 <= note_word_count <= 8000
     assert service._lecture_notes_word_count(content) == note_word_count
-    assert len(client.prompts) == 3
+    assert len(client.prompts) == 10
 
 
 def test_generate_next_lecture_completes_test_mode_course_without_duplicates() -> None:
@@ -418,14 +444,7 @@ def test_generate_next_lecture_completes_test_mode_course_without_duplicates() -
     original_content = course.lectures[0].content.model_dump(by_alias=True)
     store = CourseStore()
     store.add_course(course)
-    content_responses = [
-        response
-        for _ in range(11)
-        for response in (
-            make_foundations().model_dump(by_alias=True),
-            make_teaching().model_dump(by_alias=True),
-        )
-    ]
+    content_responses = [response for _ in range(11) for response in make_staged_responses()]
     response_client = QueueJsonClient(content_responses)
     generation = GenerationService(Settings(openai_api_key="test-key"), response_client)
     app.dependency_overrides[get_course_store] = lambda: store
@@ -451,4 +470,4 @@ def test_generate_next_lecture_completes_test_mode_course_without_duplicates() -
 
     assert completed_response.status_code == 200
     assert len(completed_response.json()["course"]["lectures"]) == 12
-    assert len(response_client.prompts) == 22
+    assert len(response_client.prompts) == 99

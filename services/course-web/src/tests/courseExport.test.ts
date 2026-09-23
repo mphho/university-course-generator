@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { unzipSync } from 'fflate';
 import type { Course } from '../types/course';
 import {
   courseMarkdownToPlainText,
@@ -28,8 +29,8 @@ const course: Course = {
     content: {
       motivatingQuestion: 'What makes a claim reliable?',
       prerequisiteCheck: 'Review how to compare claims.',
-      intuitiveExplanation: 'Start with a **clear** idea.\n\n- First point\n- Second point',
-      formalDevelopment: 'Use a definition and state its limits.',
+      intuitiveExplanation: 'Start with a **clear** idea such as $x^2 + 1$.\n\n- First point\n- Second point',
+      formalDevelopment: 'Use a definition and state its limits.\n\n$$\n\\frac{a_1}{b^2} = \\sqrt{c}\n$$\n\nThe equivalent inline form is \\(z_i\\).',
       workedExamples: [{
         prompt: 'Assess a short claim.',
         reasoningSteps: ['Check its source.', 'Compare independent records.'],
@@ -54,12 +55,19 @@ const course: Course = {
 };
 
 const downloadedNames: string[] = [];
+const downloadedBlobs: Blob[] = [];
+let pdfRenderSource: HTMLElement | null = null;
 
 describe('course export', () => {
   beforeEach(() => {
     downloadedNames.length = 0;
+    downloadedBlobs.length = 0;
+    pdfRenderSource = null;
     vi.stubGlobal('URL', {
-      createObjectURL: vi.fn(() => 'blob:course-export'),
+      createObjectURL: vi.fn((blob: Blob) => {
+        downloadedBlobs.push(blob);
+        return 'blob:course-export';
+      }),
       revokeObjectURL: vi.fn(),
     });
     vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
@@ -79,6 +87,8 @@ describe('course export', () => {
     expect(markdown).toContain('#### Worked examples');
     expect(markdown).toContain('1. Check its source.');
     expect(markdown).toContain('#### Self-paced practice');
+    expect(markdown).toContain('$x^2 + 1$');
+    expect(markdown).toContain('\\frac{a_1}{b^2} = \\sqrt{c}');
   });
 
   it('converts Markdown emphasis, links, and ordered lists to readable text', () => {
@@ -93,6 +103,13 @@ describe('course export', () => {
   });
 
   it('downloads JSON, TXT, DOCX, and PDF course files', async () => {
+    const { jsPDF } = await import('jspdf');
+    vi.spyOn(jsPDF.prototype, 'html').mockImplementation(function (source, options) {
+      if (typeof source !== 'string') pdfRenderSource = source;
+      options?.callback?.(this);
+      return {} as never;
+    });
+
     await exportCourse(course, 'json');
     await exportCourse(course, 'txt');
     await exportCourse(course, 'docx');
@@ -104,5 +121,14 @@ describe('course export', () => {
       'test-101-sample-course.docx',
       'test-101-sample-course.pdf',
     ]);
+    const docxContents = unzipSync(new Uint8Array(await downloadedBlobs[2].arrayBuffer()));
+    const documentXml = new TextDecoder().decode(docxContents['word/document.xml']);
+    expect(documentXml).toContain('<m:oMath>');
+    expect(documentXml).toContain('<m:f>');
+    expect(documentXml).toContain('<m:sSub>');
+    expect(documentXml).toContain('<m:sSup>');
+    expect(pdfRenderSource?.querySelector('.katex')).toBeInTheDocument();
+    expect(pdfRenderSource?.querySelector('.katex-display')).toBeInTheDocument();
+    expect(downloadedBlobs[3].type).toBe('application/pdf');
   });
 });

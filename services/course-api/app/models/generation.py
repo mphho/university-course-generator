@@ -68,19 +68,24 @@ class LectureContent(ApiModel):
 
 
 class LectureFoundations(ApiModel):
+    motivating_question: str
     prerequisite_check: str
     intuitive_explanation: str
-    formal_development: str
 
 
-class LectureTeaching(ApiModel):
-    motivating_question: str
-    worked_examples: list[WorkedExample] = Field(min_length=3, max_length=5)
+class LectureFormalSection(ApiModel):
+    title: str
+    content: str
+
+
+class LectureContextSections(ApiModel):
     applications: list[str] = Field(min_length=2)
     misconceptions: list[str] = Field(min_length=3)
+
+
+class LectureSynthesis(ApiModel):
     extension: str
     summary: str
-    practice: LecturePractice
 
 
 class LectureExpansion(ApiModel):

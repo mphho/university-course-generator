@@ -14,11 +14,15 @@ from app.models.generation import (
     CoursePlan,
     GeneratedAssignment,
     GeneratedExam,
+    LectureContextSections,
     LectureContent,
     LectureExpansion,
     LectureFoundations,
+    LectureFormalSection,
     LecturePlan,
-    LectureTeaching,
+    LectureSynthesis,
+    LecturePractice,
+    WorkedExample,
 )
 from app.models.requests import AssignmentRequest, ExamRequest, FinalExamRequest
 from app.services.responses_client import ResponsesClient
@@ -134,71 +138,122 @@ claim the content has been verified.""",
             "lecturePlan": [item.model_dump(by_alias=True) for item in lecture_plan],
         }
         lecture_context = lecture.model_dump(by_alias=True)
-        foundations = self._validate_model(
+        foundations = await self._generate_lecture_stage(
             LectureFoundations,
-            await self._client.complete_json(
-                """Draft the foundation of a self-contained university lecture. Return only JSON.
-Write all prose values as GitHub-flavored Markdown strings. Use clear paragraphs, nested headings
-where useful, Markdown numbered or bulleted lists for genuine sequences, and fenced code blocks
-for code. Do not return HTML. Teach accurately and in depth without repetition or filler.
-
-Word budgets: prerequisiteCheck 350-500 words; intuitiveExplanation 900-1200 words;
-formalDevelopment 1400-1800 words. Explain prerequisite gaps with a short bridge, develop the
-idea from intuition to precise definitions or disciplinary methods, state assumptions and limits,
-and connect each explanation to the listed learning objectives. Do not fabricate sources; mark
-unsupported or interpretive claims for instructor review.""",
-                json.dumps(
-                    {
-                        "schemaName": "LectureFoundations",
-                        "schema": LectureFoundations.model_json_schema(by_alias=True),
-                        "course": course_context,
-                        "lecture": lecture_context,
-                    }
-                ),
-            ),
+            "LectureFoundations",
+            """Write a motivating question in 80-120 words, a prerequisite bridge in 350-500 words,
+and an intuitive explanation in 900-1,100 words. Teach one idea carefully with a concrete analogy
+only if its limits are stated. Build toward the listed learning objectives without duplicating the
+course outline. Keep the total response near 1,400 words.""",
+            course_context,
+            lecture_context,
         )
-        teaching = self._validate_model(
-            LectureTeaching,
-            await self._client.complete_json(
-                """Draft the remaining teaching material and self-paced practice for the same
-university lecture. Return only JSON. Write prose values as GitHub-flavored Markdown strings;
-use Markdown lists for genuine sequences, headings for subtopics, and no HTML. These sections
-must add substantive instruction, not repeat the foundation draft.
-
-Include 3-5 worked examples at about 450-600 words each. Show intermediate reasoning, explain
-why each step is valid, and include a contrasting case or counterexample where appropriate.
-Applications should total about 350-500 words. Misconceptions should include a diagnosis and
-correction, totaling about 350-500 words. The optional extension should be about 500-700 words;
-the summary should be about 200-300 words. Keep the combined lecture notes (excluding practice,
-hints, solution, and rubric) within 5,000-8,000 words. Practice is separate: include one focused
-transfer task, progressive hints that do not reveal the solution prematurely, a worked response,
-and an aligned rubric. Do not fabricate sources; mark unsupported claims for review.""",
-                json.dumps(
+        formal_sections: list[LectureFormalSection] = []
+        for section_number in (1, 2):
+            previous_section = formal_sections[-1].model_dump(by_alias=True) if formal_sections else None
+            formal_sections.append(
+                await self._generate_lecture_stage(
+                    LectureFormalSection,
+                    f"LectureFormalSection{section_number}",
+                    """Write one formal-development module in 750-950 words. State definitions,
+assumptions, notation, and the main reasoning precisely; explain each transition instead of
+listing results. Use equations where the discipline needs them. Do not repeat the intuitive
+section. The second module must build on the first without restating it.""",
+                    course_context,
+                    lecture_context,
                     {
-                        "schemaName": "LectureTeaching",
-                        "schema": LectureTeaching.model_json_schema(by_alias=True),
-                        "course": course_context,
-                        "lecture": lecture_context,
-                        "foundationAlreadyExplained": [
-                            "prerequisiteCheck",
-                            "intuitiveExplanation",
-                            "formalDevelopment",
-                        ],
-                    }
-                ),
-            ),
+                        "part": f"{section_number} of 2",
+                        "foundations": foundations.model_dump(by_alias=True),
+                        "previousFormalSection": previous_section,
+                    },
+                )
+            )
+
+        formal_development = "\n\n".join(
+            f"## {section.title}\n\n{section.content}" for section in formal_sections
+        )
+        worked_examples: list[WorkedExample] = []
+        example_types = (
+            "a foundational example that makes the definition concrete",
+            "a routine application with every intermediate step justified",
+            "a transfer or error-analysis example with a contrasting case",
+        )
+        for example_number, example_type in enumerate(example_types, start=1):
+            previous_examples = [
+                {"prompt": item.prompt[:300], "conclusion": item.conclusion[:250]}
+                for item in worked_examples
+            ]
+            worked_examples.append(
+                await self._generate_lecture_stage(
+                    WorkedExample,
+                    f"WorkedExample{example_number}",
+                    f"Write one substantial worked example, about 500-650 words: {example_type}. "
+                    "Show the problem setup, assumptions, every intermediate reasoning step, "
+                    "why each step is valid, interpretation, and a useful check or counterexample. "
+                    "This is one example only; do not add practice questions or repeat prior examples.",
+                    course_context,
+                    lecture_context,
+                    {
+                        "foundations": foundations.model_dump(by_alias=True),
+                        "formalDevelopment": formal_development,
+                        "previousExamples": previous_examples,
+                    },
+                )
+            )
+
+        context_sections = await self._generate_lecture_stage(
+            LectureContextSections,
+            "LectureContextSections",
+            """Write 2-3 disciplinary applications (200-300 words each) and at least three common
+misconceptions (120-180 words each). Each misconception must name the mistaken idea, explain
+why it is tempting, give a diagnostic question or example, and correct it. Applications must
+show how to transfer a taught concept, including assumptions and limits. Avoid repeating worked
+examples.""",
+            course_context,
+            lecture_context,
+            {
+                "formalDevelopment": formal_development,
+                "workedExamples": [item.model_dump(by_alias=True) for item in worked_examples],
+            },
+        )
+        synthesis = await self._generate_lecture_stage(
+            LectureSynthesis,
+            "LectureSynthesis",
+            """Write an optional advanced extension of 500-700 words, clearly marking its extra
+assumptions, then a 200-300 word summary that connects this lesson to its prerequisites and the
+next planned lecture. Do not repeat the formal section or add unsupported citations.""",
+            course_context,
+            lecture_context,
+            {
+                "completedSectionTitles": [item.title for item in formal_sections],
+                "workedExampleConclusions": [item.conclusion for item in worked_examples],
+            },
+        )
+        practice = await self._generate_lecture_stage(
+            LecturePractice,
+            "LecturePractice",
+            """Create one self-paced transfer task requiring about 20-30 minutes. Set learningOutcome
+to one exact string from course.learningOutcomes or lecture.objectives. Include progressive hints
+that do not give away the solution prematurely, a worked response, and an aligned response rubric.
+Keep this separate from the 5,000-8,000-word lecture-notes target.""",
+            course_context,
+            lecture_context,
+            {
+                "formalDevelopment": formal_development,
+                "workedExamples": [item.model_dump(by_alias=True) for item in worked_examples],
+            },
         )
         content = LectureContent(
-            motivating_question=teaching.motivating_question,
+            motivating_question=foundations.motivating_question,
             prerequisite_check=foundations.prerequisite_check,
             intuitive_explanation=foundations.intuitive_explanation,
-            formal_development=foundations.formal_development,
-            worked_examples=teaching.worked_examples,
-            applications=teaching.applications,
-            misconceptions=teaching.misconceptions,
-            extension=teaching.extension,
-            summary=teaching.summary,
-            practice=teaching.practice,
+            formal_development=formal_development,
+            worked_examples=worked_examples,
+            applications=context_sections.applications,
+            misconceptions=context_sections.misconceptions,
+            extension=synthesis.extension,
+            summary=synthesis.summary,
+            practice=practice,
         )
         word_count = self._lecture_notes_word_count(content)
         if word_count < 5000:
@@ -242,6 +297,35 @@ Do not fabricate sources; flag unsupported claims for review.""",
                 f"(excluding practice); received {word_count} words.",
             )
         return content
+
+    async def _generate_lecture_stage(
+        self,
+        model: type[ModelType],
+        schema_name: str,
+        instructions: str,
+        course_context: dict[str, Any],
+        lecture_context: dict[str, Any],
+        additional_context: dict[str, Any] | None = None,
+    ) -> ModelType:
+        system_prompt = """Return only JSON matching the supplied schema. Write every prose value
+as GitHub-flavored Markdown; use Markdown headings and real lists where helpful, never HTML.
+Write mathematical expressions in LaTeX: `$...$` inline and `$$...$$` on separate lines for
+display equations. Keep notation consistent with the course context. Do not invent citations,
+quotes, source metadata, or factual support; label claims needing instructor review.
+""" + instructions
+        result = await self._client.complete_json(
+            system_prompt,
+            json.dumps(
+                {
+                    "schemaName": schema_name,
+                    "schema": model.model_json_schema(by_alias=True),
+                    "course": course_context,
+                    "lecture": lecture_context,
+                    "context": additional_context or {},
+                }
+            ),
+        )
+        return self._validate_model(model, result)
 
     @staticmethod
     def _lecture_notes_word_count(content: LectureContent) -> int:
