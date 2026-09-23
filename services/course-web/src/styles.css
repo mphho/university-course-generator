@@ -410,6 +410,10 @@ select {
   box-shadow: var(--app-shadow-hover);
 }
 
+.course-list .course-list-card {
+  flex-direction: row;
+}
+
 .course-row-main {
   display: flex;
   min-width: 0;
@@ -1355,6 +1359,11 @@ select {
 
   .course-list-card > .fui-Button {
     align-self: flex-end;
+  }
+
+  .course-list .course-list-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .workspace-intro {

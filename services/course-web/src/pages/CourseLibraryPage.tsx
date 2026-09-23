@@ -205,7 +205,7 @@ export function CourseLibraryPage() {
                       <Badge appearance="outline" color="subtle">Suggested</Badge>
                     </div>
                     <Text className="course-row-description">{brief.description}</Text>
-                    <Text size={200} className="course-row-meta">{brief.courseCode} <span aria-hidden="true">·</span> {brief.generationLabel}</Text>
+                    <Text size={200} className="course-row-meta">{brief.courseCode} <span aria-hidden="true">·</span> {brief.level} <span aria-hidden="true">·</span> {brief.generationLabel}</Text>
                   </div>
                 </div>
                 <Button appearance="subtle" icon={<ArrowRightRegular />} onClick={() => {

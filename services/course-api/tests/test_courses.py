@@ -1,3 +1,5 @@
+import json
+
 from fastapi.testclient import TestClient
 
 from app.api.routes.courses import get_course_store
@@ -51,3 +53,19 @@ def test_invalid_course_import_uses_the_standard_validation_envelope() -> None:
 
     assert response.status_code == 422
     assert response.json()["error"]["code"] == "VALIDATION_ERROR"
+
+
+def test_course_store_updates_safe_json_snapshot(tmp_path) -> None:
+    store = CourseStore(archive_directory=tmp_path)
+    course = CALCULUS_101.model_copy(update={"id": "../imported-course"})
+
+    store.add_course(course)
+    updated_course = course.model_copy(update={"description": "Updated course draft."})
+    store.add_course(updated_course)
+
+    snapshots = list(tmp_path.glob("*.json"))
+    assert len(snapshots) == 1
+    snapshot = json.loads(snapshots[0].read_text(encoding="utf-8"))
+    assert snapshot["id"] == "../imported-course"
+    assert snapshot["courseCode"] == CALCULUS_101.course_code
+    assert snapshot["description"] == "Updated course draft."

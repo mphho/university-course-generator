@@ -99,6 +99,37 @@ def test_responses_client_maps_invalid_output_to_stable_error() -> None:
         raise AssertionError("Invalid provider output should fail validation")
 
 
+def test_lecture_stage_repairs_response_missing_required_fields() -> None:
+    expected = make_context_sections()
+    client = QueueJsonClient(
+        [
+            {"applications": ["An application example."]},
+            expected.model_dump(by_alias=True),
+        ]
+    )
+    service = GenerationService(Settings(openai_api_key="test-key"), client)
+
+    result = asyncio.run(
+        service._generate_lecture_stage(
+            LectureContextSections,
+            "LectureContextSections",
+            "Write applications and misconceptions.",
+            {"title": "Linear Algebra"},
+            {"title": "Vector spaces"},
+        )
+    )
+
+    repair_request = json.loads(client.prompts[1])
+    assert result == expected
+    assert len(client.prompts) == 2
+    assert repair_request["schemaName"] == "LectureContextSections"
+    assert repair_request["invalidResponse"] == {"applications": ["An application example."]}
+    assert any(
+        "misconceptions: Field required" in item
+        for item in repair_request["validationErrors"]
+    )
+
+
 class StubResponsesClient:
     def __init__(self) -> None:
         self.calls = 0

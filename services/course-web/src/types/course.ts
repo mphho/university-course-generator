@@ -12,6 +12,7 @@ export interface CourseBriefInput {
 export interface SuggestedCourseBrief {
   title: string;
   courseCode: string;
+  level: CourseLevel;
   description: string;
   kind: 'suggested';
   generationLabel: string;

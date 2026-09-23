@@ -1,3 +1,5 @@
+import json
+
 from fastapi.testclient import TestClient
 
 from app.api.routes.courses import get_course_store, get_generation_service
@@ -90,8 +92,8 @@ def test_assessment_route_checks_course_before_provider() -> None:
     assert response.json()["error"]["code"] == "NOT_FOUND"
 
 
-def test_all_assessment_routes_persist_generated_drafts() -> None:
-    store = CourseStore()
+def test_all_assessment_routes_persist_generated_drafts(tmp_path) -> None:
+    store = CourseStore(archive_directory=tmp_path)
     app.dependency_overrides[get_course_store] = lambda: store
     app.dependency_overrides[get_generation_service] = StubAssessmentGeneration
     try:
@@ -119,3 +121,11 @@ def test_all_assessment_routes_persist_generated_drafts() -> None:
     persisted = course_response.json()["course"]["assessments"][-3:]
     assert [item["kind"] for item in persisted] == ["assignment", "midterm", "final"]
     assert all(item["status"] == "Draft" for item in persisted)
+    snapshots = list(tmp_path.glob("*.json"))
+    assert len(snapshots) == 1
+    archived_course = json.loads(snapshots[0].read_text(encoding="utf-8"))
+    assert [item["kind"] for item in archived_course["assessments"][-3:]] == [
+        "assignment",
+        "midterm",
+        "final",
+    ]

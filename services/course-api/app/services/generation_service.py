@@ -313,19 +313,37 @@ Write mathematical expressions in LaTeX: `$...$` inline and `$$...$$` on separat
 display equations. Keep notation consistent with the course context. Do not invent citations,
 quotes, source metadata, or factual support; label claims needing instructor review.
 """ + instructions
-        result = await self._client.complete_json(
-            system_prompt,
-            json.dumps(
-                {
-                    "schemaName": schema_name,
-                    "schema": model.model_json_schema(by_alias=True),
-                    "course": course_context,
-                    "lecture": lecture_context,
-                    "context": additional_context or {},
-                }
-            ),
-        )
-        return self._validate_model(model, result)
+        stage_request = {
+            "schemaName": schema_name,
+            "schema": model.model_json_schema(by_alias=True),
+            "course": course_context,
+            "lecture": lecture_context,
+            "context": additional_context or {},
+        }
+        result = await self._client.complete_json(system_prompt, json.dumps(stage_request))
+        try:
+            return model.model_validate(result)
+        except ValidationError as error:
+            details = [
+                f"{'.'.join(str(part) for part in item['loc'])}: {item['msg']}"
+                for item in error.errors()
+            ]
+            repair_request = {
+                **stage_request,
+                "invalidResponse": result,
+                "validationErrors": details,
+                "repairInstructions": (
+                    "Return a corrected complete object matching the schema. Preserve valid "
+                    "content, add every missing required field, and satisfy all field constraints."
+                ),
+            }
+            repaired_result = await self._client.complete_json(
+                system_prompt
+                + " The previous response failed schema validation. Return a corrected complete "
+                "object and ensure every required field is present.",
+                json.dumps(repair_request),
+            )
+            return self._validate_model(model, repaired_result)
 
     @staticmethod
     def _lecture_notes_word_count(content: LectureContent) -> int:

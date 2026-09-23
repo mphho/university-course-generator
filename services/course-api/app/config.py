@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-6-luna"
     openai_reasoning_effort: str = "xhigh"
     openai_timeout_seconds: float = 90
+    course_archive_directory: Path = Path(__file__).resolve().parents[3] / "generated-courses"
 
     @property
     def generation_provider_configured(self) -> bool:

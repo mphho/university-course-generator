@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routes import assessments, courses, health
+from app.config import get_settings
 from app.errors import ApiError
 from app.models.common import ErrorCode
 from app.services.course_store import CourseStore
@@ -27,7 +28,9 @@ logger = structlog.get_logger(__name__)
 
 def create_app() -> FastAPI:
     application = FastAPI(title="Course Studio API", version="0.1.0")
-    application.state.course_store = CourseStore()
+    application.state.course_store = CourseStore(
+        archive_directory=get_settings().course_archive_directory
+    )
     application.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],

@@ -26,4 +26,34 @@ describe('CourseBriefForm', () => {
       learningOutcomes: ['Work with vector spaces, linear transformations, matrices, and eigenvalues.'],
     }));
   });
+
+  it('applies the selected brief level to the generated course request', async () => {
+    const user = userEvent.setup();
+    const onGenerate = vi.fn().mockResolvedValue(undefined);
+    render(
+      <CourseBriefForm
+        isGenerating={false}
+        selectedBrief={{
+          title: 'Philosophy of Mind',
+          courseCode: 'PHIL 640',
+          level: 'Graduate',
+          description: 'A graduate philosophy brief.',
+          kind: 'suggested',
+          generationLabel: '12 lectures by default',
+          learningOutcomes: ['Compare theories of consciousness.'],
+        }}
+        onGenerate={onGenerate}
+      />,
+    );
+
+    expect(screen.getByRole('combobox', { name: 'Course level' })).toHaveTextContent('Graduate');
+    await user.click(screen.getByRole('button', { name: 'Generate course' }));
+
+    expect(onGenerate).toHaveBeenCalledWith(expect.objectContaining({
+      title: 'Philosophy of Mind',
+      courseCode: 'PHIL 640',
+      level: 'Graduate',
+      learningOutcomes: ['Compare theories of consciousness.'],
+    }));
+  });
 });

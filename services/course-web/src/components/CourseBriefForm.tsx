@@ -30,6 +30,7 @@ export function CourseBriefForm({ isGenerating, selectedBrief, onGenerate }: Cou
     if (!selectedBrief) return;
     setTitle(selectedBrief.title);
     setCourseCode(selectedBrief.courseCode);
+    setLevel(selectedBrief.level);
     setOutcomes(selectedBrief.learningOutcomes.join('\n'));
     setValidationMessage('');
   }, [selectedBrief]);
