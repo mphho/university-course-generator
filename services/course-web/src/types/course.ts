@@ -9,6 +9,35 @@ export interface CourseBriefInput {
   testMode: boolean;
 }
 
+export type GenerationProgressStatus = 'running' | 'completed' | 'failed';
+export type GenerationActivityStatus = 'pending' | 'completed' | 'failed';
+
+export interface GenerationActivity {
+  id: string;
+  label: string;
+  method: string;
+  url: string;
+  status: GenerationActivityStatus;
+  startedAt: string;
+  requestBody?: unknown;
+  elapsedMs?: number;
+  statusCode?: number;
+  error?: string;
+}
+
+export interface GenerationProgressEvent {
+  revision: number;
+  activity: Partial<GenerationActivity> & Pick<GenerationActivity, 'id'>;
+}
+
+export interface GenerationProgressResponse {
+  status: GenerationProgressStatus;
+  startedAt: string;
+  finishedAt: string | null;
+  revision: number;
+  events: GenerationProgressEvent[];
+}
+
 export interface SuggestedCourseBrief {
   title: string;
   courseCode: string;

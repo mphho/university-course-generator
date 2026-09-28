@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Badge,
@@ -24,8 +24,32 @@ import { DataStatePanel, type DataStatus } from '../components/DataStatePanel';
 import type {
   Course,
   CourseBriefInput,
+  GenerationActivity,
+  GenerationProgressResponse,
   SuggestedCourseBrief,
 } from '../types/course';
+
+function mergeGenerationEvents(
+  current: GenerationActivity[],
+  progress: GenerationProgressResponse,
+): GenerationActivity[] {
+  const activities = new Map(current.map((activity) => [activity.id, activity]));
+  for (const event of progress.events) {
+    const previous = activities.get(event.activity.id);
+    if (previous) {
+      activities.set(event.activity.id, { ...previous, ...event.activity });
+    } else if (
+      event.activity.label
+      && event.activity.method
+      && event.activity.url
+      && event.activity.status
+      && event.activity.startedAt
+    ) {
+      activities.set(event.activity.id, event.activity as GenerationActivity);
+    }
+  }
+  return [...activities.values()];
+}
 
 export function CourseLibraryPage() {
   const navigate = useNavigate();
@@ -39,6 +63,10 @@ export function CourseLibraryPage() {
   const [generationError, setGenerationError] = useState('');
   const [lastRequest, setLastRequest] = useState<CourseBriefInput | null>(null);
   const [createdCourse, setCreatedCourse] = useState<Course | null>(null);
+  const [generationId, setGenerationId] = useState('');
+  const [generationProgress, setGenerationProgress] = useState<GenerationProgressResponse | null>(null);
+  const [generationActivities, setGenerationActivities] = useState<GenerationActivity[]>([]);
+  const progressRevision = useRef(0);
 
   useEffect(() => {
     let active = true;
@@ -59,12 +87,44 @@ export function CourseLibraryPage() {
     return () => { active = false; };
   }, [retryIndex]);
 
+  useEffect(() => {
+    if (!isGenerating || !generationId) return undefined;
+    let active = true;
+    let polling = false;
+    const pollProgress = async () => {
+      if (polling) return;
+      polling = true;
+      try {
+        const progress = await api.getGenerationProgress(generationId, progressRevision.current);
+        if (!active) return;
+        progressRevision.current = progress.revision;
+        setGenerationProgress(progress);
+        setGenerationActivities((current) => mergeGenerationEvents(current, progress));
+      } catch {
+        // Retry on the next interval if the progress record is not available yet.
+      } finally {
+        polling = false;
+      }
+    };
+    void pollProgress();
+    const intervalId = window.setInterval(() => void pollProgress(), 1000);
+    return () => {
+      active = false;
+      window.clearInterval(intervalId);
+    };
+  }, [generationId, isGenerating]);
+
   async function handleGenerate(input: CourseBriefInput): Promise<void> {
+    const requestId = window.crypto.randomUUID();
+    progressRevision.current = 0;
+    setGenerationId(requestId);
+    setGenerationProgress(null);
+    setGenerationActivities([]);
     setIsGenerating(true);
     setGenerationError('');
     setLastRequest(input);
     try {
-      const response = await api.generateCourse(input);
+      const response = await api.generateCourse(input, requestId);
       setCreatedCourse(response.course);
       setCourses((current) => [response.course, ...current.filter((course) => course.id !== response.course.id)]);
     } catch (error: unknown) {
@@ -220,7 +280,12 @@ export function CourseLibraryPage() {
           </div>
         </DataStatePanel>
       </section>
-      <CourseGenerationDialog open={isGenerating} request={lastRequest} />
+      <CourseGenerationDialog
+        open={isGenerating}
+        request={lastRequest}
+        progress={generationProgress}
+        activities={generationActivities}
+      />
     </div>
   );
 }

@@ -45,15 +45,23 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return payload as T;
 }
 
-function post<T>(path: string, body: unknown): Promise<T> {
-  return request<T>(path, { method: 'POST', body: JSON.stringify(body) });
+function post<T>(path: string, body: unknown, headers?: Record<string, string>): Promise<T> {
+  return request<T>(path, { method: 'POST', body: JSON.stringify(body), headers });
 }
 
 export const liveClient: ApiClient = {
   getHealth: () => request('/health'),
   listCourses: () => request('/courses'),
   getCourse: (courseId) => request(`/courses/${encodeURIComponent(courseId)}`),
-  generateCourse: (input) => post('/courses/generate', input),
+  generateCourse: (input, generationId) => post(
+    '/courses/generate',
+    input,
+    generationId ? { 'X-Generation-ID': generationId } : undefined,
+  ),
+  getGenerationProgress: (generationId, after) => request(
+    `/generation/${encodeURIComponent(generationId)}?after=${after}`,
+    { cache: 'no-store' },
+  ),
   importCourse: (course) => post('/courses/import', course),
   generateNextLecture: (courseId) => request(
     `/courses/${encodeURIComponent(courseId)}/lectures/generate-next`,

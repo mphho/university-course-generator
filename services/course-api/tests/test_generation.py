@@ -28,6 +28,7 @@ from app.models.generation import (
 )
 from app.models.requests import AssignmentRequest, ExamRequest, FinalExamRequest
 from app.services.course_store import CourseStore
+from app.services.generation_progress import GenerationProgressStore
 from app.services.generation_service import GenerationService
 from app.services.responses_client import ResponsesClient
 
@@ -79,6 +80,88 @@ def test_responses_client_sends_configured_model_and_parses_output_text() -> Non
     assert observed["authorization"] is None
     assert observed["payload"]["model"] == "gpt-6-luna"
     assert observed["payload"]["reasoning"] == {"effort": "xhigh"}
+
+
+def test_responses_client_reports_outbound_request_progress_without_credentials() -> None:
+    events: list[dict[str, Any]] = []
+
+    def respond(_request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json={"output_text": '{"answer":"ready"}'})
+
+    client = ResponsesClient(
+        Settings(openai_api_key="test-key"),
+        transport=httpx.MockTransport(respond),
+        on_activity=events.append,
+    )
+    progress = GenerationProgressStore()
+    progress.start("generation-1")
+
+    asyncio.run(client.complete_json("system", '{"schemaName":"CoursePlan"}'))
+    for event in events:
+        progress.record_activity("generation-1", event)
+
+    initial = progress.get("generation-1")
+    assert initial is not None
+    assert initial["revision"] == 2
+    start_event, finish_event = [item["activity"] for item in initial["events"]]
+    assert start_event["label"] == "CoursePlan"
+    assert start_event["method"] == "POST"
+    assert start_event["status"] == "pending"
+    assert start_event["requestBody"]["input"][1]["content"][0]["text"] == (
+        '{"schemaName":"CoursePlan"}'
+    )
+    assert finish_event["status"] == "completed"
+    assert finish_event["statusCode"] == 200
+    assert "requestBody" not in finish_event
+    assert "test-key" not in json.dumps(initial)
+
+    delta = progress.get("generation-1", after=1)
+    assert delta is not None
+    assert len(delta["events"]) == 1
+    assert delta["events"][0]["activity"]["id"] == start_event["id"]
+    assert "requestBody" not in delta["events"][0]["activity"]
+
+    progress.finish("generation-1", "completed")
+    assert progress.get("generation-1")["status"] == "completed"
+
+
+def test_generation_progress_endpoint_returns_only_new_activity_events() -> None:
+    generation_id = "60cfb935-f126-477c-95d9-4db6b89c3d06"
+    progress = app.state.generation_progress
+    progress.start(generation_id)
+    progress.record_activity(
+        generation_id,
+        {
+            "id": "provider-call-1",
+            "label": "CoursePlan",
+            "method": "POST",
+            "url": "https://model.example/v1/responses",
+            "status": "pending",
+            "startedAt": "2026-09-28T12:00:00+00:00",
+            "requestBody": {"model": "test-model"},
+        },
+    )
+
+    with TestClient(app) as client:
+        initial = client.get(f"/api/generation/{generation_id}?after=0").json()
+        progress.record_activity(
+            generation_id,
+            {"id": "provider-call-1", "status": "completed", "statusCode": 200},
+        )
+        progress.finish(generation_id, "completed")
+        delta = client.get(f"/api/generation/{generation_id}?after=1").json()
+
+    assert initial["status"] == "running"
+    assert initial["revision"] == 1
+    assert initial["events"][0]["activity"]["requestBody"] == {"model": "test-model"}
+    assert delta["status"] == "completed"
+    assert delta["revision"] == 2
+    assert delta["events"] == [
+        {
+            "revision": 2,
+            "activity": {"id": "provider-call-1", "status": "completed", "statusCode": 200},
+        }
+    ]
 
 
 def test_responses_client_maps_invalid_output_to_stable_error() -> None:

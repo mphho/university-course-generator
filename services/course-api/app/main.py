@@ -12,6 +12,7 @@ from app.config import get_settings
 from app.errors import ApiError
 from app.models.common import ErrorCode
 from app.services.course_store import CourseStore
+from app.services.generation_progress import GenerationProgressStore
 
 structlog.configure(
     processors=[
@@ -31,6 +32,7 @@ def create_app() -> FastAPI:
     application.state.course_store = CourseStore(
         archive_directory=get_settings().course_archive_directory
     )
+    application.state.generation_progress = GenerationProgressStore()
     application.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
