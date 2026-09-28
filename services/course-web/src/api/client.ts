@@ -63,9 +63,12 @@ export const liveClient: ApiClient = {
     { cache: 'no-store' },
   ),
   importCourse: (course) => post('/courses/import', course),
-  generateNextLecture: (courseId) => request(
-    `/courses/${encodeURIComponent(courseId)}/lectures/generate-next`,
-    { method: 'POST' },
+  generateNextLecture: (courseId, lectureId, generationId) => request(
+    `/courses/${encodeURIComponent(courseId)}/lectures/generate-next${lectureId ? `?lectureId=${encodeURIComponent(lectureId)}` : ''}`,
+    {
+      method: 'POST',
+      headers: generationId ? { 'X-Generation-ID': generationId } : undefined,
+    },
   ),
   generateAssignment: (courseId, input) => post(
     `/courses/${encodeURIComponent(courseId)}/assignments/generate`,

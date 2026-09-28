@@ -106,14 +106,28 @@ async def import_course(
 )
 async def generate_next_lecture(
     course_id: str,
+    http_request: Request,
+    lecture_id: str | None = Query(default=None, alias="lectureId"),
+    generation_id: UUID | None = Header(default=None, alias="X-Generation-ID"),
     store: CourseStore = Depends(get_course_store),
     generation: GenerationService = Depends(get_generation_service),
 ) -> CourseResponse:
     course = store.get_course(course_id)
     if course is None:
         raise ApiError(404, ErrorCode.NOT_FOUND, f"Course '{course_id}' was not found.")
-    course = await generation.generate_next_lecture(course)
-    store.add_course(course)
+    generation_key = str(generation_id) if generation_id is not None else None
+    progress_store = http_request.app.state.generation_progress
+    if generation_key is not None:
+        progress_store.start(generation_key)
+    try:
+        course = await generation.generate_next_lecture(course, lecture_id)
+        store.add_course(course)
+    except Exception:
+        if generation_key is not None:
+            progress_store.finish(generation_key, "failed")
+        raise
+    if generation_key is not None:
+        progress_store.finish(generation_key, "completed")
     return CourseResponse(course=course)
 
 

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -8,6 +8,7 @@ import { CourseWorkspacePage } from '../pages/CourseWorkspacePage';
 const apiMock = vi.hoisted(() => ({
   getCourse: vi.fn(),
   generateNextLecture: vi.fn(),
+  getGenerationProgress: vi.fn(),
   generateAssignment: vi.fn(),
   generateMidterm: vi.fn(),
   generateFinal: vi.fn(),
@@ -111,6 +112,24 @@ describe('CourseWorkspacePage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     apiMock.getCourse.mockResolvedValue({ course });
+    apiMock.getGenerationProgress.mockResolvedValue({
+      status: 'running',
+      startedAt: new Date().toISOString(),
+      finishedAt: null,
+      revision: 1,
+      events: [{
+        revision: 1,
+        activity: {
+          id: 'lecture-provider-call',
+          label: 'LectureFoundations',
+          method: 'POST',
+          url: 'https://provider.example/v1/responses',
+          status: 'pending',
+          startedAt: new Date().toISOString(),
+          requestBody: { model: 'test-model' },
+        },
+      }],
+    });
   });
 
   function renderWorkspace() {
@@ -174,10 +193,62 @@ describe('CourseWorkspacePage', () => {
 
     await user.click(await screen.findByRole('button', { name: 'Generate remaining lectures (1)' }));
 
-    await waitFor(() => expect(apiMock.generateNextLecture).toHaveBeenCalledWith('sample-course'));
+    await waitFor(() => expect(apiMock.generateNextLecture).toHaveBeenCalledWith(
+      'sample-course',
+      'lecture-02',
+      expect.any(String),
+    ));
     expect(await screen.findByText('Generated notes for 1 of 1 remaining lectures')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /Generate remaining lectures/ })).not.toBeInTheDocument();
     expect(screen.getAllByText('Notes ready')).toHaveLength(2);
+  });
+
+  it('generates an individually selected lecture and monitors its provider request', async () => {
+    const user = userEvent.setup();
+    const partialCourse = makeTestModeCourse();
+    const completedCourse: Course = {
+      ...partialCourse,
+      lectures: [
+        ...partialCourse.lectures,
+        {
+          ...partialCourse.lecturePlan![1],
+          content: partialCourse.lectures[0].content,
+        },
+      ],
+    };
+    let completeGeneration!: (response: { course: Course }) => void;
+    apiMock.getCourse.mockResolvedValue({ course: partialCourse });
+    apiMock.generateNextLecture.mockReturnValue(new Promise((resolve) => {
+      completeGeneration = resolve;
+    }));
+    renderWorkspace();
+
+    await user.click(await screen.findByRole('button', { name: 'Generate notes for Lecture 02' }));
+
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toHaveTextContent('Lecture 02 · Second Lecture');
+    expect(dialog).toHaveTextContent('Lecture 1 of 1 · Second Lecture');
+    expect(dialog).toHaveTextContent('LectureFoundations');
+    expect(dialog).not.toHaveTextContent('Content-Type');
+    await waitFor(() => expect(apiMock.generateNextLecture).toHaveBeenCalledWith(
+      'sample-course',
+      'lecture-02',
+      expect.any(String),
+    ));
+    await waitFor(() => expect(apiMock.getGenerationProgress).toHaveBeenCalledWith(
+      expect.any(String),
+      0,
+    ));
+
+    await user.click(screen.getByText('Browser API request'));
+    expect(dialog).toHaveTextContent('lectureId=lecture-02');
+
+    await act(async () => {
+      completeGeneration({ course: completedCourse });
+    });
+
+    expect(await screen.findByText('Generated notes for 1 of 1 remaining lectures')).toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('opens starter assignments and distinguishes summaries from generated prompts', async () => {

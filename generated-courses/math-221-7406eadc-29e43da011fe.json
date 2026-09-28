@@ -1,0 +1,610 @@
+{
+  "id": "math-221-7406eadc",
+  "title": "Linear Algebra",
+  "courseCode": "MATH 221",
+  "level": "Undergraduate",
+  "description": "MATH 221 is a twelve-lecture introduction to linear algebra, progressing from systems of equations to vector spaces, linear transformations, eigenvalues, and geometric applications. Assumptions: lectures are 75 minutes; students have college-algebra skills; the course is intended for one standard term and assumes no prior linear algebra.",
+  "learnerProfile": "Undergraduate students who can manipulate algebraic expressions and solve elementary equations. Basic set and function notation is helpful but is introduced as needed.",
+  "prerequisites": [
+    "College algebra, including solving linear equations and manipulating expressions.",
+    "Basic familiarity with functions and set notation; no prior matrix or linear algebra course is assumed."
+  ],
+  "learningOutcomes": [
+    "Work with vector spaces, linear transformations, matrices, and eigenvalues.",
+    "Solve finite systems of linear equations using Gaussian elimination, and verify consistency and solution structure.",
+    "Determine whether a specified subset is a subspace and compute spans, linear independence, bases, and dimensions in finite-dimensional real vector spaces.",
+    "Represent linear transformations with matrices, compute kernels and images, and apply the rank–nullity theorem to finite-dimensional examples.",
+    "Compute determinants, eigenvalues, and eigenspaces of small matrices, and test whether a matrix is diagonalizable.",
+    "Compute orthogonal projections and least-squares solutions for finite-dimensional real inner-product examples."
+  ],
+  "units": [
+    {
+      "id": "U1",
+      "title": "Systems, matrices, and elimination",
+      "summary": "Translate linear systems into matrix form, use row operations and Gaussian elimination, and characterize solution sets.",
+      "lectureIds": [
+        "L01",
+        "L02"
+      ]
+    },
+    {
+      "id": "U2",
+      "title": "Vector spaces and linear transformations",
+      "summary": "Develop span, subspaces, independence, bases, dimension, matrix representations, kernels, images, and rank–nullity.",
+      "lectureIds": [
+        "L03",
+        "L04",
+        "L05",
+        "L06"
+      ]
+    },
+    {
+      "id": "U3",
+      "title": "Determinants and eigenstructure",
+      "summary": "Connect determinants to invertibility, find eigenvalues and eigenspaces, and determine when diagonalization is possible.",
+      "lectureIds": [
+        "L07",
+        "L08",
+        "L09"
+      ]
+    },
+    {
+      "id": "U4",
+      "title": "Orthogonality and applications",
+      "summary": "Use inner products and projections to solve least-squares problems, then synthesize methods through cumulative examples.",
+      "lectureIds": [
+        "L10",
+        "L11",
+        "L12"
+      ]
+    }
+  ],
+  "lectures": [
+    {
+      "id": "L01",
+      "number": 1,
+      "title": "Vectors, linear systems, and solution sets",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Introduce vectors and linear systems, interpret equations geometrically, and distinguish possible solution-set structures.",
+      "objectives": [
+        "Translate a small system of linear equations into a vector or matrix description.",
+        "Classify simple systems as having no solution, a unique solution, or multiple solutions from their equations or geometric representation."
+      ],
+      "concepts": [
+        "Vectors and linear systems"
+      ],
+      "content": {
+        "motivatingQuestion": "Suppose two measurements of the same unknown quantities must both be satisfied. How could you tell whether there is one choice that fits both, no choice at all, or many choices? Each linear equation in two unknowns describes a line in the plane, so a system asks how those lines fit together. The same question can be expressed with a vector of unknowns and a matrix of coefficients. What does each representation make easy to see, and what might it hide? Moving between equations, geometry, and the solution set turns calculation into a reliable test of whether constraints are compatible.",
+        "prerequisiteCheck": "### Prerequisite bridge\n\nYou do not need prior matrix vocabulary. The bridge is from familiar equations in college algebra to a compact way of organizing them. Treat each variable as an unknown real number and each equation as a condition that a possible assignment must satisfy. A solution to a system is an ordered list of values that makes every equation true at once—not a value that satisfies just one chosen equation.\n\nFour familiar habits carry over:\n\n- **Preserve equality:** Add or subtract the same quantity on both sides, and divide both sides only by a nonzero quantity. These operations keep the equation equivalent to the original one.\n- **Simplify expressions carefully:** Distribute multiplication and combine like terms. For example, $3(x-y)+2y=7$ simplifies to $3x-y=7$.\n- **Keep variable order fixed:** If the chosen order is $(x,y)$, then the coefficients in $3x-y=7$ are $3$ and $-1$. A missing variable term has coefficient $0$; do not change the order from one equation to another.\n- **Check by substitution:** Put a proposed pair of values into each original equation. A candidate is a solution only if all equations are true.\n\nSet notation provides a way to describe all solutions at once. For example, $\\{(x,y)\\in\\mathbb{R}^2: x+y=2\\}$ means the set of ordered pairs of real numbers whose coordinates satisfy the stated condition. The colon means “such that.” The pair is ordered: $(x,y)$ and $(y,x)$ need not represent the same point. A condition such as $x+y=2$ collects possible pairs; it is not necessarily a function that assigns one output to each input.\n\nAs a readiness check, consider $2x+y=7$ and $x-y=2$. With the order $(x,y)$, identify the coefficients in each equation and test the candidate $(3,1)$ in both. It satisfies the first equation because $2(3)+1=7$, and the second because $3-1=2$. You can then describe the solution set as the collection of pairs satisfying both equations.\n\nYou are ready if you can keep signs and variable order straight, explain what makes a candidate a solution, and read an ordered pair and a simple set description. If any step feels uncertain, review solving two equations by substitution or addition and evaluating expressions. Those algebra skills are enough to begin translating systems into vector and matrix notation.",
+        "intuitiveExplanation": "### Intuitive explanation\n\nA linear system is a collection of conditions that must hold **simultaneously**. The unknowns are not solved one equation at a time in isolation; we seek a single assignment that makes every equation true. If the unknowns are $x$ and $y$, one candidate is an ordered pair $(x,y)$. The solution set is the set of all candidates that pass every condition. It may be empty, contain one pair, or contain many pairs.\n\nConsider this system:\n\n$$\n\\begin{cases}\n2x+y=5,\\\\\nx-y=1.\n\\end{cases}\n$$\n\nThe order of the unknowns matters. Choose $(x,y)$ and collect their values into a column vector. Then the same system can be recorded as a matrix equation:\n\n$$\n\\begin{bmatrix}\n2 & 1\\\\\n1 & -1\n\\end{bmatrix}\n\\begin{bmatrix}\nx\\\\\ny\n\\end{bmatrix}\n=\n\\begin{bmatrix}\n5\\\\\n1\n\\end{bmatrix}.\n$$\n\nThe coefficient matrix records how each unknown contributes to each equation, and the right-hand vector records the required results. Each row corresponds to one equation. The same information can be displayed as an augmented matrix, with a vertical bar separating the coefficients from the right-hand side:\n\n$$\n\\left[\\begin{array}{cc|c}\n2 & 1 & 5\\\\\n1 & -1 & 1\n\\end{array}\\right].\n$$\n\nThere is also a useful vector reading. The first column of the coefficient matrix is the contribution associated with $x$, and the second is the contribution associated with $y$:\n\n$$\nx\\begin{bmatrix}2\\\\1\\end{bmatrix}\n+y\\begin{bmatrix}1\\\\-1\\end{bmatrix}\n=\\begin{bmatrix}5\\\\1\\end{bmatrix}.\n$$\n\nSo the system asks for amounts of the two column vectors that combine to make the right-hand vector. These notations are not different problems: they organize the same coefficients, unknowns, and targets in different ways.\n\nFor this example, add the equations to get $3x=6$, so $x=2$. Substituting into either equation gives $y=1$. The pair $(2,1)$ satisfies both original equations: $2(2)+1=5$ and $2-1=1$. Checking both matters. A value that satisfies only one row is not a solution to the system.\n\nThe geometry gives another way to understand what the solution set can look like. In the plane, an equation $ax+by=c$ with at least one of $a$ and $b$ nonzero describes a line. A solution to a two-equation system is a point lying on both lines. In the example, the lines meet at $(2,1)$, so there is exactly one solution. In this setting, “solving the system” and “finding the shared point” are two descriptions of the same task.\n\nTwo other outcomes are possible. The system\n\n$$\n\\begin{cases}\nx+y=2,\\\\\n2x+2y=5\n\\end{cases}\n$$\n\nhas no solution. The left side of the second equation is twice the left side of the first, so if the first equation holds, the second would require $2x+2y=4$, not $5$. Geometrically, the equations describe parallel lines that do not meet. In contrast, the system\n\n$$\n\\begin{cases}\nx+y=2,\\\\\n2x+2y=4\n\\end{cases}\n$$\n\nhas infinitely many solutions. The second equation repeats the first condition, so both describe the same line. Pairs such as $(0,2)$ and $(1,1)$ satisfy the system, as do all other points on that line. More equations do not necessarily add new restrictions: an equation may repeat information already present, or may conflict with it.\n\nThis explains why counting equations and unknowns alone cannot classify a system. Two equations in two unknowns could describe intersecting lines, distinct parallel lines, or the same line. The actual relationships among the coefficients and right-hand sides determine the result. In three unknowns, ordinary equations describe planes, and their shared points are harder to picture; the same algebraic descriptions still apply. There is also a small boundary case: if $a=b=0$, then $ax+by=c$ is either true for every pair when $c=0$, or impossible when $c\\ne 0$; it is not an ordinary line.\n\nFor real-valued unknowns, the “many solutions” case means infinitely many, not just two or three. If two distinct vectors of unknowns both satisfy the same system, then every point on the line between them also satisfies it. Indeed, if $A\\mathbf{u}=\\mathbf{b}$ and $A\\mathbf{v}=\\mathbf{b}$, then for any real $t$,\n\n$$\nA\\big((1-t)\\mathbf{u}+t\\mathbf{v}\\big)\n=(1-t)\\mathbf{b}+t\\mathbf{b}\n=\\mathbf{b}.\n$$\n\nThis is a consequence of the linear structure of the equations: combining two solutions in this way preserves every equation.\n\nWhen reading a small system, keep a short chain of questions in mind. What is the chosen order of the unknowns? What coefficient and right-hand-side information belongs to each equation? Does the geometry suggest a shared point, no shared point, or a repeated constraint? If you find a candidate, does substituting it into every original equation confirm it? Algebraic operations that preserve equivalence can help reveal the answer; a geometric picture can make the resulting structure easier to interpret.\n\nA useful analogy is to imagine each equation as a filter that keeps only the points satisfying its condition. A solution passes every filter, so the system’s solution set is the overlap of the individual sets. The analogy is limited: equations are not physical barriers, and for many unknowns a picture of the full space is impossible. The reliable idea behind it is that every condition must be met by the same assignment. That idea connects the equation, vector, matrix, and geometric descriptions while keeping the central question clear: what is the complete set of simultaneous solutions?",
+        "formalDevelopment": "## Formal development: systems as matrix equations and solution sets\n\n### Conventions and notation\n\nWork over the real numbers. Let $m,n$ be positive integers, and consider a system of $m$ linear equations in the ordered unknowns $x_1,\\ldots,x_n$. The order is fixed throughout: the $j$th coordinate always refers to $x_j$. Write the coefficients as $a_{ij}$ and the right-hand sides as $b_i$, where $1\\le i\\le m$ and $1\\le j\\le n$. The system is\n\n$$\n\\sum_{j=1}^{n} a_{ij}x_j=b_i,\\qquad i=1,\\ldots,m.\n$$\n\nA solution is a vector $\\mathbf{x}=(x_1,\\ldots,x_n)^T\\in\\mathbb{R}^n$ for which every one of these $m$ equalities holds. The solution set is the set of all such vectors, not merely a list of values found while solving individual equations.\n\n### Matrix and vector forms\n\nCollect the coefficients into the matrix $A=(a_{ij})\\in\\mathbb{R}^{m\\times n}$, the unknowns into the column vector $\\mathbf{x}\\in\\mathbb{R}^n$, and the right-hand sides into $\\mathbf{b}=(b_1,\\ldots,b_m)^T\\in\\mathbb{R}^m$. By definition, the $i$th coordinate of $A\\mathbf{x}$ is $\\sum_{j=1}^{n}a_{ij}x_j$. Thus the $i$th equation of the system holds exactly when the $i$th coordinate of $A\\mathbf{x}$ equals $b_i$. Applying this coordinate-by-coordinate gives the equivalence\n\n$$\n\\text{the original system holds for }\\mathbf{x}\n\\quad\\Longleftrightarrow\\quad\nA\\mathbf{x}=\\mathbf{b}.\n$$\n\nThis is an equivalence, not an approximation: the matrix equation records every coefficient and right-hand side of the original system. Its augmented matrix, $[A\\mid\\mathbf{b}]$, records the same data in a single rectangular array; the separator distinguishes coefficients from constants and does not denote an additional operation.\n\nThere is also a column interpretation. If $\\mathbf{c}_j$ denotes the $j$th column of $A$, matrix multiplication gives\n\n$$\nA\\mathbf{x}=x_1\\mathbf{c}_1+\\cdots+x_n\\mathbf{c}_n.\n$$\n\nConsequently, a solution exists precisely when $\\mathbf{b}$ can be expressed as a linear combination of the columns of $A$. Equivalently, the system is solvable if and only if $\\mathbf{b}\\in\\operatorname{span}\\{\\mathbf{c}_1,\\ldots,\\mathbf{c}_n\\}$. This criterion connects the equation form to a vector-space description without changing the unknowns or the conditions imposed on them.\n\n### Solution sets and geometric interpretation\n\nDefine\n\n$$\nS(A,\\mathbf{b})=\\{\\mathbf{x}\\in\\mathbb{R}^n:A\\mathbf{x}=\\mathbf{b}\\}.\n$$\n\nThe system is **consistent** when $S(A,\\mathbf{b})$ is nonempty, and **inconsistent** when it is empty. In coordinates, the solution set is also the intersection of the sets\n\n$$\nH_i=\\left\\{\\mathbf{x}\\in\\mathbb{R}^n:\\sum_{j=1}^{n}a_{ij}x_j=b_i\\right\\},\\qquad i=1,\\ldots,m.\n$$\n\nWhen the coefficient row for an equation is nonzero, its set $H_i$ is an affine hyperplane; for $n=2$, it is a line. If every coefficient in a row is zero, that equation instead imposes either no restriction, when its right-hand side is zero, or an impossibility, when its right-hand side is nonzero. Including this case prevents the geometric description from incorrectly treating every equation as a line or hyperplane.\n\n### Structure of the solution set\n\nTo distinguish a unique solution from multiple solutions, first consider the associated homogeneous system $A\\mathbf{h}=\\mathbf{0}$. Define its solution set by\n\n$$\nN_A=\\{\\mathbf{h}\\in\\mathbb{R}^n:A\\mathbf{h}=\\mathbf{0}\\}.\n$$\n\nSuppose the original system is consistent and choose one solution $\\mathbf{x}_0\\in S(A,\\mathbf{b})$. For any other solution $\\mathbf{x}$, subtract the two matrix equations. Linearity of matrix multiplication gives\n\n$$\nA(\\mathbf{x}-\\mathbf{x}_0)=A\\mathbf{x}-A\\mathbf{x}_0=\\mathbf{b}-\\mathbf{b}=\\mathbf{0},\n$$\n\nso $\\mathbf{x}-\\mathbf{x}_0\\in N_A$. Conversely, if $\\mathbf{h}\\in N_A$, then\n\n$$\nA(\\mathbf{x}_0+\\mathbf{h})=A\\mathbf{x}_0+A\\mathbf{h}=\\mathbf{b}+\\mathbf{0}=\\mathbf{b},\n$$\n\nso $\\mathbf{x}_0+\\mathbf{h}$ is a solution. Both implications are needed: the first shows that every solution differs from the chosen one by a homogeneous solution, and the second shows that every such difference produces a solution. Therefore\n\n$$\nS(A,\\mathbf{b})=\\{\\mathbf{x}_0+\\mathbf{h}:\\mathbf{h}\\in N_A\\}.\n$$\n\nThis identity yields the classification. If the system is inconsistent, it has no solutions. If it is consistent and $N_A=\\{\\mathbf{0}\\}$, the identity forces every solution to equal $\\mathbf{x}_0$, so the solution is unique. If it is consistent and $N_A$ contains a nonzero vector $\\mathbf{h}$, then $\\mathbf{x}_0+t\\mathbf{h}$ is a solution for every $t\\in\\mathbb{R}$. Distinct real values of $t$ give distinct vectors, so there are infinitely many solutions. Thus a real linear system cannot have a finite number of solutions greater than one.\n\nFor example, let $A=\\begin{bmatrix}1&1&0\\\\0&1&1\\end{bmatrix}$ and $\\mathbf{b}=\\begin{bmatrix}2\\\\1\\end{bmatrix}$. The vector $\\mathbf{x}_0=(2,0,1)^T$ satisfies $A\\mathbf{x}_0=\\mathbf{b}$, while $\\mathbf{h}=(-1,1,-1)^T$ satisfies $A\\mathbf{h}=\\mathbf{0}$. The solution-set identity therefore gives $\\mathbf{x}=(2,0,1)^T+t(-1,1,-1)^T$ for $t\\in\\mathbb{R}$. The example illustrates the structural test: consistency supplies one solution, and a nonzero homogeneous solution supplies infinitely many. In later work, row reduction provides a systematic way to determine consistency and identify the degrees of freedom represented here by $N_A$.\n\n## Formal development: geometric classification in two variables\n\n### Scope and assumptions\n\nUsing the equation and solution-set notation established in the preceding module, specialize to exactly two real unknowns and two equations. This setting permits a precise geometric test for whether the equations define intersecting, parallel, or coincident lines. The test depends on the coefficients and constants, not simply on the fact that there are two equations and two unknowns.\n\nWrite a point of the plane as $\\mathbf{p}=(x,y)^T$. Let the equations be\n\n$$\n\\begin{aligned}\na x+b y&=\\alpha,\\\\\nc x+d y&=\\beta,\n\\end{aligned}\n$$\n\nwhere $a,b,c,d,\\alpha,\\beta\\in\\mathbb{R}$. The coefficient vectors, also called normal vectors to the corresponding lines, are $\\mathbf{r}_1=(a,b)^T$ and $\\mathbf{r}_2=(c,d)^T$. In dot-product notation, the equations are $\\mathbf{r}_1\\cdot\\mathbf{p}=\\alpha$ and $\\mathbf{r}_2\\cdot\\mathbf{p}=\\beta$. Assume first that both coefficient vectors are nonzero.\n\n### Parameterizing one equation\n\nThe first equation defines a nonempty line $L_1$. In fact,\n\n$$\n\\mathbf{p}_0=\\frac{\\alpha}{a^2+b^2}(a,b)^T\n$$\n\nlies on $L_1$, because $\\mathbf{r}_1\\cdot\\mathbf{p}_0=\\alpha$. The denominator is nonzero by the assumption $\\mathbf{r}_1\\ne\\mathbf{0}$. A direction vector for this line is $\\mathbf{v}_1=(-b,a)^T$, since $\\mathbf{r}_1\\cdot\\mathbf{v}_1=0$. It is nonzero, so $\\mathbf{p}_0+t\\mathbf{v}_1$ lies on $L_1$ for every $t\\in\\mathbb{R}$.\n\nThese points are all of $L_1$. If $\\mathbf{p}$ is any point on $L_1$, then $\\mathbf{r}_1\\cdot(\\mathbf{p}-\\mathbf{p}_0)=0$. In two dimensions, the vectors perpendicular to the nonzero vector $\\mathbf{r}_1$ are exactly the scalar multiples of $\\mathbf{v}_1$. Hence $\\mathbf{p}=\\mathbf{p}_0+t\\mathbf{v}_1$ for some real $t$. This parameterization lets us test the second equation on the entire first line.\n\n### Intersections and compatibility\n\nSubstituting the parameterization into the second equation gives\n\n$$\n\\mathbf{r}_2\\cdot(\\mathbf{p}_0+t\\mathbf{v}_1)=\\beta,\n\\qquad\\text{or equivalently}\\qquad\n\\mathbf{r}_2\\cdot\\mathbf{p}_0+t(\\mathbf{r}_2\\cdot\\mathbf{v}_1)=\\beta.\n$$\n\nSet $q=\\mathbf{r}_2\\cdot\\mathbf{v}_1$. If $q\\ne 0$, this equation has exactly one real value of $t$, namely\n\n$$\nt=\\frac{\\beta-\\mathbf{r}_2\\cdot\\mathbf{p}_0}{q}.\n$$\n\nThus there is exactly one point on $L_1$ that also lies on the second line, and the system has a unique solution. The reason is not merely that the equations are different: the second constraint changes as one moves along $L_1$, so exactly one position meets its required value.\n\nIf $q=0$, then $\\mathbf{r}_2$ is perpendicular to $\\mathbf{v}_1$. Since $\\mathbf{v}_1$ is perpendicular to $\\mathbf{r}_1$ and both are nonzero, this means $\\mathbf{r}_2=\\lambda\\mathbf{r}_1$ for some nonzero $\\lambda\\in\\mathbb{R}$. The second equation is therefore constant along $L_1$. On that line, $\\mathbf{r}_2\\cdot\\mathbf{p}=\\lambda\\alpha$, so the system is consistent precisely when $\\beta=\\lambda\\alpha$. If this equality holds, every point of $L_1$ satisfies both equations, giving infinitely many solutions. If it fails, no point of $L_1$ satisfies both, giving no solution. This proves the classification for two equations with nonzero coefficient vectors.\n\nEquivalently, when the coefficient vectors are proportional, compare the constants using the same proportionality factor. Proportional coefficients with proportionate constants describe the same line; proportional coefficients with incompatible constants describe distinct parallel lines. When the coefficient vectors are not proportional, the parameter test above gives one intersection point.\n\n### Zero coefficient rows\n\nThe geometric classification also requires treating equations whose coefficients both vanish. An equation $0x+0y=\\gamma$ holds for every point if $\\gamma=0$, and holds for no point if $\\gamma\\ne 0$. It therefore represents either no restriction or an immediate contradiction, not a line. If one equation is of the first type and the other has a nonzero coefficient vector, the solution set is the line defined by the nonzero row. If one equation is contradictory, the system has no solution. If both rows are zero and both constants are zero, every point in $\\mathbb{R}^2$ is a solution; if either constant is nonzero, there is no solution.\n\n### Checks on the criterion\n\nFor $2x-y=4$ and $x+3y=1$, take $\\mathbf{v}_1=(1,2)^T$. Then $\\mathbf{r}_2\\cdot\\mathbf{v}_1=1+6=7\\ne0$, so the criterion guarantees a unique solution. Substitution gives $(x,y)=(13/7,-2/7)$, which satisfies both equations.\n\nFor $2x-4y=6$ and $x-2y=4$, the coefficient vectors are proportional, but the constants are not proportional by the same factor: doubling the second equation's left side would require a right side of $8$, not $6$. The lines are distinct and parallel, so the system is inconsistent. Replacing the second equation by $x-2y=3$ makes both sides proportional; the equations describe one line and the system has infinitely many solutions.\n\nThe criterion applies only to this two-equation, two-unknown setting as stated. Its proof uses a direction parameter for a line and tests the other equation along that parameter. It gives a direct way to read the possible solution structures from geometric relationships while preserving the exact algebraic conditions of the system.",
+        "workedExamples": [
+          {
+            "prompt": "### Problem\n\nAssume the unknowns are real numbers, in the fixed order $(x,y)$. Solve the system\n\n$$\n\\begin{cases}\n3x+2y=16,\\\\\nx-y=2.\n\\end{cases}\n$$\n\nExpress it as a matrix equation and a vector combination, determine whether its solution is unique, and check the result in the original equations.",
+            "reasoningSteps": [
+              "### 1. Record the system as a matrix equation\n\nPut the unknowns in the column vector $\\mathbf{x}=\\begin{bmatrix}x\\\\y\\end{bmatrix}$. Reading coefficients in the chosen order $(x,y)$ gives\n\n$$\n\\begin{bmatrix}3&2\\\\1&-1\\end{bmatrix}\n\\begin{bmatrix}x\\\\y\\end{bmatrix}\n=\n\\begin{bmatrix}16\\\\2\\end{bmatrix}.\n$$\n\nThe first row reproduces $3x+2y=16$, and the second reproduces $x-y=2$. Matrix multiplication forms each row's left-hand side, so the matrix equation holds exactly when both original equations hold.",
+              "### 2. Read the same information as a vector combination\n\nThe columns of the coefficient matrix are $\\begin{bmatrix}3\\\\1\\end{bmatrix}$ and $\\begin{bmatrix}2\\\\-1\\end{bmatrix}$. Thus the system also asks for coefficients $x$ and $y$ such that\n\n$$\nx\\begin{bmatrix}3\\\\1\\end{bmatrix}\n+y\\begin{bmatrix}2\\\\-1\\end{bmatrix}\n=\n\\begin{bmatrix}16\\\\2\\end{bmatrix}.\n$$\n\nThis follows from the definition of matrix-vector multiplication: each unknown scales its corresponding column, and adding those scaled columns gives the right-hand vector when both equations are satisfied.",
+              "### 3. Eliminate one unknown while preserving the solution set\n\nThe augmented matrix records the coefficients and right-hand sides together:\n\n$$\n\\left[\\begin{array}{cc|c}\n3&2&16\\\\\n1&-1&2\n\\end{array}\\right].\n$$\n\nSwap the rows, which only changes the order in which the equations are written:\n\n$$\n\\left[\\begin{array}{cc|c}\n1&-1&2\\\\\n3&2&16\n\\end{array}\\right].\n$$\n\nNow replace the second row by itself minus three times the first row. This subtracts three copies of the first equation from the second, so it preserves exactly the assignments satisfying both equations. The result is\n\n$$\n\\left[\\begin{array}{cc|c}\n1&-1&2\\\\\n0&5&10\n\\end{array}\\right].\n$$\n\nThe corresponding equations are $x-y=2$ and $5y=10$.",
+              "### 4. Solve and establish uniqueness\n\nSince $5\\ne0$, divide $5y=10$ by $5$ to obtain $y=2$. Substitute this into $x-y=2$, which is valid because that equation is equivalent to the first row after the row swap: $x-2=2$, so $x=4$. The reduced system has a pivot for each unknown and no free variable; therefore no other choices of $x$ and $y$ can satisfy it. Because the row operations preserved the solution set, the original system has exactly one solution, $(4,2)$.",
+              "### 5. Interpret the result geometrically\n\nEach equation has a nonzero coefficient pair, so in the $xy$-plane each describes a line. A solution to the system is a point belonging to both lines. The algebra found exactly one such point, $(4,2)$, so these lines intersect there and nowhere else. This conclusion comes from the elimination result, not merely from counting two equations and two unknowns; lines can also be parallel or coincide.",
+              "### 6. Check both conditions\n\nSubstitute the candidate into the original equations: $3(4)+2(2)=12+4=16$, and $4-2=2$. Both equalities hold, so the candidate passes the required check. Checking only one equation would not be enough: $(6,-1)$ satisfies the first because $3(6)+2(-1)=16$, but fails the second because $6-(-1)=7\\ne2$. A solution must satisfy every equation at once.",
+              "### 7. State the complete solution set\n\nThere are no other solutions, as the elimination produced one determined value for each unknown. In set notation, the complete solution set is $\\{(4,2)\\}$. In vector notation, the same answer is $\\left\\{\\begin{bmatrix}4\\\\2\\end{bmatrix}\\right\\}$. These describe one assignment that simultaneously meets both constraints."
+            ],
+            "conclusion": "The system is consistent and has the unique solution $(x,y)=(4,2)$. Its equations, matrix equation, and vector combination encode the same conditions; elimination determines the solution, and substitution verifies it in both original equations."
+          },
+          {
+            "prompt": "### Problem\n\nA calibration model records two aggregate readings from three real-valued adjustments, $x$, $y$, and $z$:\n\n$$\n\\begin{cases}\nx+y+z=6,\\\\\n2x-y+z=3.\n\\end{cases}\n$$\n\nAssume the adjustments may be any real numbers; there are no additional sign or integer constraints. Write the system in matrix and vector form, find its complete solution set, and classify that set as empty, a single solution, or infinitely many solutions.",
+            "reasoningSteps": [
+              "### 1. Organize the equations\n\nKeep the unknowns in the fixed order $(x,y,z)$. Read the coefficients in that order from each equation, inserting a zero wherever a variable is absent. This gives\n\n$$\n\\begin{bmatrix}1&1&1\\\\2&-1&1\\end{bmatrix}\n\\begin{bmatrix}x\\\\y\\\\z\\end{bmatrix}\n=\n\\begin{bmatrix}6\\\\3\\end{bmatrix}.\n$$\n\nEquivalently, using the columns of the coefficient matrix, the system says\n\n$$\nx\\begin{bmatrix}1\\\\2\\end{bmatrix}\n+y\\begin{bmatrix}1\\\\-1\\end{bmatrix}\n+z\\begin{bmatrix}1\\\\1\\end{bmatrix}\n=\\begin{bmatrix}6\\\\3\\end{bmatrix}.\n$$\n\nEach coordinate of this vector equation reproduces one original equation, so both forms encode exactly the same conditions.",
+              "### 2. Eliminate one equation combination\n\nWrite the augmented matrix and replace its second row by the second row minus the first:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&6\\\\\n2&-1&1&3\n\\end{array}\\right]\n\\longrightarrow\n\\left[\\begin{array}{ccc|c}\n1&1&1&6\\\\\n1&-2&0&-3\n\\end{array}\\right].\n$$\n\nThis row operation preserves the solution set: it replaces the second equation by its difference with the first, and the original second equation can be recovered by adding the first back. The new second row states $x-2y=-3$, so $x=2y-3$. The first row remains $x+y+z=6$.",
+              "### 3. Describe the remaining freedom\n\nSubstitute $x=2y-3$ into the first equation. This is valid because every solution must satisfy both rows, and substitution preserves the first row's equality:\n\n$$\n(2y-3)+y+z=6.\n$$\n\nCombining like terms gives $3y+z=9$, hence $z=9-3y$. No row has fixed a particular value of $y$: choosing any real $y$ determines exactly one $x$ and one $z$ by these formulas. Name that free value $t$. Then\n\n$$\n(x,y,z)=(2t-3,\\ t,\\ 9-3t),\\qquad t\\in\\mathbb{R}.\n$$",
+              "### 4. Confirm the description is complete\n\nThe formulas were obtained by rearranging the equations, so any solution must have this form. Conversely, substitute the formulas into the first equation:\n\n$$\n(2t-3)+t+(9-3t)=6.\n$$\n\nThe terms in $t$ cancel, leaving $6=6$. Substitution into the second equation gives\n\n$$\n2(2t-3)-t+(9-3t)=3,\n$$\nwhich reduces to $3=3$. Thus every real $t$ produces a solution, not just a candidate that satisfies one equation.",
+              "### 5. Interpret and classify\n\nThe solution set can also be written as\n\n$$\n(x,y,z)=(-3,0,9)+t(2,1,-3),\\qquad t\\in\\mathbb{R}.\n$$\n\nThis is a line in $\\mathbb{R}^3$: the starting point is one solution, and the nonzero direction vector gives the changes that leave both readings unchanged. Geometrically, the two equations describe planes whose common points form this line. Since different values of $t$ give different $y$-coordinates, there are infinitely many distinct solutions. The system is therefore consistent but does not have a unique solution.",
+              "### 6. Useful check\n\nTaking $t=0$ gives $(-3,0,9)$, and taking $t=1$ gives $(-1,1,6)$. Both satisfy the original equations, and they are distinct, which already rules out a unique solution. The general substitution check above establishes more: every real parameter value works. This also illustrates why two equations in three unknowns should not automatically be treated as having a unique solution; the actual equations determine whether any variables remain free."
+            ],
+            "conclusion": "The system has infinitely many solutions, precisely $(x,y,z)=(2t-3,t,9-3t)$ for $t\\in\\mathbb{R}$. Its matrix and vector forms preserve the original equations, and substitution verifies the complete parameterized solution set."
+          },
+          {
+            "prompt": "### Problem\n\nA lab uses two nonnegative quantities, $x$ and $y$, in an ideal linear model for two detector readings. The recorded readings produce the system $2x+3y=12$ and $4x+6y=25$. An analyst claims that two equations in two unknowns must determine one unique mixture. Assess the claim by writing the system in matrix and vector form and deciding whether it is consistent. Then compare the result with the same setup if the second reading were $24$ instead of $25$. Assume the model and readings are exact, with no measurement noise.",
+            "reasoningSteps": [
+              "### 1. Fix the meaning of the unknowns and assumptions\n\nThe ordered unknown vector is $(x,y)^T$: $x$ and $y$ are real quantities, with the physical restrictions $x\\ge 0$ and $y\\ge 0$. Exact readings mean the equations must hold as written; we cannot attribute a mismatch to rounding or measurement error. It is useful to test consistency even over all real $x,y$ first. If no real pair works, then certainly no physically admissible nonnegative pair works.",
+              "### 2. Translate the equations into matrix and vector forms\n\nKeeping the same variable order in both equations gives $\\begin{bmatrix}2&3\\\\4&6\\end{bmatrix}\\begin{bmatrix}x\\\\y\\end{bmatrix}=\\begin{bmatrix}12\\\\25\\end{bmatrix}$. Equivalently, the column-vector form is $x\\begin{bmatrix}2\\\\4\\end{bmatrix}+y\\begin{bmatrix}3\\\\6\\end{bmatrix}=\\begin{bmatrix}12\\\\25\\end{bmatrix}$. Each coordinate of this vector equation is one detector equation, so both forms preserve the original requirements.",
+              "### 3. Test whether one pair can satisfy both readings\n\nThe left-hand side of the second equation is exactly twice the left-hand side of the first. Therefore, if a pair $(x,y)$ satisfies the first equation, doubling that equation shows that the same pair must satisfy $4x+6y=24$. The second reading instead requires $4x+6y=25$. Subtracting these required equalities gives $0=1$, which is impossible. The subtraction is valid because any proposed solution must satisfy both equalities. Thus the system is inconsistent, even before applying the nonnegativity restrictions.",
+              "### 4. Interpret the contradiction geometrically\n\nIn the plane, each equation has a nonzero coefficient pair and describes a line. Their coefficient pairs, $(2,3)$ and $(4,6)$, are proportional, so the lines have the same direction. But doubling the first equation would give a right-hand side of $24$, not $25$. The lines are distinct parallel lines and have no shared point. This identifies the analyst’s error: having two equations and two unknowns does not guarantee a unique solution, especially when the equations are not independent.",
+              "### 5. Compare the case where the second reading is $24$\n\nNow the equations are $2x+3y=12$ and $4x+6y=24$. The second equation is exactly twice the first, so every solution of the first satisfies the second, and the second adds no new restriction. To describe the physically allowed solutions, let $y=t$. Solving the first equation for $x$ gives $x=6-\\frac{3}{2}t$. The requirement $y\\ge 0$ gives $t\\ge 0$, and $x\\ge 0$ gives $t\\le 4$. Hence all allowed mixtures are $(x,y)=(6-\\frac{3}{2}t,t)$ for $0\\le t\\le 4$. This is an entire line segment, not a unique pair.",
+              "### 6. Check and interpret the comparison\n\nAt the endpoints of that segment, $(6,0)$ and $(0,4)$ both give first reading $12$ and second reading $24$; substituting verifies both equations. Every intermediate $t$ also works because substituting $x=6-\\frac{3}{2}t$ into the second left-hand side gives $4(6-\\frac{3}{2}t)+6t=24$. As a check on the inconsistent case, $(0,4)$ gives readings $12$ and $24$, so it meets the first requirement but not the required second reading of $25$. That single check is illustrative; the proportional-equation argument above establishes that no pair can meet both."
+            ],
+            "conclusion": "The original readings produce an inconsistent system: the second left-hand side doubles the first, but the required readings do not. Changing $25$ to $24$ makes one equation redundant and leaves infinitely many physically allowed mixtures. The number of equations and unknowns alone does not determine the solution structure."
+          }
+        ],
+        "applications": [
+          "### Chemical reaction balancing\n\nIn chemical reaction balancing, the unknowns are coefficients assigned to a fixed list of reactant and product species. For each element, conservation gives one linear equation: the total number of atoms on the reactant side must equal the total on the product side. Choose a sign convention—for example, positive counts for reactants and negative counts for products—and make each species a column containing its signed atom counts. If $A$ is the resulting element-by-species matrix and $c$ is the coefficient vector, balancing becomes $Ac=0$. This transfers the lecture’s matrix and column viewpoint: $Ac$ is a linear combination of species columns, and a balanced equation is a coefficient vector that makes that combination zero.\n\nThe system is homogeneous, so the zero vector is always a mathematical solution, but it represents no reaction. The chemical task therefore adds constraints absent from an unconstrained real linear system: seek a nonzero vector with the required positive coefficients and, conventionally, scale to integers with no common factor. A nullspace direction with the required sign pattern can show that a balance exists; multiple directions can mean the chosen species list permits multiple balances. These algebraic results do not establish that a reaction actually occurs, is energetically favorable, or proceeds at a measurable rate. The model assumes the species list is fixed and atom counts capture the conservation laws being imposed; charge or other conserved quantities may need additional rows.",
+          "### Current balance in a circuit\n\nIn a DC circuit, branch currents are unknowns, and each node supplies a conservation equation: currents entering and leaving must balance after a sign convention is fixed. Choose an orientation for every branch and let the corresponding column record its contribution at each endpoint. With $A$ the node-by-branch incidence matrix, $i$ the vector of oriented currents, and $s$ the specified net injections, the node equations take the form $Ai=s$. Each row is one node’s balance, while the column interpretation says branch currents combine to produce the required injection pattern.\n\nThis model makes consistency a meaningful diagnostic. For a connected ideal network, the net specified injection must balance overall; summing all node equations cancels every internal branch current. If the data violate that condition, no current assignment can satisfy all node balances. Even when consistent, the equations may not determine a unique current vector. A closed loop can support a circulation added around the loop without changing the net balance at any node, so the same injection data can correspond to multiple solutions of the balance equations. This is a concrete reason to distinguish whether a solution exists from whether it is unique.\n\nThe assumptions and limits matter: this setup uses ideal lumped, steady-current bookkeeping and specified injections. Kirchhoff current balance alone generally does not determine physical operating currents; voltage relations and component laws, such as resistances and source behavior, supply additional constraints. The model also assumes branch orientations are bookkeeping choices, so a negative solved current means the actual direction is opposite the chosen orientation, not that the algebra failed."
+        ],
+        "misconceptions": [
+          "### Mistaken idea: Matching equation and unknown counts guarantees a unique solution\n\nIt is tempting to match the number of equations to the number of unknowns and conclude that each variable is determined: introductory algebra often presents square systems with one answer, and a picture of two lines crossing reinforces that expectation. But the count says nothing about whether the equations impose independent, compatible conditions. Diagnostic: can two equations in two variables describe the same line, or two distinct parallel lines? Yes: in the first case there are infinitely many common points; in the second there are none. Only when the lines intersect once is there a unique solution. In general, first ask whether the system is consistent, then determine whether the homogeneous system has only the zero solution. A consistent system with no nonzero homogeneous solution is unique; a nonzero homogeneous solution yields infinitely many solutions. Thus equation count is not a classification method.",
+          "### Mistaken idea: A coefficient matrix is just a bag of numbers\n\nThe temptation is to focus on numeric entries and overlook that every column is tied to one named unknown, while every row is tied to one equation. Diagnostic: with unknown order $(x,y)$, what matrix represents $4x-y=5$ and $2x+3y=1$? The correct rows are $(4,-1)$ and $(2,3)$, so the first column belongs to $x$ and the second to $y$. Swapping those columns but keeping the unknown vector order unchanged changes which coefficients multiply $x$ and $y$, so it changes the system. Reordering variables is allowed only if the unknown vector is reordered consistently too. Correctly, $Ax=b$ is equivalent to the original equations only when row meanings, column meanings, and right-hand-side entries stay aligned. Column form makes this explicit: each variable scales its own coefficient column. Changing equation order merely permutes rows; changing variable order requires coordinated changes.",
+          "### Mistaken idea: One verified solution is the whole solution set\n\nFinding a pair and substituting it into every equation proves that the pair is a solution; it does not prove that no other pairs work. This shortcut is tempting because a check feels like a complete answer, especially when the task says to solve rather than describe the solution set. Diagnostic: after finding one solution $x_0$ of $Ax=b$, ask whether there is a nonzero vector $h$ with $Ah=0$. If there is, then $A(x_0+t h)=b$ for every real $t$, producing infinitely many solutions. The correction is to distinguish verification from completeness: use the equations’ structure to rule out or describe alternatives. In general, a consistent solution set is $x_0+N_A$, where $N_A=\\{h:Ah=0\\}$. Report that full set, not just a checked member.",
+          "### Mistaken idea: Every equation in two variables describes a line\n\nThe mistaken idea is that every equation in two variables draws a line and therefore contributes a geometric restriction. This is tempting because familiar examples have at least one nonzero coefficient, so graphing routinely produces a line. Diagnostic: compare $0x+0y=0$ with $0x+0y=3$. The first is true for every point; the second is false for every point. Neither describes a line. Correctly, a zero-coefficient row with zero right-hand side imposes no restriction, while one with a nonzero right-hand side makes the system inconsistent. When other equations are present, the first row leaves their solution set unchanged and the second makes the intersection empty. Check coefficients before applying line-intersection language; the usual line geometry assumes a nonzero normal vector in the two-dimensional real plane."
+        ],
+        "extension": "## Optional advanced extension: affine geometry of solution sets\n\n**Extra assumptions.** This preview assumes familiarity with systems in more than two variables, matrix notation, homogeneous systems, and the row-echelon forms that the next lecture will develop. It also introduces the terms *nullspace* and *affine set* before their fuller treatment later in the course. None of this extension is needed to meet the objectives of this lecture.\n\nA system with $m$ equations and $n$ unknowns can be written as $A\\mathbf{x}=\\mathbf{b}$, where $A$ has $m$ rows and $n$ columns. Each equation with a nonzero coefficient row describes a hyperplane in $\\mathbb{R}^n$: the vectors whose coordinates satisfy that one equation. The system's solution set is the intersection of all these hyperplanes. This perspective generalizes the familiar picture of intersecting lines in a plane. In three dimensions, for example, the constraints may describe planes whose common intersection is empty, a point, a line, or a plane. With more variables, the same idea continues: each equation imposes a constraint, and solutions are the vectors satisfying all constraints together.\n\nThere is a useful description of every nonempty solution set. Suppose $\\mathbf{x}_0$ is one solution, so $A\\mathbf{x}_0=\\mathbf{b}$. Define the nullspace of $A$ by $N(A)=\\{\\mathbf{z}:A\\mathbf{z}=\\mathbf{0}\\}$. A vector $\\mathbf{x}$ is another solution exactly when\n\n$$\nA\\mathbf{x}=\\mathbf{b}\n\\quad\\Longleftrightarrow\\quad\nA(\\mathbf{x}-\\mathbf{x}_0)=\\mathbf{0}.\n$$\n\nThus every solution has the form $\\mathbf{x}_0+\\mathbf{z}$ for some $\\mathbf{z}\\in N(A)$, and every such vector is a solution. In set notation, the full solution set is $\\mathbf{x}_0+N(A)$. This is an *affine* set: it is a translated subspace, and unlike a subspace, it need not contain the zero vector. If the original system is homogeneous, then $\\mathbf{b}=\\mathbf{0}$ and the solution set is the nullspace itself.\n\nFor example, consider the three-variable system\n\n$$\nx+y+z=2,\\qquad x-y=0.\n$$\n\nSetting $x=y=t$ gives $z=2-2t$, so its solutions are\n\n$$\n(x,y,z)=(0,0,2)+t(1,1,-2),\\qquad t\\in\\mathbb{R}.\n$$\n\nThe direction vector $(1,1,-2)$ satisfies both homogeneous equations obtained by replacing the right-hand sides with zero. Geometrically, the two planes intersect in a line. The point $(0,0,2)$ specifies one location on that line; the direction vector describes how to move along it while remaining on both planes.\n\nRow-echelon form gives an algebraic way to identify this structure. If a consistent system has $r$ pivot columns among its $n$ variable columns, then $n-r$ variables are free. Assigning values to those free variables determines the pivot variables, so the solution set has $n-r$ independent parameters. A row of the form $[0\\ \\cdots\\ 0\\mid c]$ with $c\\ne 0$, in contrast, signals inconsistency: it demands that zero equal a nonzero number. This is why merely comparing the number of equations with the number of unknowns cannot classify a system; the pivot pattern and the right-hand sides matter. The later language of rank and nullity formalizes this parameter count.\n\nTwo distinctions are worth keeping in mind:\n\n- **Consistency is about existence.** A system is consistent when at least one vector satisfies every equation; only then can the translated-nullspace description be used.\n- **The number of parameters describes freedom, not the number of solutions.** A consistent system with at least one free real parameter has infinitely many solutions, while one with no free parameters has exactly one.\n\nThis viewpoint links geometry, algebra, and parameterization without requiring a separate geometric picture for every dimension. It also gives a preview of why elimination is powerful: it reveals both whether a common point exists and how the entire set of solutions is organized.",
+        "summary": "## Summary\n\nThis opening lecture establishes the course’s basic habit of treating equations as structured objects rather than isolated arithmetic tasks. Students connect familiar equation-solving to vector language and learn to distinguish systems with no solution, exactly one solution, or multiple solutions. The goal is not merely to produce a numerical answer, but to represent a problem clearly and justify what its solution set can be.\n\nThe prerequisites provide useful tools for this work: college algebra supports manipulating equations, while familiarity with functions and sets helps students describe collections of possible answers. The lecture builds on those tools without assuming prior matrix knowledge, introducing a new way to organize linear conditions and interpret their solutions. Its ideas give later techniques a purpose: computations should preserve the original conditions and help reveal the system’s structure.\n\nThe next planned lecture, **L02: Matrices and Gaussian elimination**, turns that purpose into a systematic procedure. Students will record systems as augmented matrices, use elementary row operations, and read consistency and solution structure from row-echelon forms. The transition is direct: L01 establishes what a solution means and why different solution-set structures matter; L02 develops a reliable method for determining which structure a given system has. Together, these lectures create the foundation for later work with spans, subspaces, and linear transformations.",
+        "practice": {
+          "prompt": "## Transfer task: Classify controller settings\n\n**Estimated time: 25 minutes.** Work through the cases at your own pace. A controller has two real-valued settings, $u$ and $v$, and each pair of equations specifies two exact target readings. Assume there are no additional restrictions on the settings.\n\nA manager claims: “Two equations in two unknowns always determine one unique setting pair.” Assess this claim using the three cases below.\n\n- **Case A:** $u+2v=8$ and $2u+4v=16$.\n- **Case B:** $u+2v=8$ and $2u+4v=17$.\n- **Case C:** $u+2v=8$ and $u-v=1$.\n\nFor **each case**:\n\n1. Write the system as a matrix equation $A\\mathbf{x}=\\mathbf{b}$, where $\\mathbf{x}=(u,v)^T$, and as a linear combination of the columns of $A$.\n2. Determine whether the system has no solution, one solution, or infinitely many solutions. Give the complete solution set when solutions exist; do not rely only on checking one example.\n3. Explain the result geometrically by describing how the two equations’ lines are related.\n\nConclude by evaluating the manager’s claim and briefly state what the controller report should say for each case: no feasible setting pair, a unique setting pair, or a family of setting pairs.",
+          "learningOutcome": "Classify simple systems as having no solution, a unique solution, or multiple solutions from their equations or geometric representation.",
+          "points": 12,
+          "hints": [
+            "### Hint 1\n\nKeep the variable order $(u,v)$ fixed. In each equation, the coefficients of $u$ and $v$ become one row of the matrix, and the right-hand sides form the entries of $\\mathbf{b}$. The column form uses one scaled coefficient column per variable.",
+            "### Hint 2\n\nFor Cases A and B, compare the coefficient rows and ask whether one equation’s left-hand side is a scalar multiple of the other’s. If it is, check whether the right-hand sides have the same scalar relationship.",
+            "### Hint 3\n\nFor a consistent system with a free variable, let that variable be a real parameter and solve for the other variable to describe every solution. For Case C, rearrange one equation to express one variable in terms of the other, substitute, and then check both original equations."
+          ],
+          "solution": "## Worked response\n\nLet $\\mathbf{x}=\\begin{bmatrix}u\\\\v\\end{bmatrix}$. In each case, the matrix equation records the two equations row by row, and the column combination records $u$ times the first column plus $v$ times the second column.\n\n### Case A\n\n$$\n\\begin{bmatrix}1&2\\\\2&4\\end{bmatrix}\n\\begin{bmatrix}u\\\\v\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\16\\end{bmatrix},\n\\qquad\nu\\begin{bmatrix}1\\\\2\\end{bmatrix}\n+v\\begin{bmatrix}2\\\\4\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\16\\end{bmatrix}.\n$$\n\nThe second equation is twice the first, including its right-hand side, so it imposes no additional condition. Let $v=t$, where $t\\in\\mathbb{R}$. Then $u+2t=8$, giving the complete solution set\n\n$$\n(u,v)=(8-2t,t),\\qquad t\\in\\mathbb{R}.\n$$\n\nThere are infinitely many solutions. Geometrically, the two equations describe the same line.\n\n### Case B\n\n$$\n\\begin{bmatrix}1&2\\\\2&4\\end{bmatrix}\n\\begin{bmatrix}u\\\\v\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\17\\end{bmatrix},\n\\qquad\nu\\begin{bmatrix}1\\\\2\\end{bmatrix}\n+v\\begin{bmatrix}2\\\\4\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\17\\end{bmatrix}.\n$$\n\nThe second equation’s left-hand side is twice the first equation’s left-hand side. If both equations held, doubling $u+2v=8$ would require $2u+4v=16$, but the second equation requires $2u+4v=17$. This contradiction means the system has no solution. Geometrically, the equations describe distinct parallel lines.\n\n### Case C\n\n$$\n\\begin{bmatrix}1&2\\\\1&-1\\end{bmatrix}\n\\begin{bmatrix}u\\\\v\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\1\\end{bmatrix},\n\\qquad\nu\\begin{bmatrix}1\\\\1\\end{bmatrix}\n+v\\begin{bmatrix}2\\\\-1\\end{bmatrix}\n=\n\\begin{bmatrix}8\\\\1\\end{bmatrix}.\n$$\n\nFrom $u-v=1$, we have $u=1+v$. Substituting into $u+2v=8$ gives $1+3v=8$, so $v=\\frac{7}{3}$ and $u=\\frac{10}{3}$. The unique solution is\n\n$$\n(u,v)=\\left(\\frac{10}{3},\\frac{7}{3}\\right).\n$$\n\nChecking in the original equations gives $\\frac{10}{3}+2\\left(\\frac{7}{3}\\right)=8$ and $\\frac{10}{3}-\\frac{7}{3}=1$. The coefficient rows are not scalar multiples, so the lines intersect at one point; this agrees with the algebraic result.\n\n### Conclusion\n\nThe manager’s claim is false. Two equations in two unknowns can describe the same line, distinct parallel lines, or intersecting lines. The controller report should state that Case A has a family of setting pairs, Case B has no feasible setting pair, and Case C has one unique setting pair.",
+          "rubric": [
+            "**3 points — Matrix and column forms:** Correctly writes $A\\mathbf{x}=\\mathbf{b}$ and the corresponding column combination for all three cases, keeping the variable order $(u,v)$ consistent.",
+            "**3 points — Case A:** Gives the complete parameterized solution set, identifies infinitely many solutions, and explains that the equations describe the same line.",
+            "**2 points — Case B:** Shows the contradiction caused by the proportional left-hand sides and incompatible right-hand sides, and identifies the system as inconsistent with distinct parallel lines.",
+            "**3 points — Case C:** Finds and verifies $(u,v)=\\left(\\frac{10}{3},\\frac{7}{3}\\right)$, identifies it as the unique solution, and connects uniqueness to the lines intersecting once.",
+            "**1 point — Overall conclusion:** Rejects the manager’s claim and correctly summarizes the solution structure in all three cases."
+          ]
+        }
+      }
+    },
+    {
+      "id": "L02",
+      "number": 2,
+      "title": "Matrices and Gaussian elimination",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Represent systems with augmented matrices and use elementary row operations to reach and interpret row-echelon forms.",
+      "objectives": [
+        "Perform elementary row operations and reduce a small augmented matrix to row-echelon form.",
+        "Use pivot and free-variable information to state whether a system is consistent and describe its solution structure."
+      ],
+      "concepts": [
+        "Matrix notation and row operations",
+        "Gaussian elimination"
+      ],
+      "content": {
+        "motivatingQuestion": "## Why reduce a system?\n\nA system of equations can describe one possible state, many possible states, or no possible state at all. With several variables, those possibilities are not always obvious by inspection. How can we reorganize the equations so that the answer becomes visible without changing which values satisfy them? Gaussian elimination answers this by encoding a system as an augmented matrix, then applying reversible row operations. The goal is not merely to make a matrix look simpler: it is to expose the system’s consistency and solution structure in a form we can read and verify.",
+        "prerequisiteCheck": "## The algebra behind the method\n\nYou already know how to solve a linear equation by preserving equality. If $x+2=5$, subtracting $2$ from both sides gives an equivalent equation, $x=3$. The key word is *equivalent*: the new equation has exactly the same solutions as the old one. Gaussian elimination relies on this familiar idea, but applies it to several equations at once. You do not need prior matrix experience; the matrix is a compact way to record equations you can already read.\n\nFor example, a system such as $x+2y=5$ and $3x-y=4$ has two unknowns and two constraints. The letters $x$ and $y$ stand for the same quantities in both equations. A solution is an ordered assignment of values, such as $(x,y)$, that makes every equation true simultaneously. A value that works in only one equation is not a solution to the system. This is why checking a proposed answer means substituting it into every original equation.\n\nYour experience solving equations also prepares you to combine them. If one equation is true, multiplying both sides by a nonzero number keeps it true. Adding one true equation to another produces another true equality. Reversing these steps recovers the original information. By contrast, multiplying an equation by zero would erase information, so it cannot be used as a reversible simplification. Keep track of the entire equation—including its right-hand side—whenever you perform an operation.\n\nA little notation helps. The coefficients of $x$ and $y$ in $x+2y=5$ are $1$ and $2$; the constant on the right is $5$. The order of the variables must stay fixed in every equation. Writing a system as a matrix simply places each row of coefficients beside its constant. The vertical bar separates those two parts; it does not mean division. For instance, the row $(1,2\\mid 5)$ records $x+2y=5$ when the variable order is $(x,y)$.\n\nBefore proceeding, check that you can:\n\n- Identify the variables, coefficients, and constants in a small system.\n- Add, subtract, or scale equations while preserving their solutions.\n- Substitute an ordered assignment into every equation to test it.\n\nThese habits are enough to follow row operations. The new work is learning to record them systematically and to read the resulting rows as statements about the original unknowns.",
+        "intuitiveExplanation": "## A matrix is a record of constraints\n\nThink of each equation as a clue that restricts the possible values of the variables. A system’s solutions are precisely the assignments that satisfy every clue. The analogy is limited: equations are exact constraints, not uncertain hints, and a valid row operation must preserve the complete set of satisfying assignments. The useful idea is that we may replace the written clues with simpler, equivalent ones, provided we can reverse the replacement.\n\nFor a system in $x$, $y$, and $z$, an augmented matrix records one equation per row. The first three entries are the coefficients of $x$, $y$, and $z$, in that fixed order; the entry after the bar is the constant. Thus the system\n\n$$\n\\begin{aligned}\nx+2y-z&=3,\\\\\n2x+4y-2z&=6,\\\\\n-x+y+z&=0\n\\end{aligned}\n$$\n\nis recorded as\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&3\\\\\n2&4&-2&6\\\\\n-1&1&1&0\n\\end{array}\\right].\n$$\n\nThe matrix is not a different problem; it is the same system written compactly. The variable names have not vanished: their meaning is carried by the column order. If columns are read in the order $x,y,z$, every row must keep that order.\n\n## Why the row operations are safe\n\nThere are exactly three elementary row operations:\n\n- Swap two rows.\n- Multiply a row by a nonzero number.\n- Add a multiple of one row to another row.\n\nEach operation has a reverse. A swap can be undone by swapping again; scaling by a nonzero number can be undone by scaling by its reciprocal; and adding a multiple of one row can be undone by subtracting that multiple. Since each operation preserves the solutions, a sequence of them preserves the system’s solution set too. This is the reason elimination works—not a guess that the simplified matrix will have the same answers.\n\nThe aim is *row-echelon form*. In this form, any all-zero rows are at the bottom, and the first nonzero entry in each nonzero row (a pivot) appears farther right than the pivot in the row above. Entries below each pivot are zero. These features organize the equations from the first variable toward later variables, making it possible to solve from the bottom upward or identify variables that can be chosen freely.\n\n## Reduce and interpret an example\n\nStart with the displayed augmented matrix. The second row is twice the first, so subtracting twice row 1 from row 2 removes it. Adding row 1 to row 3 removes the $x$-entry in row 3. Then swap rows 2 and 3 to put the nonzero row above the zero row:\n\n$$\n\\begin{aligned}\nR_2&\\leftarrow R_2-2R_1,\\\\\nR_3&\\leftarrow R_3+R_1,\\\\\nR_2&\\leftrightarrow R_3.\n\\end{aligned}\n$$\n\nThe result is\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&3\\\\\n0&3&0&3\\\\\n0&0&0&0\n\\end{array}\\right].\n$$\n\nRead each row as an equation again. The first row says $x+2y-z=3$, the second says $3y=3$, and the last says $0=0$. The last row adds no restriction; it says that one recorded equation was redundant once the others were considered. From row 2, $y=1$. Substituting that into row 1 gives $x-z=1$.\n\nThere is no pivot in the $z$-column, so $z$ is a *free variable*: the equations do not force it to one particular value. Set $z=t$, where $t$ may be any real number. Then $x=1+t$, giving the complete solution set\n\n$$\n\\{(x,y,z)=(1+t,1,t):t\\in\\mathbb{R}\\}.\n$$\n\nThis is an infinite family of solutions, not a single answer. For example, setting $t=0$ gives $(1,1,0)$; setting $t=2$ gives $(3,1,2)$. Both satisfy the original equations. The parameter describes all choices still allowed by the constraints.\n\n## Read consistency and solution structure\n\nA row of the form $[0\\quad 0\\quad 0\\mid b]$, with $b\\ne 0$, represents the impossible equation $0=b$. That means the system is inconsistent: no assignment satisfies all its equations. For instance, if the right-hand side of the second original equation were $7$ rather than $6$, subtracting twice row 1 from row 2 would produce $[0\\quad0\\quad0\\mid1]$, or $0=1$.\n\nIf no contradictory row appears, the system is consistent. Then inspect the coefficient columns:\n\n- A pivot in every variable column means every variable is determined, so there is a unique solution.\n- One or more variables without pivots are free. Over the real numbers, a consistent system with a free variable has infinitely many solutions.\n\nThese rules distinguish the three possible structures: no solution, exactly one solution, or infinitely many solutions. They also explain why the right-hand column matters: a zero row in the coefficient columns is harmless only if its constant is also zero.\n\n## A reliable working habit\n\nAs you reduce a matrix, write each row operation clearly and apply it to the *whole* row, including the entry after the bar. Keep the variable-column order fixed. Once the matrix is in echelon form, translate any suspicious row back into an equation, locate the pivots, and name the free variables before describing the solutions. Finally, substitute a particular solution into the original equations; for a parameterized answer, check that the expressions satisfy them for arbitrary parameter values. These checks catch arithmetic errors and confirm that the interpretation matches the system you started with.",
+        "formalDevelopment": "## Formal Development: Gaussian Elimination\n\n# Formal development\n\n## Matrix model and notation\n\nWork over the real numbers. Let $m,n\\geq 1$, let $A\\in\\mathbb{R}^{m\\times n}$, and let $b\\in\\mathbb{R}^m$. The system of $m$ linear equations in $n$ unknowns is written $Ax=b$. Its solution set is\n\n$$\nS(A,b)=\\{x\\in\\mathbb{R}^n:Ax=b\\}.\n$$\n\nThe augmented matrix $[A\\mid b]$ stores the coefficients in the first $n$ columns and the constants in the final column. Row $i$ represents equation $i$; column order fixes the variable order throughout the calculation. A row $[0\\ \\cdots\\ 0\\mid c]$ represents $0=c$, and therefore has no satisfying assignment when $c\\neq 0$.\n\nA matrix is in **row-echelon form** if all zero rows are below its nonzero rows, each nonzero row’s first nonzero entry lies strictly to the right of the first nonzero entry in the row above, and all entries below each first nonzero entry are zero. These first nonzero entries are called pivots. A coefficient column containing a pivot is a pivot column; a variable corresponding to a coefficient column without a pivot is a free variable. Row-echelon form does not require pivots to equal $1$, nor does it require entries above pivots to be zero.\n\n## Why row operations preserve solutions\n\nThe elementary row operations are row swaps, multiplication of a row by a nonzero scalar, and addition of a scalar multiple of one row to another. Each operation is reversible: a swap reverses itself, nonzero scaling is reversed by reciprocal scaling, and adding a multiple is reversed by subtracting that multiple. Because the operations act on entire rows of $[A\\mid b]$, they transform the coefficient and constant entries together.\n\nMore formally, each row operation on an $m$-row matrix is left multiplication by an invertible elementary matrix $E\\in\\mathbb{R}^{m\\times m}$. Applied to the system, it gives\n\n$$\nAx=b\\quad\\longmapsto\\quad EAx=Eb.\n$$\n\nFor any $x$, the original equation holds if and only if the transformed one holds: one direction follows by multiplication by $E$, and the reverse follows by multiplication by $E^{-1}$. Thus the two systems have exactly the same solution set. A finite sequence of row operations corresponds to multiplication by a product of invertible elementary matrices, which is also invertible. This proves that reducing an augmented matrix preserves all solutions, rather than merely preserving selected solutions.\n\n## Elimination and termination\n\nTo produce row-echelon form, process coefficient columns from left to right while tracking the next row in which a pivot may be placed. In a column, search that row and the rows beneath it for a nonzero entry. If one exists, swap its row into the pivot position. The pivot is then nonzero, so each entry $a_{ik}$ below it can be eliminated by\n\n$$\nR_i\\leftarrow R_i-\\frac{a_{ik}}{a_{pk}}R_p,\n$$\n\nwhere $R_p$ is the pivot row and $a_{pk}\\neq 0$ is its pivot entry. The factor is defined because the pivot is nonzero; the new entry in column $k$ is $a_{ik}-(a_{ik}/a_{pk})a_{pk}=0$. Apply this operation to the entire augmented row, including its final entry.\n\nIf every candidate entry in the current column is zero, skip that column and advance without placing a pivot. In either case, the next pivot, if any, is placed in a column strictly to the right and a row strictly below the preceding pivot row. Since there are only $n$ coefficient columns and $m$ rows, the process terminates after finitely many steps. Each step is an elementary operation or a decision to skip a column, so the resulting echelon matrix represents a system equivalent to the original one.\n\n## Reading the echelon system\n\nThe reduction gives a precise consistency test. In echelon form, a row with zero entries in all coefficient columns and a nonzero final entry is a contradiction. Hence its presence makes the system inconsistent. If no such row occurs, the echelon system is consistent: assign values to any free variables, then solve the pivot equations from the last nonzero row upward. Each pivot equation has a nonzero coefficient on its pivot variable, while variables to its right are either free variables or pivot variables already determined in this backward order. Division by the pivot therefore determines that variable uniquely once the later variables are fixed.\n\nThis reasoning also determines the number of solutions. If every coefficient column has a pivot, there are no free variables, so backward substitution determines exactly one value for each variable. If at least one coefficient column has no pivot, assign any real value to that free variable and perform backward substitution. Different choices of its value give different solution vectors, so the consistent system has infinitely many solutions over $\\mathbb{R}$.\n\nConsequently, an echelon form yields three mutually exclusive outcomes: a contradictory row gives no solutions; no contradictory row and a pivot in every coefficient column gives one solution; and no contradictory row with at least one free variable gives infinitely many solutions. This conclusion depends on reading pivots only in the coefficient columns: a leading nonzero entry in the augmented column belongs to a contradictory row, not to a variable equation that determines another unknown.\n\nWhen reporting a result, state which variables are free and express pivot variables in terms of them. The derivation is complete only if every row operation was applied to the whole augmented row and the final parameterization satisfies the original equations. These checks connect the formal equivalence argument to the claimed solution set.\n\n## Formal Development: Parametrizing Solution Sets\n\n# Formal development\n\n## From pivots to parameters\n\nLet $A\\in\\mathbb{R}^{m\\times n}$ and $b\\in\\mathbb{R}^m$, and suppose the system $Ax=b$ is consistent. By the preceding equivalence result, row reduction produces an echelon augmented matrix $[U\\mid d]$ with exactly the same solutions as $[A\\mid b]$. Write $r$ for the number of pivots in coefficient columns, and let $F\\subseteq\\{1,\\ldots,n\\}$ be the indices of the coefficient columns without pivots. Thus $F$ indexes the free variables. Consistency means that every row with zero coefficients also has a zero final entry; such rows impose no further conditions.\n\nIndex the pivot columns in increasing order as $p_1<\\cdots<p_r$. In the echelon system, the equation in pivot row $i$ has the form\n\n$$\nu_{i,p_i}x_{p_i}+\\sum_{j>p_i}u_{ij}x_j=d_i,\n\\qquad u_{i,p_i}\\ne 0.\n$$\n\nThere are no terms with indices below $p_i$ because the pivot is the first nonzero entry of its row. Choose arbitrary real values $t_j$ for the free variables $x_j$, $j\\in F$. Starting with the last pivot row and proceeding upward, solve for each pivot variable:\n\n$$\nx_{p_i}=\\frac{d_i-\\sum_{j>p_i}u_{ij}x_j}{u_{i,p_i}}.\n$$\n\nThe denominator is nonzero, and each variable on the right has either been assigned as free or determined by a later pivot row. This gives existence and uniqueness of the pivot-variable values for every fixed assignment to the free variables. Because the recurrence uses only addition, scalar multiplication, and division by fixed nonzero pivots, each pivot variable is an affine function of the free-variable values.\n\nMore precisely, regard the free-variable assignments as a vector $t\\in\\mathbb{R}^{|F|}$, ordered by increasing index. Let $x(t)$ be the resulting solution, and let $e_j$ denote the coordinate vector corresponding to free index $j$. Define $x_0=x(0)$ and $v_j=x(e_j)-x(0)$. The affine dependence just established gives the complete parameterization\n\n$$\nx(t)=x_0+\\sum_{j\\in F}t_jv_j.\n$$\n\nIf $F$ is empty, the sum is empty and the system has just the solution $x_0$. Otherwise, the formula records both a particular solution and the changes produced by independently varying free coordinates.\n\nFor example, consider the echelon system represented by\n\n$$\n\\left[\\begin{array}{cccc|c}\n1&2&0&-1&4\\\\\n0&0&1&3&-2\\\\\n0&0&0&0&0\n\\end{array}\\right].\n$$\n\nThe pivot variables are $x_1,x_3$, while $x_2,x_4$ are free. Set $x_2=s$ and $x_4=t$. The first two rows give $x_1=4-2s+t$ and $x_3=-2-3t$, so\n\n$$\n(x_1,x_2,x_3,x_4)=(4,0,-2,0)+s(-2,1,0,0)+t(1,0,-3,1),\n\\qquad s,t\\in\\mathbb{R}.\n$$\n\nThe zero row contributes no restriction. The displayed expression includes every solution because any solution must have some values $s,t$ in its free coordinates, after which the pivot equations force the other two coordinates.\n\n## Homogeneous directions and the original system\n\nThe parameterization can be stated without reference to the particular echelon matrix. Define the homogeneous solution set\n\n$$\nH(A)=\\{z\\in\\mathbb{R}^n:Az=0\\}.\n$$\n\nIf $x_0$ is any particular solution of $Ax=b$, then every vector $x_0+z$ with $z\\in H(A)$ solves the system, since $A(x_0+z)=Ax_0+Az=b$. Conversely, if $x$ is any solution, subtracting $Ax_0=b$ from $Ax=b$ gives $A(x-x_0)=0$. Hence\n\n$$\n\\{x\\in\\mathbb{R}^n:Ax=b\\}=x_0+H(A).\n$$\n\nThis identity explains why the parameter terms describe directions rather than additional offsets: changing a solution while staying within the same solution set must change it by a solution of the associated homogeneous system.\n\nIn the parameterization above, each $v_j$ is such a direction. Indeed, $x(e_j)$ and $x(0)$ both solve $Ax=b$, so subtraction gives $Av_j=0$. Moreover, every $z\\in H(A)$ is determined by its free coordinates. Assign those coordinates their values in $z$ and solve the homogeneous echelon equations for the pivot coordinates. Uniqueness of back substitution then gives\n\n$$\nz=\\sum_{j\\in F}z_jv_j.\n$$\n\nThe coefficients in this expression are unique: the free coordinate indexed by $j$ on the right is exactly its coefficient, because the free coordinates of $v_j$ are $1$ at index $j$ and $0$ at the other free indices. Thus the free coordinates are not merely convenient parameters; they provide unique coordinates for every homogeneous direction and, after choosing $x_0$, for every solution of the original system.\n\nConsequently, the echelon form supplies more information than a count of solutions. It gives an explicit formula for all solutions, identifies one particular solution by setting every free variable to zero, and specifies how each free choice changes the pivot variables. These conclusions rely on the pivot equations and consistency of the reduced system; the invertible row transformations ensure that the resulting parameterization applies to the original equations as well.",
+        "workedExamples": [
+          {
+            "prompt": "## Problem setup\n\nSolve the following system over the real numbers. The variables are ordered as $(x,y,z)$, and the goal is to describe every solution, not just one assignment:\n\n$$\n\\begin{aligned}\nx+y+z&=5,\\\\\n2x+4z&=6,\\\\\n3x+y+5z&=11.\n\\end{aligned}\n$$\n\nAssume exact arithmetic. Use an augmented matrix and Gaussian elimination, then interpret the pivots and verify the resulting solution set.",
+            "reasoningSteps": [
+              "### 1. Encode the equations\n\nRecord the coefficients of $x,y,z$ in that fixed order, followed by each right-hand constant. The second equation has coefficient $0$ for $y$. This gives\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&5\\\\\n2&0&4&6\\\\\n3&1&5&11\n\\end{array}\\right].\n$$\n\nThe bar separates coefficients from constants; it is not a division symbol. Keeping the constants in the matrix is essential because each row operation must update the entire equation.",
+              "### 2. Eliminate the entries below the first pivot\n\nThe first row has a $1$ in the $x$-column, so use it to remove the $x$-coefficients in rows 2 and 3. Apply $R_2\\leftarrow R_2-2R_1$ and $R_3\\leftarrow R_3-3R_1$:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&5\\\\\n0&-2&2&-4\\\\\n0&-2&2&-4\n\\end{array}\\right].\n$$\n\nFor example, row 2 becomes $(2,0,4\\mid 6)-2(1,1,1\\mid 5)=(0,-2,2\\mid -4)$. The same whole-row calculation gives row 3. These operations preserve the solution set: subtracting a multiple of one equation from another is reversible by adding that multiple back.",
+              "### 3. Remove the repeated equation\n\nRows 2 and 3 now match. Apply $R_3\\leftarrow R_3-R_2$ to obtain\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&5\\\\\n0&-2&2&-4\\\\\n0&0&0&0\n\\end{array}\\right].\n$$\n\nThis is row-echelon form: the first nonzero entry of row 2 is to the right of the first nonzero entry of row 1, and the entries below each pivot are zero. Row 3 means $0=0$, so it is redundant, not a contradiction. Each operation was reversible, so this reduced matrix describes exactly the solutions of the original system.",
+              "### 4. Identify pivots and solve\n\nThe coefficient columns for $x$ and $y$ contain pivots; the $z$-column does not. Therefore $z$ is free. Let $z=t$, where $t\\in\\mathbb{R}$. Reading row 2 as an equation gives $-2y+2z=-4$. Dividing by the nonzero coefficient $-2$ yields $y-z=2$, hence $y=2+t$. Row 1 says $x+y+z=5$, so substituting the value of $y$ and $z$ gives $x+(2+t)+t=5$, or $x=3-2t$.",
+              "### 5. State why this describes all solutions\n\nThe resulting parameterization is\n\n$$\n(x,y,z)=(3-2t,\\,2+t,\\,t),\\qquad t\\in\\mathbb{R}.\n$$\n\nEvery choice of $t$ satisfies the two nonzero echelon equations by construction. Conversely, every solution of the original system must satisfy the equivalent echelon system. Its third row imposes no condition, its second row forces $y=z+2$, and its first row then forces $x=3-2z$. Thus choosing $z=t$ neither omits any solutions nor adds an extra restriction.",
+              "### 6. Check the result and a common failure\n\nSubstitute the parameterized values into all three original equations. The left-hand sides become, respectively, $(3-2t)+(2+t)+t=5$, $2(3-2t)+4t=6$, and $3(3-2t)+(2+t)+5t=11$. Each equality holds for every real $t$, confirming the answer against the original system, including the redundant third equation. A useful warning is that replacing a row by zero times itself is not a valid row operation: it is not reversible and can erase a genuine constraint. Row scaling is allowed only by a nonzero number."
+            ],
+            "conclusion": "The system is consistent and has infinitely many solutions because it has a free variable and no contradictory row. Its complete solution set is $\\{(3-2t,\\,2+t,\\,t):t\\in\\mathbb{R}\\}$. The parameterization preserves the original equations and has been checked by substitution."
+          },
+          {
+            "prompt": "## Problem setup\n\nSolve the following system over the real numbers, with the variables ordered as $(x,y,z)$:\n\n$$\n\\begin{aligned}\nx+2y-z&=-3,\\\\\n2x-y+3z&=9,\\\\\n-x+y+2z&=2.\n\\end{aligned}\n$$\n\nUse Gaussian elimination to determine the full solution structure. Assume exact arithmetic, and keep the right-hand sides with their equations throughout the reduction.",
+            "reasoningSteps": [
+              "### 1. Record the system\n\nThe first equation has coefficients $1,2,-1$ in the fixed variable order $(x,y,z)$ and constant $-3$. Record each equation in the same way to form the augmented matrix:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&-3\\\\\n2&-1&3&9\\\\\n-1&1&2&2\n\\end{array}\\right].\n$$\n\nThe bar separates the coefficients from the constants; it does not mean division. Each row operation must therefore act on the entire row, including its final entry.",
+              "### 2. Eliminate the entries below the first pivot\n\nUse $R_2\\leftarrow R_2-2R_1$. The second row becomes $(2,-1,3\\mid 9)-2(1,2,-1\\mid -3)=(0,-5,5\\mid 15)$. Use $R_3\\leftarrow R_3+R_1$; the third row becomes $(-1,1,2\\mid 2)+(1,2,-1\\mid -3)=(0,3,1\\mid -1)$. Both are valid row replacements, and each has an inverse, so neither changes the solution set. The matrix is now\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&-3\\\\\n0&-5&5&15\\\\\n0&3&1&-1\n\\end{array}\\right].\n$$",
+              "### 3. Arrange and create the next pivot\n\nSwap rows 2 and 3 so that the second pivot is $3$ rather than $-5$. This gives\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&-3\\\\\n0&3&1&-1\\\\\n0&-5&5&15\n\\end{array}\\right].\n$$\n\nTo eliminate the $-5$ beneath the pivot, first scale row 3 by the nonzero number $3$, obtaining $(0,-15,15\\mid45)$. Then replace row 3 by itself plus five times row 2. The second entry becomes $-15+5(3)=0$; the third becomes $15+5(1)=20$; and the constant becomes $45+5(-1)=40$. Scaling by a nonzero number, swapping rows, and adding a multiple of another row are reversible operations, so the resulting matrix remains equivalent to the original system:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&2&-1&-3\\\\\n0&3&1&-1\\\\\n0&0&20&40\n\\end{array}\\right].\n$$",
+              "### 4. Read the echelon equations by back-substitution\n\nThe last row represents $20z=40$. Since $20\\ne0$, divide both sides by $20$ to get $z=2$. The second row represents $3y+z=-1$; substituting $z=2$ gives $3y+2=-1$, so $3y=-3$ and $y=-1$. Finally, the first row says $x+2y-z=-3$. Substituting the values already found gives $x+2(-1)-2=-3$, hence $x-4=-3$ and $x=1$. Each substitution is valid because it uses an equation from a system equivalent to the original and values determined by its lower rows.",
+              "### 5. Determine the solution structure\n\nThere is no row with zero coefficients and a nonzero constant, so the echelon form contains no contradiction. Its three coefficient columns each contain a pivot, so there are no free variables. Back-substitution determines one value for every variable; therefore the system has a unique solution, rather than no solutions or infinitely many solutions."
+            ],
+            "conclusion": "The unique solution is $(x,y,z)=(1,-1,2)$. Check it in the original equations: $1+2(-1)-2=-3$, $2(1)-(-1)+3(2)=9$, and $-(1)+(-1)+2(2)=2$. All three equations hold, confirming the result."
+          },
+          {
+            "prompt": "## Problem setup\n\nConsider an overdetermined system—four exact linear constraints on three real unknowns—with variables ordered as $(x,y,z)$:\n\n$$\n\\begin{aligned}\nx+y+z&=2,\\\\\n2x-y+2z&=1,\\\\\n3x+3z&=3,\\\\\n3y&=3.\n\\end{aligned}\n$$\n\nUse Gaussian elimination to describe the full solution set. Then analyze a contrasting case in which only the right-hand side of the last equation changes from $3$ to $4$. Assume exact arithmetic; every row operation must apply to the entire augmented row.",
+            "reasoningSteps": [
+              "### 1. Record all four equations\n\nIn the fixed variable order $(x,y,z)$, the augmented matrix is\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&2\\\\\n2&-1&2&1\\\\\n3&0&3&3\\\\\n0&3&0&3\n\\end{array}\\right].\n$$\n\nEach coefficient column corresponds to one variable, and the final column records the right-hand sides. Keeping that column is essential: row operations describe equivalent equations only when they act on both coefficients and constants.",
+              "### 2. Eliminate the first-column entries below the pivot\n\nThe first row has a nonzero $x$-coefficient, so use it as the pivot row. Apply\n\n$$\nR_2\\leftarrow R_2-2R_1,\\qquad R_3\\leftarrow R_3-3R_1.\n$$\n\nThese operations make the first-column entries in rows 2 and 3 zero. Applying each subtraction to every entry gives\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&2\\\\\n0&-3&0&-3\\\\\n0&-3&0&-3\\\\\n0&3&0&3\n\\end{array}\\right].\n$$\n\nThey preserve the solutions because adding a multiple of one equation to another is reversible by subtracting that multiple.",
+              "### 3. Expose the redundant equations and normalize\n\nRows 2 and 3 are identical, so replace row 3 by $R_3-R_2$. Row 4 is the negative of row 2, so replace it by $R_4+R_2$. Both operations give zero rows, including in the augmented column:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&2\\\\\n0&-3&0&-3\\\\\n0&0&0&0\\\\\n0&0&0&0\n\\end{array}\\right].\n$$\n\nNow multiply row 2 by $-\\frac13$, a nonzero scalar, and subtract the resulting row 2 from row 1. These reversible operations yield echelon form:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&0&1&1\\\\\n0&1&0&1\\\\\n0&0&0&0\\\\\n0&0&0&0\n\\end{array}\\right].\n$$",
+              "### 4. Read the pivots and describe every solution\n\nThe nonzero rows state $x+z=1$ and $y=1$. There is a pivot in the $x$- and $y$-columns, but not in the $z$-column. Thus $z$ is free; set $z=t$ for any $t\\in\\mathbb{R}$. The pivot equations then force $x=1-t$ and $y=1$, so the complete solution set is\n\n$$\n\\{(x,y,z)=(1-t,1,t):t\\in\\mathbb{R}\\}.\n$$\n\nThe two zero rows mean that the other recorded constraints add no new restrictions. The system has infinitely many solutions: it is consistent, and its free variable can take infinitely many real values.",
+              "### 5. Contrast: change only the last constant\n\nIf the last equation is instead $3y=4$, its augmented row is $[0\\quad 3\\quad 0\\mid 4]$. The elimination leading to row 2 is unchanged, so row 2 is still $[0\\quad -3\\quad 0\\mid -3]$. Adding row 2 to the altered row 4 gives\n\n$$\n[0\\quad 0\\quad 0\\mid 1],\n$$\nwhich represents $0=1$. This is impossible, so the altered system has no solution. The contrast shows why a zero coefficient row cannot simply be discarded: its right-hand entry determines whether it means a harmless $0=0$ or a contradiction. In the original system, the fourth equation agrees with the first two; after the change, it does not.",
+              "### 6. Check the result in the original equations\n\nSubstitute $(x,y,z)=(1-t,1,t)$ into the original system. The left-hand sides become, in order, $2$, $2(1-t)-1+2t=1$, $3(1-t)+3t=3$, and $3$. They match the four right-hand sides for every real $t$, confirming that the parameterization works. In the contrasting case, the same first three equations still force $y=1$, while the changed last equation requires $y=\\frac43$; that direct contradiction independently checks the elimination result."
+            ],
+            "conclusion": "The original overdetermined system is consistent and has solution set $\\{(1-t,1,t):t\\in\\mathbb{R}\\}$. Changing only the final constant to $4$ creates a row representing $0=1$, so the altered system is inconsistent. The augmented column must be carried through every row operation to distinguish redundant equations from contradictions."
+          }
+        ],
+        "applications": [
+          "## Chemical reaction balancing\n\nA chemical equation can be represented as a homogeneous linear system by treating the unknown stoichiometric coefficients as the variables. For each element, make one row; for each proposed reactant or product species, make one column containing its atom count, with product columns assigned the opposite sign from reactant columns. The conservation equations then have the form $Ac=0$. This converts balancing each element into a matrix problem, and row reduction can expose dependent conservation equations and the pivot/free-variable structure of possible coefficient vectors.\n\nTo transfer Gaussian elimination, first fix the species and order the columns consistently. Reduce the coefficient matrix, applying every row operation across the full row. Identify free coefficient variables, assign parameters, and use back-substitution to express the remaining coefficients. Then check whether the resulting family contains a vector whose entries are all positive; if so, choose a convenient proportional set of integer coefficients and verify atom totals in the original reaction.\n\nThe modeling assumptions matter: the species are specified in advance, and the intended reaction conserves the listed elements. Elimination solves linear equalities over $\\mathbb{R}$; it does not by itself require coefficients to be positive, select the smallest integer ratio, or decide whether a proposed reaction is chemically feasible. A free parameter can help find a valid ratio, but a solution with zero or negative entries does not balance the intended forward reaction. Row reduction supplies candidate conservation relations; chemical admissibility and the final substitution check remain separate steps.",
+          "## Linear circuit analysis\n\nRepresent each unknown branch current, and if useful each node potential, as a variable. Kirchhoff’s current law gives equations at selected nodes; voltage law together with component relations such as $V=RI$ supplies additional linear equations for a resistive network. After choosing reference directions and grounding one node when node potentials are used, collect the equations in a consistent variable order and form $Ax=b$. Gaussian elimination provides a practical audit: reversible row operations leave the solutions unchanged, a row with zero coefficients but a nonzero constant signals incompatible constraints, and pivots reveal which quantities are determined from others. Free variables indicate that the equations as modeled leave degrees of freedom, prompting a check for a missing component law or measurement rather than an unsupported claim of a unique circuit state.\n\nAssume exact component values, linear resistors, a steady-state model, and compatible ideal laws. An inconsistency under these assumptions usually calls for checking signs, units, topology, or data; row reduction alone cannot identify which input is wrong. It also does not model nonlinear devices, changing signals, or measurement uncertainty. For a physically complete model, all relevant constraints must be included, and results should be substituted into the original equations. The transferable practice is to encode the model carefully, eliminate without dropping constants, and interpret pivots only after distinguishing coefficient columns from the augmented column."
+        ],
+        "misconceptions": [
+          "## Misconception: Row operations may be applied only to coefficient entries\n\nThe mistaken idea is that row operations may change coefficient entries while leaving the right-hand constants alone. It is tempting because pivot work is visually focused on the coefficient columns, and students may think the final column is merely a record for later. Diagnostic example: subtract the equation $x=2$ from $x=3$. What should the resulting row say? Subtracting the entire augmented rows gives $0=1$, correctly exposing inconsistency; changing only the coefficients would erase the contradiction and falsely suggest no new information.\n\nThe correction is that each row encodes one complete equation, so every row swap, nonzero scaling, or row replacement must act on all coefficients and the constant. These operations are reversible, which is why the transformed system has precisely the same solutions. If only part of a row is changed, that equivalence argument fails; the result need not represent the original system.",
+          "## Misconception: Row-echelon form requires pivots to be $1$ and zeros above them\n\nThe mistaken idea is that a matrix is in row-echelon form only after every pivot is scaled to $1$ and all entries above each pivot are zero. This is tempting because many presentations continue from echelon form to reduced row-echelon form, and both have pivots. Diagnostic question: Does the matrix $\\left[\\begin{array}{cc|c}1&4&5\\\\0&2&6\\end{array}\\right]$ satisfy row-echelon requirements? Yes: the second leading entry is to the right of the first, and entries below each pivot are zero. The pivot $2$ need not be $1$, and the $4$ above it may remain nonzero.\n\nThe correction is to distinguish the forms: row-echelon form permits nonunit pivots and entries above pivots; reduced row-echelon form imposes additional normalization and clearing conditions. For solving a system, echelon form is enough because back-substitution handles the remaining entries.",
+          "## Misconception: The number of equations and variables determines the solution type\n\nThe mistaken idea is that a square system must have one solution, or that more equations than unknowns must be inconsistent. This is tempting because equation counts look like counts of constraints, and introductory algebra problems often give one equation per unknown. Diagnostic example: compare the two-equation, two-unknown systems $x+y=1$, $2x+2y=2$ and $x+y=1$, $2x+2y=3$. The first has a repeated constraint and infinitely many solutions; the second has incompatible constraints and none. The number of rows alone cannot distinguish them.\n\nThe correction is to row-reduce the augmented matrix: a contradictory row with zero coefficients signals inconsistency; otherwise, count pivots in coefficient columns. A pivot in every variable column gives a unique solution, while any free variable gives infinitely many solutions for a consistent real system. The relevant information is consistency plus pivots, not whether the matrix is square."
+        ],
+        "extension": "# Optional advanced extension: What elimination preserves\n\n**Extra assumptions.** This extension assumes comfort with interpreting an echelon form and basic set notation. It previews the terms *rank*, *kernel*, and *affine solution set*, which are not needed to complete this lecture’s objectives and will be developed further later.\n\nAn augmented matrix is not merely a compact way to store coefficients. It records a collection of equations, and a row operation replaces that collection with an equivalent one. More precisely, for a system $Ax=b$, an elementary row operation corresponds to multiplication by an invertible matrix $E$. Applying it to the augmented matrix gives $[EA\\mid Eb]$. Because $E$ has an inverse, a vector $x$ satisfies $Ax=b$ exactly when it satisfies $EAx=Eb$. This explains why carrying the augmented column through every operation is logically essential: the right-hand side is part of the equation being transformed. The equations’ appearance can change even though their common solution set does not.\n\nThis equivalence has a geometric interpretation. Each equation in $n$ variables describes a hyperplane in $\\mathbb{R}^n$, and a system’s solutions are the points shared by all of its hyperplanes. Row operations replace the equations used to describe that intersection; they do not move the intersection itself. A contradictory row, such as one stating $0=1$, certifies that the intersection is empty. A redundant equation may add no new restriction, so its presence does not necessarily change the intersection. This viewpoint explains why the number of displayed equations alone does not determine whether a system has a unique solution.\n\nThe pivot pattern reveals how many independent restrictions remain after redundancy is accounted for. If the coefficient matrix has $n$ columns and $r$ pivot columns, then $r$ variables are leading variables and $n-r$ are free variables. For a consistent system, each free variable can be chosen independently, and the leading variables are then determined by those choices. In the language of rank, $r$ is the rank of the coefficient matrix. Thus consistency and the pivot pattern together describe not only whether solutions exist, but also how many independent parameters are needed to describe them. If there is a pivot in the augmented column, the system is inconsistent instead; counting free variables as if a solution existed would then be meaningless.\n\nThere is a deeper connection behind this parameter count. The kernel of $A$ is the set $\\ker(A)=\\{z:Az=0\\}$. If $x_p$ is one solution to $Ax=b$, then every solution has the form $x_p+z$ for some $z\\in\\ker(A)$, and every such vector is a solution. Indeed, $A(x_p+z)=Ax_p+Az=b+0=b$. Conversely, the difference between any two solutions is in the kernel. So a consistent solution set is a translated copy of the homogeneous solution set. It is a subspace when $b=0$; for general $b$, it is an affine set and need not contain the zero vector. In finite dimensions, the pivot count says that this set has $n-r$ independent directions.\n\nA final distinction helps prevent a common conceptual mistake. Row operations transform equations while preserving the same unknown coordinates. Column operations generally alter how the unknowns enter the equations, so they do not preserve the original solution set unless they are accompanied by a correctly tracked change of variables. The augmented column also cannot be treated as an ordinary coefficient column for a variable: it represents the right-hand side, not another unknown. These distinctions make the matrix notation precise rather than merely convenient.\n\nThis extension anticipates a useful bridge to span and subspaces. If the columns of $A$ are $a_1,\\ldots,a_n$, then $Ax=x_1a_1+\\cdots+x_na_n$. Consequently, the system is consistent exactly when $b$ is a linear combination of the columns of $A$. Elimination therefore offers a computational test for a geometric membership question—a connection that becomes central in the next lecture.",
+        "summary": "# Summary\n\nThis lecture builds on the first lecture’s introduction to vectors, linear systems, and the possible shapes of solution sets. The prerequisite college-algebra skills—solving equations and manipulating expressions—support the calculations, while the earlier geometric view helps explain why a system can have no solution, one solution, or many. Matrix notation gives a compact way to record those equations, and Gaussian elimination provides a systematic way to expose their structure.\n\nThe key interpretive step is to read the echelon form, not just produce it. Carrying the augmented column through each row operation preserves the system’s solutions. Pivots identify leading variables, free variables describe remaining choices, and a contradictory row signals inconsistency. These ideas turn row reduction into a method for describing a complete solution set and checking whether a proposed answer fits the original equations.\n\nThe next planned lecture, **Linear combinations, span, and subspaces**, extends this work from solving equations to asking whether a vector can be built from given vectors. In matrix language, consistency of $Ax=b$ is equivalent to asking whether $b$ lies in the span of the columns of $A$. That connection links elimination with linear combinations and sets up the subspace tests that follow. The habit of translating between equations, matrices, and solution structure will continue to support later work with independence, bases, and transformations.",
+        "practice": {
+          "prompt": "## Transfer task: Calibrating a three-variable model\n\n**Estimated time: 25 minutes.** A calibration model has three unknown adjustments, $u$, $v$, and $w$, and four exact constraints. The measurements depend on a real parameter $\\delta$:\n\n$$\n\\begin{aligned}\nu+v+w&=4,\\\\\n2u-v+3w&=3,\\\\\n3u+4w&=7,\\\\\n4u+v+5w&=11+\\delta.\n\\end{aligned}\n$$\n\nUse the variable order $(u,v,w)$ throughout. Assume exact arithmetic.\n\n1. Write the augmented matrix and use elementary row operations to reduce it to row-echelon form. Show the row operations and apply each operation to the entire augmented row.\n2. For every $\\delta\\in\\mathbb{R}$, determine whether the system is consistent. For each case, state whether it has no solutions, one solution, or infinitely many solutions. Justify your classification using the echelon form.\n3. Whenever the system is consistent, give a parameterization of its complete solution set. Identify the pivot and free variables.\n4. An analyst claims that changing $\\delta$ merely changes the adjustment values while preserving all four constraints. Assess this claim. Verify your parameterization in the original equations and explain what the fourth equation requires for consistency.",
+          "learningOutcome": "Use pivot and free-variable information to state whether a system is consistent and describe its solution structure.",
+          "points": 12,
+          "hints": [
+            "Start by placing the coefficients of $u$, $v$, and $w$ in that order, with the constants in the final column. Keep $\\delta$ symbolic.",
+            "Use the first row to eliminate the $u$-entries below its pivot. Compare the resulting coefficient entries in the last three rows.",
+            "After the first elimination, subtract the transformed second row from each of the transformed third and fourth rows. Inspect both the coefficient entries and the final entries.",
+            "If the system is consistent, choose the variable whose coefficient column has no pivot as a parameter. Solve the remaining equations in reverse pivot order, then check the result in all four original equations."
+          ],
+          "solution": "## Worked response\n\n### 1. Form the augmented matrix and eliminate\n\nIn the variable order $(u,v,w)$, the augmented matrix is\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&4\\\\\n2&-1&3&3\\\\\n3&0&4&7\\\\\n4&1&5&11+\\delta\n\\end{array}\\right].\n$$\n\nApply $R_2\\leftarrow R_2-2R_1$, $R_3\\leftarrow R_3-3R_1$, and $R_4\\leftarrow R_4-4R_1$. Applying each operation to the entire augmented row gives\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&4\\\\\n0&-3&1&-5\\\\\n0&-3&1&-5\\\\\n0&-3&1&\\delta-5\n\\end{array}\\right].\n$$\n\nNow apply $R_3\\leftarrow R_3-R_2$ and $R_4\\leftarrow R_4-R_2$:\n\n$$\n\\left[\\begin{array}{ccc|c}\n1&1&1&4\\\\\n0&-3&1&-5\\\\\n0&0&0&0\\\\\n0&0&0&\\delta\n\\end{array}\\right].\n$$\n\nIf $\\delta\\ne 0$, swap rows 3 and 4 to put the nonzero row above the zero row. If $\\delta=0$, the last two rows are both zero rows. Thus the echelon form contains a row representing $0=\\delta$.\n\n### 2. Classify the system for every $\\delta$\n\n- If $\\delta\\ne 0$, the row $[0\\quad 0\\quad 0\\mid\\delta]$ represents the contradiction $0=\\delta$. The system is inconsistent and has **no solutions**.\n- If $\\delta=0$, there is no contradictory row. The coefficient columns for $u$ and $v$ have pivots, while the $w$-column has no pivot. Therefore $w$ is free, and the consistent system has **infinitely many solutions**.\n\nThere is no value of $\\delta$ for which this system has a unique solution: when it is consistent, it has a free variable.\n\n### 3. Parameterize the consistent case\n\nSet $\\delta=0$ and let the free variable be $w=t$, where $t\\in\\mathbb{R}$. The second nonzero row gives\n\n$$\n-3v+w=-5,\n$$\n\nso $v=(5+t)/3$. The first row gives $u+v+w=4$, and hence $u=(7-4t)/3$. Therefore the complete solution set is\n\n$$\n(u,v,w)=\\left(\\frac{7-4t}{3},\\frac{5+t}{3},t\\right),\\qquad t\\in\\mathbb{R}.\n$$\n\nThe pivot variables are $u$ and $v$, and the free variable is $w$.\n\n### 4. Interpret and verify\n\nThe fourth coefficient row is the sum of twice the first coefficient row and the second coefficient row:\n\n$$\n2(1,1,1)+(2,-1,3)=(4,1,5).\n$$\n\nAccordingly, the first two equations require the left-hand side of the fourth equation to equal $2(4)+3=11$. The fourth equation is compatible with them only when $11+\\delta=11$, or $\\delta=0$. Thus the analyst's claim is false: when $\\delta\\ne0$, no adjustments satisfy all four exact constraints.\n\nFor $\\delta=0$, substitute the parameterization into the original left-hand sides:\n\n$$\nu+v+w=4,\\qquad 2u-v+3w=3,\\qquad 3u+4w=7,\\qquad 4u+v+5w=11.\n$$\n\nEach equality holds for every real $t$, so the parameterization satisfies all four equations. The free parameter also shows that it includes infinitely many solutions.",
+          "rubric": [
+            "**2 points — Augmented matrix:** Correctly records all three variable coefficients and the parameterized right-hand side in the stated variable order.",
+            "**3 points — Elimination:** Shows valid row operations on entire augmented rows and obtains rows equivalent to $[1\\ 1\\ 1\\mid4]$, $[0\\ -3\\ 1\\mid-5]$, $[0\\ 0\\ 0\\mid0]$, and $[0\\ 0\\ 0\\mid\\delta]$.",
+            "**2 points — Consistency and solution structure:** Correctly concludes that $\\delta\\ne0$ gives no solutions and $\\delta=0$ gives infinitely many solutions, with justification from the echelon form and pivot information.",
+            "**3 points — Parameterization:** For $\\delta=0$, identifies $w$ as free, solves for the pivot variables, and gives the complete solution set $\\left(\\frac{7-4t}{3},\\frac{5+t}{3},t\\right)$ for $t\\in\\mathbb{R}$.",
+            "**2 points — Interpretation and verification:** Explains why the fourth equation requires $\\delta=0$ and checks the parameterized solution against the original equations."
+          ]
+        }
+      }
+    }
+  ],
+  "lecturePlan": [
+    {
+      "id": "L01",
+      "number": 1,
+      "title": "Vectors, linear systems, and solution sets",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Introduce vectors and linear systems, interpret equations geometrically, and distinguish possible solution-set structures.",
+      "objectives": [
+        "Translate a small system of linear equations into a vector or matrix description.",
+        "Classify simple systems as having no solution, a unique solution, or multiple solutions from their equations or geometric representation."
+      ],
+      "concepts": [
+        "Vectors and linear systems"
+      ]
+    },
+    {
+      "id": "L02",
+      "number": 2,
+      "title": "Matrices and Gaussian elimination",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Represent systems with augmented matrices and use elementary row operations to reach and interpret row-echelon forms.",
+      "objectives": [
+        "Perform elementary row operations and reduce a small augmented matrix to row-echelon form.",
+        "Use pivot and free-variable information to state whether a system is consistent and describe its solution structure."
+      ],
+      "concepts": [
+        "Matrix notation and row operations",
+        "Gaussian elimination"
+      ]
+    },
+    {
+      "id": "L03",
+      "number": 3,
+      "title": "Linear combinations, span, and subspaces",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Use linear combinations to describe spans and introduce tests for subspaces of finite-dimensional real vector spaces.",
+      "objectives": [
+        "Determine whether a vector belongs to the span of a given finite list by solving a linear system.",
+        "Apply the subspace test to specified subsets of familiar real vector spaces."
+      ],
+      "concepts": [
+        "Linear combinations and span",
+        "Subspaces"
+      ]
+    },
+    {
+      "id": "L04",
+      "number": 4,
+      "title": "Independence, bases, and dimension",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Test linear independence and identify bases and dimensions using equations, spanning sets, and row reduction.",
+      "objectives": [
+        "Test whether a finite set of vectors is linearly independent by solving the associated homogeneous system.",
+        "Find a basis and state the dimension for selected subspaces presented by spanning vectors or simple constraints."
+      ],
+      "concepts": [
+        "Linear independence",
+        "Basis and dimension"
+      ]
+    },
+    {
+      "id": "L05",
+      "number": 5,
+      "title": "Linear transformations and matrix representations",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Define linear transformations, represent them by matrices relative to standard bases, and connect composition to matrix multiplication.",
+      "objectives": [
+        "Check whether a specified rule between real vector spaces is a linear transformation.",
+        "Construct the standard matrix of a transformation from its action on basis vectors and compute a composition using matrices."
+      ],
+      "concepts": [
+        "Linear transformations and matrix representations"
+      ]
+    },
+    {
+      "id": "L06",
+      "number": 6,
+      "title": "Kernel, image, and rank–nullity",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Find kernels and images using matrices, relate them to subspaces, and apply rank–nullity to finite-dimensional examples; consolidate material for the midterm after this lecture.",
+      "objectives": [
+        "Compute a basis for the kernel and a spanning set or basis for the image of a specified matrix transformation.",
+        "Use the rank–nullity theorem to determine a missing dimension and check the result against a small example."
+      ],
+      "concepts": [
+        "Kernel and image",
+        "Rank-nullity theorem"
+      ]
+    },
+    {
+      "id": "L07",
+      "number": 7,
+      "title": "Determinants and invertibility",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Compute determinants of small matrices and use determinant properties to characterize invertibility and relate it to elimination.",
+      "objectives": [
+        "Compute determinants of small matrices using row operations or cofactor expansion.",
+        "Use the determinant and pivot information to determine whether a square matrix is invertible."
+      ],
+      "concepts": [
+        "Determinants and invertibility"
+      ]
+    },
+    {
+      "id": "L08",
+      "number": 8,
+      "title": "Eigenvalues and eigenspaces",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Find eigenvalues from the characteristic equation and determine eigenspaces by solving homogeneous systems.",
+      "objectives": [
+        "Compute the characteristic polynomial and eigenvalues of a small square matrix.",
+        "Find a basis for each requested eigenspace by solving the corresponding homogeneous system."
+      ],
+      "concepts": [
+        "Eigenvalues and eigenvectors"
+      ]
+    },
+    {
+      "id": "L09",
+      "number": 9,
+      "title": "Diagonalization",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Use eigenvectors and basis criteria to test diagonalizability and, when possible, construct a diagonalization.",
+      "objectives": [
+        "Determine whether a small matrix has enough linearly independent eigenvectors to be diagonalizable.",
+        "Construct and verify a factorization of the form A = PDP⁻¹ when a diagonalization exists."
+      ],
+      "concepts": [
+        "Diagonalization"
+      ]
+    },
+    {
+      "id": "L10",
+      "number": 10,
+      "title": "Inner products, orthogonality, and projections",
+      "durationMinutes": 75,
+      "role": "Core",
+      "summary": "Introduce real inner products, orthogonality, and projection onto a vector or a subspace with an orthogonal basis.",
+      "objectives": [
+        "Compute inner products and test orthogonality for specified vectors.",
+        "Calculate the orthogonal projection of a vector onto a line or a subspace with a supplied orthogonal basis."
+      ],
+      "concepts": [
+        "Inner products and orthogonality",
+        "Orthogonal projections"
+      ]
+    },
+    {
+      "id": "L11",
+      "number": 11,
+      "title": "Least-squares solutions",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Use projections and the normal equations to find and interpret least-squares solutions to inconsistent systems.",
+      "objectives": [
+        "Form the normal equations for a small overdetermined system.",
+        "Compute a least-squares solution and verify that its residual is orthogonal to the column space."
+      ],
+      "concepts": [
+        "Least-squares solutions"
+      ]
+    },
+    {
+      "id": "L12",
+      "number": 12,
+      "title": "Cumulative synthesis and applications",
+      "durationMinutes": 75,
+      "role": "Practice",
+      "summary": "Select and combine course methods in short applications and review cumulative connections; the cumulative final is scheduled after this lecture.",
+      "objectives": [
+        "Select an appropriate method from the course to solve a supplied finite-dimensional linear algebra problem and justify the choice.",
+        "Complete a cumulative problem connecting at least two course topics and check the result using a relevant definition or computation."
+      ],
+      "concepts": [
+        "Integrated linear-algebra modeling"
+      ]
+    }
+  ],
+  "conceptDependencies": [
+    {
+      "concept": "Vectors and linear systems",
+      "prerequisiteConcepts": [],
+      "lectureNumber": 1
+    },
+    {
+      "concept": "Matrix notation and row operations",
+      "prerequisiteConcepts": [
+        "Vectors and linear systems"
+      ],
+      "lectureNumber": 2
+    },
+    {
+      "concept": "Gaussian elimination",
+      "prerequisiteConcepts": [
+        "Matrix notation and row operations"
+      ],
+      "lectureNumber": 2
+    },
+    {
+      "concept": "Linear combinations and span",
+      "prerequisiteConcepts": [
+        "Vectors and linear systems"
+      ],
+      "lectureNumber": 3
+    },
+    {
+      "concept": "Subspaces",
+      "prerequisiteConcepts": [
+        "Linear combinations and span"
+      ],
+      "lectureNumber": 3
+    },
+    {
+      "concept": "Linear independence",
+      "prerequisiteConcepts": [
+        "Linear combinations and span"
+      ],
+      "lectureNumber": 4
+    },
+    {
+      "concept": "Basis and dimension",
+      "prerequisiteConcepts": [
+        "Subspaces",
+        "Linear independence"
+      ],
+      "lectureNumber": 4
+    },
+    {
+      "concept": "Linear transformations and matrix representations",
+      "prerequisiteConcepts": [
+        "Matrix notation and row operations",
+        "Basis and dimension"
+      ],
+      "lectureNumber": 5
+    },
+    {
+      "concept": "Kernel and image",
+      "prerequisiteConcepts": [
+        "Linear transformations and matrix representations",
+        "Subspaces"
+      ],
+      "lectureNumber": 6
+    },
+    {
+      "concept": "Rank-nullity theorem",
+      "prerequisiteConcepts": [
+        "Kernel and image",
+        "Basis and dimension"
+      ],
+      "lectureNumber": 6
+    },
+    {
+      "concept": "Determinants and invertibility",
+      "prerequisiteConcepts": [
+        "Matrix notation and row operations",
+        "Gaussian elimination"
+      ],
+      "lectureNumber": 7
+    },
+    {
+      "concept": "Eigenvalues and eigenvectors",
+      "prerequisiteConcepts": [
+        "Determinants and invertibility",
+        "Linear transformations and matrix representations"
+      ],
+      "lectureNumber": 8
+    },
+    {
+      "concept": "Diagonalization",
+      "prerequisiteConcepts": [
+        "Eigenvalues and eigenvectors",
+        "Basis and dimension"
+      ],
+      "lectureNumber": 9
+    },
+    {
+      "concept": "Inner products and orthogonality",
+      "prerequisiteConcepts": [
+        "Vectors and linear systems",
+        "Linear combinations and span"
+      ],
+      "lectureNumber": 10
+    },
+    {
+      "concept": "Orthogonal projections",
+      "prerequisiteConcepts": [
+        "Inner products and orthogonality",
+        "Subspaces"
+      ],
+      "lectureNumber": 10
+    },
+    {
+      "concept": "Least-squares solutions",
+      "prerequisiteConcepts": [
+        "Orthogonal projections",
+        "Gaussian elimination"
+      ],
+      "lectureNumber": 11
+    },
+    {
+      "concept": "Integrated linear-algebra modeling",
+      "prerequisiteConcepts": [
+        "Rank-nullity theorem",
+        "Diagonalization",
+        "Least-squares solutions"
+      ],
+      "lectureNumber": 12
+    }
+  ],
+  "assessmentBlueprint": [
+    {
+      "kind": "assignment",
+      "title": "Systems and vector-space foundations",
+      "coverage": "Individual problem set covering material from lectures 1–4: Gaussian elimination, solution structure, spans, subspaces, independence, bases, and dimension.",
+      "scheduledAfterLecture": 4,
+      "learningOutcomes": [
+        "Solve finite systems of linear equations using Gaussian elimination, and verify consistency and solution structure.",
+        "Determine whether a specified subset is a subspace and compute spans, linear independence, bases, and dimensions in finite-dimensional real vector spaces."
+      ],
+      "questionCount": 8
+    },
+    {
+      "kind": "midterm",
+      "title": "Midterm: foundations through rank–nullity",
+      "coverage": "Assesses lectures 1–6, including systems and elimination, vector spaces, bases and dimension, linear transformations, kernels, images, and rank–nullity. Scheduled after lecture 6.",
+      "scheduledAfterLecture": 6,
+      "learningOutcomes": [
+        "Solve finite systems of linear equations using Gaussian elimination, and verify consistency and solution structure.",
+        "Determine whether a specified subset is a subspace and compute spans, linear independence, bases, and dimensions in finite-dimensional real vector spaces.",
+        "Represent linear transformations with matrices, compute kernels and images, and apply the rank–nullity theorem to finite-dimensional examples."
+      ],
+      "questionCount": 6
+    },
+    {
+      "kind": "final",
+      "title": "Cumulative final examination",
+      "coverage": "Cumulative assessment of lectures 1–12, including systems, vector spaces, transformations, determinants, eigenstructure, diagonalization, orthogonality, projections, and least squares. Scheduled after lecture 12.",
+      "scheduledAfterLecture": 12,
+      "learningOutcomes": [
+        "Work with vector spaces, linear transformations, matrices, and eigenvalues.",
+        "Solve finite systems of linear equations using Gaussian elimination, and verify consistency and solution structure.",
+        "Determine whether a specified subset is a subspace and compute spans, linear independence, bases, and dimensions in finite-dimensional real vector spaces.",
+        "Represent linear transformations with matrices, compute kernels and images, and apply the rank–nullity theorem to finite-dimensional examples.",
+        "Compute determinants, eigenvalues, and eigenspaces of small matrices, and test whether a matrix is diagonalizable.",
+        "Compute orthogonal projections and least-squares solutions for finite-dimensional real inner-product examples."
+      ],
+      "questionCount": 8
+    }
+  ],
+  "scopeLimits": [
+    "Assumption: the map uses twelve 75-minute lectures in a standard undergraduate term; local calendar length and contact-hour rules may differ.",
+    "Assumption: examples use finite-dimensional real vector spaces and small matrices suitable for hand calculation unless an instructor adds computational tools.",
+    "Scope limit: the plan emphasizes foundational computation and reasoning; it does not cover abstract vector spaces over arbitrary fields, canonical forms, advanced spectral theory, or numerical linear algebra in depth.",
+    "Scope limit: applications are illustrative rather than tailored to a specific major or discipline.",
+    "This is a proposed course map; alignment with local catalog, calendar, or accreditation requirements has not been independently checked."
+  ],
+  "assessments": [],
+  "contentReviewStatus": "draft"
+}

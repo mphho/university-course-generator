@@ -100,12 +100,30 @@ claim the content has been verified.""",
             content_review_status="draft",
         )
 
-    async def generate_next_lecture(self, course: Course) -> Course:
+    async def generate_next_lecture(
+        self,
+        course: Course,
+        lecture_id: str | None = None,
+    ) -> Course:
         generated_ids = {lecture.id for lecture in course.lectures if lecture.content is not None}
-        lecture_plan = next(
-            (item for item in course.lecture_plan if item.id not in generated_ids),
-            None,
-        )
+        if lecture_id is None:
+            lecture_plan = next(
+                (item for item in course.lecture_plan if item.id not in generated_ids),
+                None,
+            )
+        else:
+            lecture_plan = next(
+                (item for item in course.lecture_plan if item.id == lecture_id),
+                None,
+            )
+            if lecture_plan is None:
+                raise ApiError(404, ErrorCode.NOT_FOUND, f"Lecture '{lecture_id}' was not found.")
+            if lecture_id in generated_ids:
+                raise ApiError(
+                    409,
+                    ErrorCode.CONFLICT,
+                    f"Lecture '{lecture_id}' already has generated content.",
+                )
         if lecture_plan is None:
             return course
 

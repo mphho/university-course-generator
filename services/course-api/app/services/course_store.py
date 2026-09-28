@@ -1,5 +1,6 @@
 import hashlib
 import json
+import logging
 import os
 import re
 import tempfile
@@ -8,11 +9,14 @@ from pathlib import Path
 from app.data.calculus_101 import CALCULUS_101
 from app.models.course import Course
 
+logger = logging.getLogger(__name__)
+
 
 class CourseStore:
     def __init__(self, archive_directory: Path | None = None) -> None:
         self._courses: dict[str, Course] = {CALCULUS_101.id: CALCULUS_101.model_copy(deep=True)}
         self._archive_directory = archive_directory
+        self._load_snapshots()
 
     def list_courses(self) -> list[Course]:
         return [course.model_copy(deep=True) for course in self._courses.values()]
@@ -26,6 +30,18 @@ class CourseStore:
         if self._archive_directory is not None:
             self._write_snapshot(stored_course)
         self._courses[course.id] = stored_course
+
+    def _load_snapshots(self) -> None:
+        if self._archive_directory is None or not self._archive_directory.is_dir():
+            return
+
+        for snapshot_path in sorted(self._archive_directory.glob("*.json")):
+            try:
+                course = Course.model_validate_json(snapshot_path.read_text(encoding="utf-8"))
+            except (OSError, ValueError) as error:
+                logger.warning("Skipping invalid course snapshot %s: %s", snapshot_path, error)
+                continue
+            self._courses[course.id] = course
 
     def _write_snapshot(self, course: Course) -> None:
         self._archive_directory.mkdir(parents=True, exist_ok=True)

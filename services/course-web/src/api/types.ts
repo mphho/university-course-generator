@@ -19,7 +19,7 @@ export interface ApiClient {
   generateCourse(input: CourseBriefInput, generationId?: string): Promise<CourseResponse>;
   getGenerationProgress(generationId: string, after: number): Promise<GenerationProgressResponse>;
   importCourse(course: unknown): Promise<CourseResponse>;
-  generateNextLecture(courseId: string): Promise<CourseResponse>;
+  generateNextLecture(courseId: string, lectureId?: string, generationId?: string): Promise<CourseResponse>;
   generateAssignment(courseId: string, input: AssignmentRequest): Promise<AssignmentResponse>;
   generateMidterm(courseId: string, input: ExamRequest): Promise<ExamResponse>;
   generateFinal(courseId: string, input: FinalExamRequest): Promise<ExamResponse>;

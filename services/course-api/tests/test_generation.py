@@ -11,7 +11,7 @@ from app.config import Settings, get_settings
 from app.data.calculus_101 import CALCULUS_101
 from app.errors import ApiError
 from app.main import app
-from app.models.course import CourseBriefRequest
+from app.models.course import Course, CourseBriefRequest
 from app.models.generation import (
     AssessmentBlueprintItem,
     ConceptDependency,
@@ -585,3 +585,60 @@ def test_generate_next_lecture_completes_test_mode_course_without_duplicates() -
     assert completed_response.status_code == 200
     assert len(completed_response.json()["course"]["lectures"]) == 12
     assert len(response_client.prompts) == 99
+
+
+def test_generate_next_lecture_can_target_a_specific_missing_lecture() -> None:
+    plan = make_plan()
+    first_lecture = GenerationService._lecture_from_plan(
+        plan.lecture_plan[0],
+        asyncio.run(
+            GenerationService(
+                Settings(openai_api_key="test-key"),
+                QueueJsonClient(make_staged_responses()),
+            )._generate_lecture_content(
+                title="Linear Algebra",
+                learning_outcomes=plan.learning_outcomes,
+                prerequisites=plan.prerequisites,
+                lecture_plan=plan.lecture_plan,
+                lecture=plan.lecture_plan[0],
+            )
+        ),
+    )
+    course = Course(
+        id="linear-algebra",
+        title="Linear Algebra",
+        course_code="MATH 221",
+        level="Undergraduate",
+        description=plan.description,
+        learner_profile=plan.learner_profile,
+        prerequisites=plan.prerequisites,
+        learning_outcomes=plan.learning_outcomes,
+        units=plan.units,
+        lectures=[first_lecture],
+        lecture_plan=plan.lecture_plan,
+        concept_dependencies=plan.concept_dependencies,
+        assessment_blueprint=plan.assessment_blueprint,
+        scope_limits=plan.scope_limits,
+        assessments=[],
+        content_review_status="draft",
+    )
+    store = CourseStore()
+    store.add_course(course)
+    client = QueueJsonClient(make_staged_responses())
+    generation = GenerationService(Settings(openai_api_key="test-key"), client)
+    app.dependency_overrides[get_course_store] = lambda: store
+    app.dependency_overrides[get_generation_service] = lambda: generation
+
+    try:
+        response = TestClient(app).post(
+            f"/api/courses/{course.id}/lectures/generate-next?lectureId=lecture-03",
+            headers={"X-Generation-ID": "27a29ed7-7860-4bb7-99a4-9c60d2b6465f"},
+        )
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 200
+    generated = response.json()["course"]["lectures"]
+    assert {lecture["id"] for lecture in generated} == {"lecture-01", "lecture-03"}
+    assert generated[0]["id"] == "lecture-01"
+    assert generated[1]["id"] == "lecture-03"

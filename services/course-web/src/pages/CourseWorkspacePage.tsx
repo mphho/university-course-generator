@@ -38,12 +38,44 @@ import remarkMath from 'remark-math';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../api';
 import { AssessmentCard } from '../components/AssessmentCard';
+import { CourseGenerationDialog } from '../components/CourseGenerationDialog';
 import { DataStatePanel, type DataStatus } from '../components/DataStatePanel';
 import { exportCourse, type CourseExportFormat } from '../utils/courseExport';
-import type { Assessment, Course, ExamRequest, FinalExamRequest, Lecture, LecturePlanItem } from '../types/course';
+import type {
+  Assessment,
+  Course,
+  ExamRequest,
+  FinalExamRequest,
+  GenerationActivity,
+  GenerationProgressResponse,
+  Lecture,
+  LecturePlanItem,
+} from '../types/course';
 
 type WorkspaceTab = 'overview' | 'assignments' | 'midterms' | 'final';
 type LectureEntry = { plan: LecturePlanItem | Lecture; lecture?: Lecture };
+
+function mergeLectureGenerationEvents(
+  current: GenerationActivity[],
+  progress: GenerationProgressResponse,
+): GenerationActivity[] {
+  const activities = new Map(current.map((activity) => [activity.id, activity]));
+  for (const event of progress.events) {
+    const previous = activities.get(event.activity.id);
+    if (previous) {
+      activities.set(event.activity.id, { ...previous, ...event.activity });
+    } else if (
+      event.activity.label
+      && event.activity.method
+      && event.activity.url
+      && event.activity.status
+      && event.activity.startedAt
+    ) {
+      activities.set(event.activity.id, event.activity as GenerationActivity);
+    }
+  }
+  return [...activities.values()];
+}
 
 export function CourseWorkspacePage() {
   const navigate = useNavigate();
@@ -58,10 +90,16 @@ export function CourseWorkspacePage() {
   const [generationError, setGenerationError] = useState('');
   const [lectureGenerationError, setLectureGenerationError] = useState('');
   const [lectureGenerationProgress, setLectureGenerationProgress] = useState<{ completed: number; total: number } | null>(null);
+  const [lectureGenerationId, setLectureGenerationId] = useState('');
+  const [lectureProviderProgress, setLectureProviderProgress] = useState<GenerationProgressResponse | null>(null);
+  const [lectureProviderActivities, setLectureProviderActivities] = useState<GenerationActivity[]>([]);
+  const [activeLecturePlan, setActiveLecturePlan] = useState<LecturePlanItem | null>(null);
+  const [activeLectureRequestUrl, setActiveLectureRequestUrl] = useState('');
   const [exchangeError, setExchangeError] = useState('');
   const [latestGenerated, setLatestGenerated] = useState<Assessment | null>(null);
   const [selectedLectureId, setSelectedLectureId] = useState('');
   const importFileRef = useRef<HTMLInputElement>(null);
+  const lectureProgressRevision = useRef(0);
 
   useEffect(() => {
     let active = true;
@@ -83,6 +121,36 @@ export function CourseWorkspacePage() {
       });
     return () => { active = false; };
   }, [courseId, retryIndex]);
+
+  useEffect(() => {
+    if (!generatingLectures || !lectureGenerationId) return undefined;
+    let active = true;
+    let polling = false;
+    const pollProgress = async () => {
+      if (polling) return;
+      polling = true;
+      try {
+        const progress = await api.getGenerationProgress(
+          lectureGenerationId,
+          lectureProgressRevision.current,
+        );
+        if (!active) return;
+        lectureProgressRevision.current = progress.revision;
+        setLectureProviderProgress(progress);
+        setLectureProviderActivities((current) => mergeLectureGenerationEvents(current, progress));
+      } catch {
+        // Retry on the next interval if the tracking record has not been created yet.
+      } finally {
+        polling = false;
+      }
+    };
+    void pollProgress();
+    const intervalId = window.setInterval(() => void pollProgress(), 1000);
+    return () => {
+      active = false;
+      window.clearInterval(intervalId);
+    };
+  }, [generatingLectures, lectureGenerationId]);
 
   async function generateAssignment(): Promise<void> {
     const topic = course?.lectures[0]?.title
@@ -126,8 +194,13 @@ export function CourseWorkspacePage() {
     setLectureGenerationError('');
     setLectureGenerationProgress({ completed: 0, total: remaining });
     try {
-      for (let index = 0; index < remaining; index += 1) {
-        const response = await api.generateNextLecture(courseId);
+      const remainingPlans = course.lecturePlan?.filter((plan) =>
+        !course.lectures.some((lecture) => lecture.id === plan.id && lecture.content),
+      ) ?? [];
+      for (let index = 0; index < remainingPlans.length; index += 1) {
+        const plan = remainingPlans[index];
+        const generationId = prepareLectureRequest(plan);
+        const response = await api.generateNextLecture(courseId, plan.id, generationId);
         setCourse(response.course);
         setLectureGenerationProgress({ completed: index + 1, total: remaining });
         if (response.course.lecturePlan?.every((plan) =>
@@ -139,6 +212,37 @@ export function CourseWorkspacePage() {
     } finally {
       setGeneratingLectures(false);
     }
+  }
+
+  async function generateSingleLecture(lectureId: string): Promise<void> {
+    const plan = course?.lecturePlan?.find((item) => item.id === lectureId);
+    if (!course || !plan || generatingLectures || generating) return;
+    setGeneratingLectures(true);
+    setLectureGenerationError('');
+    setLectureGenerationProgress({ completed: 0, total: 1 });
+    setSelectedLectureId(plan.id);
+    try {
+      const generationId = prepareLectureRequest(plan);
+      const response = await api.generateNextLecture(courseId, plan.id, generationId);
+      setCourse(response.course);
+      setLectureGenerationProgress({ completed: 1, total: 1 });
+    } catch (error: unknown) {
+      setLectureGenerationError(error instanceof Error ? error.message : 'Lecture generation did not complete.');
+    } finally {
+      setGeneratingLectures(false);
+    }
+  }
+
+  function prepareLectureRequest(plan: LecturePlanItem): string {
+    const generationId = window.crypto.randomUUID();
+    const url = `/api/courses/${encodeURIComponent(courseId)}/lectures/generate-next?lectureId=${encodeURIComponent(plan.id)}`;
+    lectureProgressRevision.current = 0;
+    setLectureGenerationId(generationId);
+    setLectureProviderProgress(null);
+    setLectureProviderActivities([]);
+    setActiveLecturePlan(plan);
+    setActiveLectureRequestUrl(url);
+    return generationId;
   }
 
   async function downloadCourse(format: CourseExportFormat): Promise<void> {
@@ -399,6 +503,7 @@ export function CourseWorkspacePage() {
                             <TableHeaderCell>Duration</TableHeaderCell>
                             <TableHeaderCell>Focus</TableHeaderCell>
                             <TableHeaderCell>Notes</TableHeaderCell>
+                            <TableHeaderCell>Action</TableHeaderCell>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -428,6 +533,24 @@ export function CourseWorkspacePage() {
                                 <Badge appearance="tint" color={lecture?.content ? 'success' : 'subtle'}>
                                   {lecture?.content ? 'Notes ready' : 'Outline only'}
                                 </Badge>
+                              </TableCell>
+                              <TableCell>
+                                {lecture?.content ? (
+                                  <Text size={200}>Complete</Text>
+                                ) : course.lecturePlan?.length ? (
+                                  <Button
+                                    appearance="subtle"
+                                    size="small"
+                                    icon={generatingLectures && activeLecturePlan?.id === plan.id ? <Spinner size="tiny" /> : <AddRegular />}
+                                    disabled={generatingLectures || generating}
+                                    aria-label={`Generate notes for Lecture ${String(plan.number).padStart(2, '0')}`}
+                                    onClick={() => void generateSingleLecture(plan.id)}
+                                  >
+                                    Generate notes
+                                  </Button>
+                                ) : (
+                                  <Text size={200}>Not available</Text>
+                                )}
                               </TableCell>
                             </TableRow>
                           ))}
@@ -488,6 +611,21 @@ export function CourseWorkspacePage() {
           </div>
         )}
       </DataStatePanel>
+      <CourseGenerationDialog
+        open={generatingLectures}
+        request={null}
+        progress={lectureProviderProgress}
+        activities={lectureProviderActivities}
+        operationTitle={activeLecturePlan
+          ? `Lecture ${String(activeLecturePlan.number).padStart(2, '0')} · ${activeLecturePlan.title}`
+          : 'Generating lecture notes'}
+        statusMessage={activeLecturePlan && lectureGenerationProgress
+          ? `Lecture ${Math.min(lectureGenerationProgress.completed + 1, lectureGenerationProgress.total)} of ${lectureGenerationProgress.total} · ${activeLecturePlan.title}`
+          : 'Lecture note generation is in progress'}
+        browserRequest={activeLectureRequestUrl
+          ? { method: 'POST', url: activeLectureRequestUrl }
+          : undefined}
+      />
     </div>
   );
 }

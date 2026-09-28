@@ -69,3 +69,19 @@ def test_course_store_updates_safe_json_snapshot(tmp_path) -> None:
     assert snapshot["id"] == "../imported-course"
     assert snapshot["courseCode"] == CALCULUS_101.course_code
     assert snapshot["description"] == "Updated course draft."
+
+
+def test_course_store_loads_saved_json_snapshots_on_startup(tmp_path) -> None:
+    course = CALCULUS_101.model_copy(update={"id": "saved-course"})
+    snapshot_path = tmp_path / "saved-course.json"
+    snapshot_path.write_text(
+        json.dumps(course.model_dump(mode="json", by_alias=True)),
+        encoding="utf-8",
+    )
+
+    store = CourseStore(archive_directory=tmp_path)
+
+    loaded_course = store.get_course("saved-course")
+    assert loaded_course is not None
+    assert loaded_course.title == course.title
+    assert "saved-course" in {item.id for item in store.list_courses()}

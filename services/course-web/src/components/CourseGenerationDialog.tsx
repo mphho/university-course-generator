@@ -19,6 +19,9 @@ interface CourseGenerationDialogProps {
   request: CourseBriefInput | null;
   progress: GenerationProgressResponse | null;
   activities: GenerationActivity[];
+  operationTitle?: string;
+  statusMessage?: string;
+  browserRequest?: { method?: string; url: string; body?: unknown; contentType?: string };
 }
 
 const generationSteps = [
@@ -36,13 +39,36 @@ const generationSteps = [
   },
 ];
 
+const lectureGenerationSteps = [
+  {
+    title: 'Prepare lecture context',
+    description: 'Use the selected lecture plan, learning outcomes, prerequisites, and course sequence.',
+  },
+  {
+    title: 'Generate lecture notes',
+    description: 'Build explanations, formal development, worked examples, applications, and practice.',
+  },
+  {
+    title: 'Validate and save',
+    description: 'Validate the structured notes and update the local course snapshot.',
+  },
+];
+
 function formatElapsedTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
   const remainder = (seconds % 60).toString().padStart(2, '0');
   return `${minutes}:${remainder}`;
 }
 
-export function CourseGenerationDialog({ open, request, progress, activities }: CourseGenerationDialogProps) {
+export function CourseGenerationDialog({
+  open,
+  request,
+  progress,
+  activities,
+  operationTitle = 'Building your course',
+  statusMessage = 'Generation is in progress',
+  browserRequest,
+}: CourseGenerationDialogProps) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
@@ -58,19 +84,25 @@ export function CourseGenerationDialog({ open, request, progress, activities }: 
   }, [open]);
 
   const lectureCount = request?.testMode ? 1 : 12;
+  const workflowSteps = request ? generationSteps : lectureGenerationSteps;
+  const workflowTitle = request ? 'Course generation workflow' : 'Lecture generation workflow';
   const visibleOutcomes = request?.learningOutcomes.slice(0, 3) ?? [];
   const remainingOutcomeCount = Math.max((request?.learningOutcomes.length ?? 0) - visibleOutcomes.length, 0);
+  const displayedBrowserRequest = browserRequest
+    ?? (request
+      ? { method: 'POST', url: '/api/courses/generate', body: request, contentType: 'application/json' }
+      : null);
 
   return (
     <Dialog open={open} modalType="modal">
       <DialogSurface className="generation-dialog-surface">
         <DialogBody>
-          <DialogTitle>Building your course</DialogTitle>
+          <DialogTitle>{operationTitle}</DialogTitle>
           <DialogContent className="generation-dialog-content">
             <div className="generation-status">
               <Spinner size="medium" />
               <div className="generation-status-copy">
-                <Text weight="semibold" role="status">Generation is in progress</Text>
+                <Text weight="semibold" role="status">{statusMessage}</Text>
                 <Text size={200} aria-live="off">Elapsed {formatElapsedTime(elapsedSeconds)}</Text>
               </div>
             </div>
@@ -131,23 +163,27 @@ export function CourseGenerationDialog({ open, request, progress, activities }: 
               </Text>
             </section>
 
-            {request && (
+            {displayedBrowserRequest && (
               <details className="generation-http generation-collapsible">
                 <summary>
                   <Text id="generation-http-title" weight="semibold">Browser API request</Text>
                   <Text size={200} className="generation-http-pending" role="status">
-                    POST /api/courses/generate · Awaiting response
+                    {displayedBrowserRequest.method ?? 'POST'} {displayedBrowserRequest.url} · Awaiting response
                   </Text>
                 </summary>
                 <dl className="generation-http-meta">
-                  <div><dt>Method</dt><dd><code>POST</code></dd></div>
-                  <div><dt>URL</dt><dd><code>/api/courses/generate</code></dd></div>
-                  <div><dt>Content-Type</dt><dd><code>application/json</code></dd></div>
+                  <div><dt>Method</dt><dd><code>{displayedBrowserRequest.method ?? 'POST'}</code></dd></div>
+                  <div><dt>URL</dt><dd><code>{displayedBrowserRequest.url}</code></dd></div>
+                  {displayedBrowserRequest.contentType && (
+                    <div><dt>Content-Type</dt><dd><code>{displayedBrowserRequest.contentType}</code></dd></div>
+                  )}
                 </dl>
-                <details className="generation-request-details">
-                  <summary>Request body (JSON)</summary>
-                  <pre aria-label="POST request body">{JSON.stringify(request, null, 2)}</pre>
-                </details>
+                {displayedBrowserRequest.body !== undefined && (
+                  <details className="generation-request-details">
+                    <summary>Request body (JSON)</summary>
+                    <pre aria-label="POST request body">{JSON.stringify(displayedBrowserRequest.body, null, 2)}</pre>
+                  </details>
+                )}
                 <Text size={200} className="generation-http-note">
                   The local API keeps this request open while it generates the course.
                 </Text>
@@ -156,16 +192,16 @@ export function CourseGenerationDialog({ open, request, progress, activities }: 
 
             <details className="generation-workflow generation-collapsible">
               <summary>
-                <Text id="generation-workflow-title" weight="semibold">Course generation workflow</Text>
+                <Text id="generation-workflow-title" weight="semibold">{workflowTitle}</Text>
                 <Text size={200}>3 stages</Text>
               </summary>
               <ol className="generation-step-list">
-                {generationSteps.map((step, index) => (
+                {workflowSteps.map((step, index) => (
                   <li className="generation-step" key={step.title}>
                     <span className="generation-step-number" aria-hidden="true">{index + 1}</span>
                     <div className="generation-step-copy">
                       <Text weight="semibold">{step.title}</Text>
-                      <Text size={200}>{index === 1 ? `${lectureCount} lecture${lectureCount === 1 ? '' : 's'}: ${step.description}` : step.description}</Text>
+                      <Text size={200}>{request && index === 1 ? `${lectureCount} lecture${lectureCount === 1 ? '' : 's'}: ${step.description}` : step.description}</Text>
                     </div>
                   </li>
                 ))}
