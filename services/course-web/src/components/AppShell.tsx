@@ -55,11 +55,10 @@ export function AppShell() {
 
   return (
     <FluentProvider
-      className="course-app-provider"
       theme={appearance === 'dark' ? darkTheme : lightTheme}
       data-theme={appearance}
     >
-      <div className="app-frame">
+      <div className="course-app-provider app-frame">
         <header className="app-header">
           <Toolbar className="app-toolbar" aria-label="Course Studio header">
             <Link to="/" className="brand-lockup" aria-label="Course Studio home">
