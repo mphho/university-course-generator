@@ -1560,6 +1560,580 @@
     "Potential WWIII is a conditional analytical topic, not a prediction or an inevitable outcome. Unsupported numerical forecasts and operational military planning are outside scope.",
     "Discussion of civilian harm and genocide requires advance content notices, respectful evidence-based participation, and appropriate alternative participation arrangements consistent with institutional policy."
   ],
-  "assessments": [],
+  "assessments": [
+    {
+      "id": "midterm-01-23e2b44c",
+      "kind": "midterm",
+      "title": "Midterm 1",
+      "coverage": "Limits and continuity, Derivative meaning, Differentiation techniques",
+      "description": "Course-aligned midterm for World War II: History, Philosophies, and a Potential WWIII, covering only lectures L01–L06. The requested calculus topics—Limits and continuity, Derivative meaning, and Differentiation techniques—do not appear in this course's lectures or learning outcomes and therefore cannot be assessed in a valid exam for the supplied course. This exam instead assesses the supplied history and philosophy curriculum. Duration: 75 minutes. Answer all 12 questions. Total: 100 points. Estimated working time: 68 minutes, leaving 7 minutes for reading and review. Difficulty balance: 3 introductory, 6 intermediate, and 3 advanced questions. Use concise analytical responses; bullet points are acceptable. No outside research is required. Illustrative scenarios are explicitly identified and are not historical sources. Credit is awarded for accurate evidence and defensible reasoning, not for adopting a particular moral judgment. Equivalent relevant examples receive credit, and minor date errors should not outweigh sound historical analysis.",
+      "status": "Draft",
+      "questionCount": 12,
+      "durationMinutes": 75,
+      "sections": [
+        "A. Historical Foundations and Ideologies — 28 points, approximately 18 minutes",
+        "B. Evidence, Global Participation, and Responsibility — 32 points, approximately 21 minutes",
+        "C. Wartime Ethics, War Termination, and Consequences — 40 points, approximately 29 minutes"
+      ],
+      "questions": [
+        {
+          "section": "A. Historical Foundations and Ideologies — 28 points, approximately 18 minutes",
+          "prompt": "Question 1. Approximately 4 minutes; 6 points. Identify one structural cause, one enabling condition, and one immediate trigger of World War II. Explain the role of each in one sentence, using at least one example from Asia and one from Europe across your answer.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 6,
+          "difficulty": "introductory",
+          "expectedSolution": "A structural cause might be imperial competition or revisionist dissatisfaction with the interwar order. An enabling condition might be economic crisis or weak collective security, which facilitated aggression without making war inevitable. An immediate trigger might be Germany's invasion of Poland in September 1939 and the resulting British and French declarations of war, or the Marco Polo Bridge incident and escalation into full-scale Sino-Japanese war in 1937. The answer should distinguish causal roles and acknowledge that war developed through different regional sequences.",
+          "rubric": [
+            "2 points: Identifies and explains a defensible structural cause.",
+            "2 points: Identifies and explains a defensible enabling condition.",
+            "2 points: Identifies and explains an immediate trigger; the answer includes both Asian and European examples overall. Award 1 of these points if the trigger is sound but the regional coverage is incomplete."
+          ]
+        },
+        {
+          "section": "A. Historical Foundations and Ideologies — 28 points, approximately 18 minutes",
+          "prompt": "Question 2. Approximately 4 minutes; 6 points. State one important similarity and one important distinction between fascism and Nazism. Explain how one ideological commitment influenced a specific wartime policy or form of mobilization.",
+          "learningOutcome": "Compare the ideological foundations of fascism, Nazism, liberal democracy, and communism, and analyse their roles in World War II.",
+          "points": 6,
+          "difficulty": "introductory",
+          "expectedSolution": "Both typically promoted authoritarian leadership, ultranationalism, political repression, and mass mobilization. Nazism placed a distinctive, central emphasis on racial hierarchy, antisemitism, and a racially defined project of territorial expansion. This distinction should not imply that other fascist movements lacked racism or that their policies were static. A policy connection could explain how Nazi racial ideology shaped persecution, genocide, or occupation, or how fascist nationalism supported imperial expansion and propaganda.",
+          "rubric": [
+            "2 points: Explains a historically accurate similarity.",
+            "2 points: Explains a significant distinction without falsely presenting fascism as necessarily non-racist.",
+            "2 points: Connects an ideological commitment to a specific wartime policy or mobilization practice."
+          ]
+        },
+        {
+          "section": "A. Historical Foundations and Ideologies — 28 points, approximately 18 minutes",
+          "prompt": "Question 3. Approximately 5 minutes; 8 points. Put the Battle of Britain, Pearl Harbor, and Stalingrad in chronological order. Then choose one and explain why it was a turning point, giving two distinct military, economic, or political reasons.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 8,
+          "difficulty": "introductory",
+          "expectedSolution": "The order is the Battle of Britain in 1940, Pearl Harbor in December 1941, and the Battle of Stalingrad in 1942–1943. The Battle of Britain prevented Germany from securing the air superiority required for its planned invasion and preserved Britain as an active belligerent and strategic base. Pearl Harbor brought the United States directly into the war and enabled mobilization of its substantial industrial and military resources. Stalingrad destroyed a major German formation and marked a major shift in initiative on the Eastern Front. A strong explanation connects the chosen event to a change in the war's trajectory rather than simply calling it important.",
+          "rubric": [
+            "2 points: Gives the correct chronological order.",
+            "3 points: Explains one accurate reason for the selected event's turning-point significance.",
+            "3 points: Explains a second distinct reason and connects it to the wider course of the war."
+          ]
+        },
+        {
+          "section": "A. Historical Foundations and Ideologies — 28 points, approximately 18 minutes",
+          "prompt": "Question 4. Approximately 5 minutes; 8 points. In four brief entries, compare fascism, Nazism, liberal democracy, and communism on political authority and individual rights. Add one example of a tension between an ideology's professed principles and a state's wartime practice.",
+          "learningOutcome": "Compare the ideological foundations of fascism, Nazism, liberal democracy, and communism, and analyse their roles in World War II.",
+          "points": 8,
+          "difficulty": "intermediate",
+          "expectedSolution": "Fascism generally subordinated individual rights to an authoritarian national state and leader. Nazism combined authoritarian leadership with racial definitions of membership and rights. Liberal democracy professed representative government, political pluralism, and individual rights, though wartime emergency measures and discriminatory practices could violate those commitments. Communism professed class emancipation and collective ownership; Soviet practice concentrated authority in a one-party state and restricted political freedoms. A tension might involve racialized internment by a liberal democracy or Soviet repression despite claims of emancipation. The comparison should distinguish ideological claims from particular state practices.",
+          "rubric": [
+            "4 points: Accurately characterizes authority and rights for all four ideologies, 1 point per ideology.",
+            "2 points: Makes an explicit comparison rather than merely listing unrelated descriptions.",
+            "2 points: Explains a specific, accurate tension between professed principles and wartime practice."
+          ]
+        },
+        {
+          "section": "B. Evidence, Global Participation, and Responsibility — 32 points, approximately 21 minutes",
+          "prompt": "Question 5. Approximately 5 minutes; 8 points. Consider this invented source-analysis exercise: a government newspaper editorial published shortly after its country invades a neighboring territory declares, 'Our forces act only to protect our people and restore peace.' Explain one way nationalism and one way propaganda could help mobilize support for the invasion. Identify one evidentiary limit of the editorial and one kind of independent evidence needed to assess its claim.",
+          "learningOutcome": "Evaluate how nationalism, propaganda, alliance systems, and nuclear deterrence can contribute to escalation or conflict prevention.",
+          "points": 8,
+          "difficulty": "intermediate",
+          "expectedSolution": "Nationalism can invoke a supposedly unified national community whose protection legitimizes force and discourages dissent. Propaganda can frame aggression as defense, omit contrary information, or repeat claims through state-controlled media. The editorial can reveal official messaging but cannot establish that the invasion was necessary or that the public accepted the message. Independent diplomatic records, operational orders, accounts from the invaded population, or other corroborating sources could test the claim. The answer should not infer universal public belief from a government publication.",
+          "rubric": [
+            "2 points: Explains a mechanism through which nationalism could support mobilization or escalation.",
+            "2 points: Explains a distinct propaganda mechanism using the editorial's wording or context.",
+            "2 points: Identifies a specific evidentiary limit related to authorship, purpose, or representativeness.",
+            "2 points: Identifies relevant independent evidence and explains how it would help assess the claim."
+          ]
+        },
+        {
+          "section": "B. Evidence, Global Participation, and Responsibility — 32 points, approximately 21 minutes",
+          "prompt": "Question 6. Approximately 5 minutes; 8 points. Explain two distinct ways colonial resources, labor, or military participation affected World War II. Then explain how wartime participation could contribute to pressure on colonial rule after the war, without claiming that decolonization was immediate or uniform.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 8,
+          "difficulty": "intermediate",
+          "expectedSolution": "Colonial troops expanded imperial armies, while colonial labor, raw materials, food, and logistical infrastructure sustained military operations and production. Suitable examples include Indian military participation or African troops and resources. Wartime mobilization could strengthen political organization, raise expectations of rights, expose contradictions between Allied rhetoric and imperial rule, and weaken metropolitan powers. These pressures interacted with local movements and postwar circumstances; they did not produce a single inevitable timetable of independence.",
+          "rubric": [
+            "3 points: Explains one contribution to the war with an accurate example or concrete mechanism.",
+            "3 points: Explains a second distinct contribution with an accurate example or concrete mechanism.",
+            "2 points: Explains a plausible connection to postwar anti-colonial pressure while recognizing variation or contingency."
+          ]
+        },
+        {
+          "section": "B. Evidence, Global Participation, and Responsibility — 32 points, approximately 21 minutes",
+          "prompt": "Question 7. Approximately 5 minutes; 8 points. In this illustrative occupation scenario, an official knowingly organizes deportations of civilians to a site of mass killing. The official says, 'I merely followed orders; refusal could have cost me my position.' Distinguish the official's individual responsibility from command and institutional responsibility. Give two objections to the official's defense.",
+          "learningOutcome": "Evaluate philosophical debates about wartime responsibility, obedience to authority, resistance, and the treatment of civilians.",
+          "points": 8,
+          "difficulty": "intermediate",
+          "expectedSolution": "Individual responsibility concerns the official's knowing contribution and choices. Command responsibility concerns superiors' ordering, enabling, or failure to prevent abuses within their authority. Institutional responsibility concerns the organizational rules, coordination, and practices that made the crimes possible. Following orders does not eliminate moral agency or make participation in mass killing permissible. Threatened loss of a position is relevant pressure but is not equivalent to having no meaningful choice. Shared responsibility does not mean that only leaders are responsible. Historical explanation of compliance must be distinguished from moral justification.",
+          "rubric": [
+            "3 points: Correctly distinguishes individual, command, and institutional responsibility, 1 point each.",
+            "2 points: Gives one reasoned objection to the obedience defense.",
+            "2 points: Gives a second distinct, reasoned objection.",
+            "1 point: Evaluates the stated coercion without treating it as either irrelevant or automatically exculpatory."
+          ]
+        },
+        {
+          "section": "B. Evidence, Global Participation, and Responsibility — 32 points, approximately 21 minutes",
+          "prompt": "Question 8. Approximately 6 minutes; 8 points. In this illustrative scenario, a railway worker can delay a transport carrying civilians toward persecution. A delay may allow some people to escape, but discovery could lead to punishment of the worker and reprisals against nearby civilians. Evaluate the worker's options. Address responsibility to the deportees, coercion, civilian risks, and uncertainty. Give a defensible conclusion and one objection to it.",
+          "learningOutcome": "Evaluate philosophical debates about wartime responsibility, obedience to authority, resistance, and the treatment of civilians.",
+          "points": 8,
+          "difficulty": "intermediate",
+          "expectedSolution": "An answer should recognize the moral importance of protecting threatened civilians and avoiding complicity, while assessing realistic options, personal coercion, likely effectiveness, and risks imposed on others. Possible conclusions include undertaking a carefully planned delay, seeking a lower-risk protective action, or declining a particular tactic while pursuing another form of resistance. A good objection might challenge the expected effectiveness of resistance or the permissibility of exposing uninvolved civilians to reprisals. Responsibility for reprisals remains with their perpetrators, but foreseeable risks still matter when evaluating choices. No single conclusion is required.",
+          "rubric": [
+            "2 points: Explains responsibilities toward the deportees and the issue of complicity.",
+            "2 points: Assesses coercion and realistically available alternatives.",
+            "2 points: Weighs civilian risks and uncertainty without automatically transferring perpetrators' responsibility to the resistor.",
+            "2 points: Gives a supported conclusion and a substantive objection to it."
+          ]
+        },
+        {
+          "section": "C. Wartime Ethics, War Termination, and Consequences — 40 points, approximately 29 minutes",
+          "prompt": "Question 9. Approximately 6 minutes; 10 points. Distinguish jus ad bellum from jus in bello. Then apply just war theory to this illustrative strategic-bombing proposal: leaders fighting against an invasion plan to attack an arms factory in a populated city. The factory supplies the invading army; civilian deaths are foreseeable, and intelligence about the expected military benefit is uncertain. Explain discrimination and proportionality, and identify two facts needed for a better judgment.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 10,
+          "difficulty": "intermediate",
+          "expectedSolution": "Jus ad bellum concerns the justification for resorting to war; jus in bello concerns conduct within war. A defensive cause does not automatically justify every attack. Discrimination requires distinguishing military targets from civilians and not intentionally targeting civilians. Proportionality weighs expected incidental civilian harm against the anticipated concrete military advantage. The factory may be a military objective, but that alone does not settle permissibility. Relevant facts include civilian presence, weapon accuracy, expected military disruption, feasible precautions, and lower-harm alternatives. Uncertainty should affect confidence in the assessment.",
+          "rubric": [
+            "2 points: Correctly distinguishes jus ad bellum and jus in bello.",
+            "3 points: Explains and applies discrimination to the proposed target and foreseeable civilian harm.",
+            "3 points: Explains and applies proportionality without assuming a defensive war licenses all tactics.",
+            "2 points: Identifies two relevant missing facts, 1 point each."
+          ]
+        },
+        {
+          "section": "C. Wartime Ethics, War Termination, and Consequences — 40 points, approximately 29 minutes",
+          "prompt": "Question 10. Approximately 7 minutes; 10 points. Using the bombing proposal in Question 9, compare a consequentialist assessment with a deontological assessment. Explain what each framework emphasizes, how they might reach different conclusions, and one factual or interpretive assumption that could change each assessment.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 10,
+          "difficulty": "advanced",
+          "expectedSolution": "Consequentialism evaluates the expected effects of the strike compared with feasible alternatives, including civilian harm, military disruption, and possible effects on war duration. It does not simply accept leaders' claims that bombing saves lives. Deontological ethics emphasizes duties and constraints, such as prohibitions on intentionally killing civilians or treating persons merely as means. Some deontological approaches distinguish intended harm from foreseeable side effects, so they need not prohibit every action with civilian risk. The frameworks may diverge if large expected benefits conflict with a duty-based prohibition. Consequentialist conclusions depend on credible estimates of outcomes and alternatives; deontological conclusions may depend on whether civilians are targets, instruments, or incidental victims.",
+          "rubric": [
+            "3 points: Accurately explains and applies consequentialist reasoning, including comparison with alternatives.",
+            "3 points: Accurately explains and applies deontological reasoning without reducing it to indifference toward consequences.",
+            "2 points: Explains a plausible convergence or divergence between the frameworks.",
+            "2 points: Identifies a consequentially relevant assumption and a deontologically relevant assumption, 1 point each."
+          ]
+        },
+        {
+          "section": "C. Wartime Ethics, War Termination, and Consequences — 40 points, approximately 29 minutes",
+          "prompt": "Question 11. Approximately 8 minutes; 10 points. Evaluate the decision to use atomic weapons against Japan using just war theory, consequentialism, and deontological ethics. Give one central consideration from each framework. Discuss one proposed alternative taught in L06 and explain why a fair evaluation must distinguish information available to decision-makers in August 1945 from hindsight. A supported judgment for or against the decision, or a qualified judgment, is acceptable.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 10,
+          "difficulty": "advanced",
+          "expectedSolution": "Just war analysis addresses discrimination and proportionality in attacks causing extensive civilian harm; an argument that the war itself was justified does not settle the conduct question. Consequentialist analysis compares expected casualties, surrender prospects, war duration, and longer-term effects across feasible options, with attention to uncertainty. Deontological analysis asks whether the attacks violated duties toward civilians or used civilian suffering as a means. Alternatives might include a demonstration, modified surrender terms, continued conventional operations, awaiting the effects of Soviet entry, or invasion. Their feasibility and likely effects are contested. The answer should distinguish what leaders knew or could reasonably have investigated from what became clear afterward and should not present disputed casualty estimates or claims of necessity as settled facts.",
+          "rubric": [
+            "2 points: Applies just war theory to a specific ethical issue raised by the atomic attacks.",
+            "2 points: Applies consequentialism through expected outcomes and alternatives.",
+            "2 points: Applies deontological ethics through a relevant duty or constraint.",
+            "2 points: Evaluates one historically relevant proposed alternative rather than merely naming it.",
+            "2 points: Distinguishes contemporary knowledge from hindsight and provides a reasoned, appropriately qualified judgment."
+          ]
+        },
+        {
+          "section": "C. Wartime Ethics, War Termination, and Consequences — 40 points, approximately 29 minutes",
+          "prompt": "Question 12. Approximately 8 minutes; 10 points. Compare two interpretations of Japan's surrender: one emphasizing the atomic bombings and one emphasizing Soviet entry into the war against Japan. Give one supporting consideration for each and explain why the timing of events alone cannot establish a single decisive cause. Then identify two distinct global consequences of World War II and explain their connection to the war.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 10,
+          "difficulty": "advanced",
+          "expectedSolution": "The atomic-bombing interpretation emphasizes the unprecedented destructive threat and its role in Japanese leadership deliberations. The Soviet-entry interpretation emphasizes the collapse of hopes for Soviet mediation, a worsening strategic position, and military pressure in Manchuria. Supporting evidence can include leadership statements, deliberations, or strategic circumstances discussed in L06. Hiroshima on August 6, Soviet entry on August 8–9, Nagasaki on August 9, and the surrender announcement on August 15 occurred in close succession; chronology alone cannot isolate their effects or resolve counterfactual questions. A combined explanation is defensible. Global consequences might include mass death, displacement, occupation, shifts toward US and Soviet predominance, or intensified pressures on colonial rule. Each consequence should be linked to wartime destruction, mobilization, defeat, or altered power balances, without requiring later institutional developments not taught in L01–L06.",
+          "rubric": [
+            "2 points: Explains the atomic-bombing interpretation with a relevant supporting consideration.",
+            "2 points: Explains the Soviet-entry interpretation with a relevant supporting consideration.",
+            "2 points: Explains why temporal proximity does not establish exclusive causation and acknowledges interaction or uncertainty.",
+            "2 points: Identifies and causally explains one global consequence within the taught material.",
+            "2 points: Identifies and causally explains a second distinct global consequence within the taught material."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "final-01-fefb3744",
+      "kind": "final",
+      "title": "Final Exam",
+      "coverage": "Cumulative: limits, derivatives, integrals, and series",
+      "description": "Cumulative final examination for World War II: History, Philosophies, and a Potential WWIII. Coverage is restricted to lectures L01–L12 and the requested course topics. The supplied calculus coverage label conflicts with this course and is not assessed. Duration: 120 minutes; 18 compulsory questions; 100 points. Estimated answering time: 112 minutes, with 8 minutes for reading and review. Difficulty balance: 6 introductory, 8 intermediate, and 4 advanced questions. Suggested times appear in each prompt. Use concise paragraphs or clearly explained bullet points; extended essays are not required. All constructed source extracts and hypothetical scenarios are supplied below and must not be treated as authentic quotations or reports of current events. Attribute evidence to a named historical event, course example, or supplied extract; formal bibliographic citations are unnecessary. Distinguish facts, interpretations, and conditional forecasts. Marks reward accurate evidence and reasoning rather than agreement with a particular political or ethical conclusion. Defensible alternative interpretations receive equivalent credit. Award partial credit as specified; do not penalize the same error twice.",
+      "status": "Draft",
+      "questionCount": 18,
+      "durationMinutes": 120,
+      "sections": [
+        "A. Origins, Ideologies, and Global War",
+        "B. Responsibility and Wartime Ethics",
+        "C. Postwar Order and Escalation",
+        "D. Contemporary Applications and Historical Analogies"
+      ],
+      "questions": [
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "1. Suggested time: 4 minutes. Identify one structural cause, one enabling condition, and one immediate trigger of World War II. Include developments in both Europe and Asia across your answer, and explain why each example belongs in its category.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "A suitable answer identifies imperial competition or tensions in the interwar settlement as structural, economic crisis or ineffective collective security as enabling, and the invasion of Poland in 1939 or a clearly identified outbreak of full-scale Sino-Japanese war in 1937 as a trigger in the relevant theatre. Categories concern causal roles rather than merely dates; a defensible alternative classification is acceptable when explained.",
+          "rubric": [
+            "1 point: Accurate structural cause with an explanation of its long-term causal role.",
+            "1 point: Accurate enabling condition with an explanation of how it facilitated aggression.",
+            "1 point: Accurate immediate trigger, identifying the relevant theatre or outbreak.",
+            "1 point: Includes both Europe and Asia and distinguishes the three causal roles coherently."
+          ]
+        },
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "2. Suggested time: 6 minutes. Consider two constructed instructional extracts, not authentic quotations. A: a government broadcast from an expansionist state in the 1930s claims, 'Our territorial advance protects our people and restores our rightful position.' B: a later historian argues, 'Economic disruption and weak collective security created opportunities for expansion, but leaders still chose aggression.' Explain each extract's perspective and purpose, identify one evidentiary limitation of each, and explain how you would use them together to investigate the war's causes.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 5,
+          "difficulty": "intermediate",
+          "expectedSolution": "A presents an official legitimating narrative and is useful evidence of public justification, not independent proof of defensive necessity. B offers a retrospective explanation combining conditions with agency, but its reliability requires checking sources and arguments. Together they permit comparison between professed motives and causal interpretation; additional diplomatic, military, or economic evidence would be needed to test either account.",
+          "rubric": [
+            "1 point: Identifies A's official perspective and legitimating purpose.",
+            "1 point: Identifies B's retrospective analytical perspective and explanatory purpose.",
+            "1 point: Explains a specific evidentiary limitation of A.",
+            "1 point: Explains a specific evidentiary limitation of B.",
+            "1 point: Proposes corroboration or comparison that contributes to explaining causes rather than simply declaring one source reliable."
+          ]
+        },
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "3. Suggested time: 4 minutes. Compare fascism, Nazism, liberal democracy, and communism in their professed approaches to political authority or political membership. Give one defining feature of each without assuming that all states or movements followed their professed principles consistently.",
+          "learningOutcome": "Compare the ideological foundations of fascism, Nazism, liberal democracy, and communism, and analyse their roles in World War II.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "Fascism typically promotes authoritarian leadership and exclusionary national unity. Nazism combines authoritarian ultranationalism with central racial hierarchy and antisemitism. Liberal democracy professes constitutional government, political pluralism, and individual rights. Communism professes class emancipation and collective ownership; wartime Soviet practice involved centralized one-party authority. Comparisons should avoid equating ideological ideals with universal state practice.",
+          "rubric": [
+            "1 point: Accurate defining feature of fascism relevant to authority or membership.",
+            "1 point: Accurate defining feature of Nazism, including its distinctive racial dimension.",
+            "1 point: Accurate defining feature of liberal democracy.",
+            "1 point: Accurate defining feature of communism, distinguishing ideals from practice where relevant."
+          ]
+        },
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "4. Suggested time: 5 minutes. Using two different ideologies studied in L02, explain how ideological commitments shaped wartime policy or mobilization. Identify one tension between a state's professed principles and its practices. Use specific historical examples.",
+          "learningOutcome": "Compare the ideological foundations of fascism, Nazism, liberal democracy, and communism, and analyse their roles in World War II.",
+          "points": 5,
+          "difficulty": "intermediate",
+          "expectedSolution": "An answer might link Nazi racial ideology to exclusion, conquest, and genocide, and liberal-democratic commitments to anti-authoritarian mobilization. It could then identify colonial domination or discriminatory policies as tensions within democratic states' claims to universal freedom. Other supported comparisons, including Soviet class rhetoric and centralized mobilization, are acceptable. The essential reasoning links beliefs to policies rather than merely naming regimes.",
+          "rubric": [
+            "2 points: First accurate historical example and explanation linking ideology to policy or mobilization.",
+            "2 points: Second accurate historical example and explanation involving a different ideology.",
+            "1 point: Clearly identifies a historically supported tension between professed principles and practice."
+          ]
+        },
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "5. Suggested time: 4 minutes. Put the Battle of Britain, Germany's invasion of the Soviet Union, Pearl Harbor, and Midway in chronological order. Choose one and explain its significance as a turning point using two relevant military, economic, or political facts.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "The order is Battle of Britain in 1940; invasion of the Soviet Union in June 1941; Pearl Harbor in December 1941; Midway in June 1942. For example, Midway destroyed four Japanese fleet carriers and altered the Pacific naval balance, constraining Japan's capacity for further offensive operations. Its significance should not be presented as making the eventual outcome inevitable.",
+          "rubric": [
+            "2 points: Correct chronological order; award 1 point for an order with only one adjacent pair reversed.",
+            "1 point: First accurate fact explaining the selected event's significance.",
+            "1 point: Second accurate fact explaining significance rather than merely repeating the first."
+          ]
+        },
+        {
+          "section": "A. Origins, Ideologies, and Global War",
+          "prompt": "6. Suggested time: 6 minutes. Explain four distinct global consequences of World War II. Explicitly connect one consequence to a wartime development involving colonial resources, labour, military participation, or occupation.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 5,
+          "difficulty": "intermediate",
+          "expectedSolution": "Consequences may include mass death and destruction, displacement, occupation and territorial changes, the increased power of the United States and Soviet Union, and intensified pressures on colonial rule. For example, colonial participation and wartime disruption exposed contradictions in imperial authority and strengthened demands for independence, although decolonization was uneven and had multiple causes.",
+          "rubric": [
+            "4 points: One point for each of four distinct, accurately explained global consequences.",
+            "1 point: Explains a credible causal connection between one consequence and colonial participation, resources, labour, or occupation."
+          ]
+        },
+        {
+          "section": "B. Responsibility and Wartime Ethics",
+          "prompt": "7. Suggested time: 4 minutes. In a hypothetical occupation administration, a senior commander orders unlawful deportations, a transport office coordinates them, and an officer knowingly escorts civilians to detention. Identify individual, command, and institutional responsibility. Explain why describing coercive circumstances is not automatically a moral justification.",
+          "learningOutcome": "Evaluate philosophical debates about wartime responsibility, obedience to authority, resistance, and the treatment of civilians.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "The officer's knowing participation raises individual responsibility; the senior commander's order raises command responsibility; the transport office's organized contribution raises institutional responsibility. These forms can overlap. Coercion may affect available choices and degrees of blame, but explaining why someone acted does not establish that the conduct was justified.",
+          "rubric": [
+            "1 point: Correctly identifies individual responsibility and its basis.",
+            "1 point: Correctly identifies command responsibility and its basis.",
+            "1 point: Correctly identifies institutional responsibility and its basis.",
+            "1 point: Distinguishes causal explanation or mitigation from moral justification."
+          ]
+        },
+        {
+          "section": "B. Responsibility and Wartime Ethics",
+          "prompt": "8. Suggested time: 7 minutes. An official in a hypothetical atrocity case argues, 'I was following orders; refusal could have endangered my family.' Evaluate this defence using two philosophical objections. Then assess one possible form of resistance, explaining how coercion, available choices, and risks to civilians affect your judgment. Do not assume resistance was easy or guaranteed to succeed.",
+          "learningOutcome": "Evaluate philosophical debates about wartime responsibility, obedience to authority, resistance, and the treatment of civilians.",
+          "points": 6,
+          "difficulty": "intermediate",
+          "expectedSolution": "Objections may include the persistence of moral agency despite orders and the duty not to participate in grave harm to civilians. Threats to family can substantially constrain choice and mitigate blame, but do not automatically eliminate responsibility. Resistance might involve delaying implementation, warning victims, refusing participation, or covert assistance. Its assessment should consider feasibility, likely benefits, reprisals, and uncertainty rather than imposing an unqualified duty of heroic sacrifice.",
+          "rubric": [
+            "2 points: Explains two distinct philosophical objections to an obedience-based defence.",
+            "1 point: Evaluates coercion as a possible constraint or mitigating factor without treating it as automatic exoneration.",
+            "1 point: Identifies a concrete form of resistance and explains its feasibility.",
+            "1 point: Assesses risks or benefits for civilians and others.",
+            "1 point: Reaches a reasoned, appropriately qualified judgment."
+          ]
+        },
+        {
+          "section": "B. Responsibility and Wartime Ethics",
+          "prompt": "9. Suggested time: 4 minutes. Distinguish jus ad bellum from jus in bello. Classify and briefly explain these two questions: (a) Was entering the war justified? (b) Was deliberately targeting civilians permissible? Finally, distinguish consequentialist reasoning from deontological reasoning.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "Jus ad bellum concerns justification for resorting to war, so (a) belongs there. Jus in bello concerns conduct during war, so (b) concerns discrimination and civilian protection. Consequentialism evaluates actions through their expected consequences; deontological ethics emphasizes duties or constraints that are not simply overridden by aggregate benefits. A justified cause does not license all methods.",
+          "rubric": [
+            "1 point: Defines jus ad bellum and correctly classifies (a).",
+            "1 point: Defines jus in bello and correctly classifies (b).",
+            "1 point: Accurately explains consequentialist reasoning.",
+            "1 point: Accurately explains deontological reasoning."
+          ]
+        },
+        {
+          "section": "B. Responsibility and Wartime Ethics",
+          "prompt": "10. Suggested time: 10 minutes. Strategic-bombing scenario: commanders propose bombing a weapons factory in a densely populated city. They expect substantial civilian deaths. Estimates of military disruption are uncertain, and a less destructive attack is possible but may be less effective. Apply just war theory, consequentialism, and deontological ethics. Compare their possible judgments, identify two factual uncertainties that matter, and defend a conditional recommendation. Treat this as a hypothetical application of L05, not a documented operation.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 8,
+          "difficulty": "advanced",
+          "expectedSolution": "Just war analysis considers a legitimate military target, discrimination, precautions, and whether foreseeable civilian harm is proportionate to anticipated military advantage. Consequentialism compares likely total harms and benefits of the proposed attack, alternatives, and non-attack. Deontological analysis considers duties toward civilians and the moral importance of intention; foreseeable harm is not automatically permissible merely because unintended. Judgments may converge or differ depending on civilian-risk estimates, military benefit, and alternatives. A conditional recommendation should specify what evidence would justify changing it.",
+          "rubric": [
+            "2 points: Applies just war principles to the scenario, including discrimination and proportionality.",
+            "1 point: Applies consequentialism comparatively to available options.",
+            "1 point: Applies deontological duties or constraints to civilian harm.",
+            "1 point: Explains a meaningful convergence or disagreement between frameworks.",
+            "2 points: Identifies two distinct factual uncertainties and explains their ethical relevance.",
+            "1 point: Defends a conditional recommendation consistent with the analysis."
+          ]
+        },
+        {
+          "section": "B. Responsibility and Wartime Ethics",
+          "prompt": "11. Suggested time: 10 minutes. Evaluate the 1945 atomic bombings using all three ethical frameworks studied in L05–L06. Compare an interpretation emphasizing the bombings' contribution to surrender with one emphasizing Soviet entry and Japan's wider military predicament. Identify one potentially relevant alternative and distinguish evidence available to decision-makers at the time from hindsight. Give a qualified judgment rather than assuming any single cause or alternative outcome is certain.",
+          "learningOutcome": "Apply just war theory, consequentialism, and deontological ethics to historical decisions, including strategic bombing and the use of atomic weapons.",
+          "points": 8,
+          "difficulty": "advanced",
+          "expectedSolution": "Just war reasoning examines discrimination and proportionality; consequentialism compares expected casualties and war duration across bombing and alternatives; deontological reasoning considers constraints against attacking civilians. One surrender interpretation emphasizes the shock and destruction of atomic attacks, while another stresses Soviet entry, strategic collapse, and internal leadership dynamics. The chronology of attacks, Soviet entry, and surrender supports investigation but cannot alone isolate causal weight. Alternatives could include modifying surrender terms, waiting, blockade, demonstration, or invasion, each with uncertain feasibility and costs. A strong judgment distinguishes contemporary expectations from later evidence and avoids treating counterfactual casualty estimates as established facts.",
+          "rubric": [
+            "3 points: One point for an accurate application of each of the three ethical frameworks.",
+            "2 points: Fairly compares two surrender interpretations using relevant historical evidence and acknowledges uncertainty in causal weight.",
+            "1 point: Identifies an alternative and evaluates a meaningful feasibility or harm consideration.",
+            "1 point: Explicitly distinguishes contemporary knowledge from hindsight.",
+            "1 point: Offers a reasoned, qualified ethical judgment."
+          ]
+        },
+        {
+          "section": "C. Postwar Order and Escalation",
+          "prompt": "12. Suggested time: 4 minutes. Explain how each of the following responded to a wartime failure: the United Nations, war-crimes trials, and the Universal Declaration of Human Rights. Identify one difference between an institution's or framework's aims and its enforcement capacity.",
+          "learningOutcome": "Analyse how World War II shaped international institutions, human rights frameworks, and the postwar geopolitical order.",
+          "points": 4,
+          "difficulty": "introductory",
+          "expectedSolution": "The United Nations sought collective peace and security after failures to restrain aggression. War-crimes trials pursued accountability for wartime crimes rather than accepting official position as immunity. The Universal Declaration articulated shared human-rights standards after grave abuses. Enforcement is constrained by political cooperation, sovereignty, unequal power, and institutional design; the Declaration itself was not a directly enforceable global criminal code.",
+          "rubric": [
+            "1 point: Correctly links the United Nations to a wartime failure and postwar aim.",
+            "1 point: Correctly links war-crimes trials to accountability for wartime crimes.",
+            "1 point: Correctly links the Universal Declaration to human-rights protection.",
+            "1 point: Explains a specific distinction between stated aims and enforcement capacity."
+          ]
+        },
+        {
+          "section": "C. Postwar Order and Escalation",
+          "prompt": "13. Suggested time: 6 minutes. Explain how bipolar rivalry and decolonization each complicated the postwar order. Use one example for each, then analyse a tension between universal principles and unequal state power.",
+          "learningOutcome": "Analyse how World War II shaped international institutions, human rights frameworks, and the postwar geopolitical order.",
+          "points": 5,
+          "difficulty": "intermediate",
+          "expectedSolution": "Bipolar rivalry could obstruct cooperation through competing blocs, vetoes, or selective enforcement. Decolonization challenged imperial authority and expanded demands for sovereignty and self-determination while exposing economic and political inequalities. Examples may include superpower obstruction of collective action and a course-covered independence struggle. Universal equality or rights could conflict with permanent Security Council privileges, imperial interests, or selective protection of allies.",
+          "rubric": [
+            "2 points: Explains a mechanism through which bipolar rivalry complicated the order and supports it with an example.",
+            "2 points: Explains a mechanism through which decolonization complicated the order and supports it with an example.",
+            "1 point: Analyses a specific tension between universal principles and unequal power."
+          ]
+        },
+        {
+          "section": "C. Postwar Order and Escalation",
+          "prompt": "14. Suggested time: 7 minutes. Construct a short causal chain in which nationalism, propaganda, and alliance commitments contribute to escalation. Explain one stabilizing and one destabilizing mechanism of nuclear deterrence. Propose a conflict-prevention measure and identify its limitation. State clearly that your chain is conditional rather than inevitable.",
+          "learningOutcome": "Evaluate how nationalism, propaganda, alliance systems, and nuclear deterrence can contribute to escalation or conflict prevention.",
+          "points": 6,
+          "difficulty": "intermediate",
+          "expectedSolution": "A possible chain runs from exclusionary nationalist claims through propaganda that narrows compromise, to alliance signals interpreted as threats, counter-mobilization, and escalation. Nuclear retaliation risk can discourage direct attack, while misperception, ambiguous signals, or confidence in limited escalation can destabilize a crisis. Crisis communication or clarification of commitments may reduce misunderstanding, but cannot guarantee trust, compliance, or agreement over underlying disputes.",
+          "rubric": [
+            "2 points: Builds an explained causal chain incorporating nationalism, propaganda, and alliances.",
+            "1 point: Explains a stabilizing nuclear-deterrence mechanism.",
+            "1 point: Explains a destabilizing nuclear-deterrence mechanism.",
+            "1 point: Proposes a relevant prevention measure and explains a limitation.",
+            "1 point: Identifies a contingency or interruption showing that escalation is not inevitable."
+          ]
+        },
+        {
+          "section": "D. Contemporary Applications and Historical Analogies",
+          "prompt": "15. Suggested time: 7 minutes. Bounded hypothetical decision within Russia's war in Ukraine: Ukraine requests additional defensive equipment from an external state. The equipment could protect civilians and territory, but the donor is uncertain whether delivery would provoke attacks on supply routes or stronger nuclear signalling. The decision involves no proposed direct combat by the donor. Apply historical causal analysis and the distinction between jus ad bellum and jus in bello. Present two competing interpretations of the decision and identify evidence needed to assess an escalation pathway and a restraint mechanism. Do not assume events beyond these stipulated facts.",
+          "learningOutcome": "Apply historical and philosophical frameworks to contemporary geopolitical cases, such as Russia’s war in Ukraine, conflict in the Middle East, and tensions in the Taiwan Strait.",
+          "points": 6,
+          "difficulty": "intermediate",
+          "expectedSolution": "Historical causal analysis distinguishes the background invasion and security concerns from the equipment decision as a possible new enabling condition or trigger, without treating background causes as excuses. Jus ad bellum addresses defence against aggression and the donor's justification; jus in bello concerns how equipment is used and obligations toward civilians. One interpretation sees assistance as strengthening defence and deterrence; another emphasizes escalation through perceived threat or attacks on supply routes. Evidence about equipment, use restrictions, credible signals, and decision-makers' responses would help test these interpretations. Communication and clearly bounded assistance are possible restraints, not guarantees.",
+          "rubric": [
+            "1 point: Applies historical causal categories without confusing explanation with justification.",
+            "2 points: Correctly applies both jus ad bellum and jus in bello to the decision.",
+            "1 point: Presents two plausible competing interpretations grounded in the stipulated facts.",
+            "1 point: Explains an escalation pathway and identifies evidence needed to assess it.",
+            "1 point: Explains a restraint mechanism and acknowledges its uncertainty or limitation."
+          ]
+        },
+        {
+          "section": "D. Contemporary Applications and Historical Analogies",
+          "prompt": "16. Suggested time: 10 minutes. Compare two hypothetical workshop scenarios. A, an Israel-Palestine and regional-escalation case: an armed group launches attacks on civilians; a state proposes striking the group's command site beside crowded civilian housing; a neighbouring armed actor threatens intervention. B, a Taiwan Strait case: military exercises disrupt shipping; one government proposes an armed escort; another signals that escorts may be treated as hostile, while an external partner's commitment is ambiguous. Apply just war theory and consequentialism to one defined decision in each case: the proposed strike in A and the proposed escort in B. Compare civilian-protection concerns and escalation mechanisms, propose one restraint measure for each, and identify one evidence gap in each. Do not infer unstated motives, legal conclusions, or current events.",
+          "learningOutcome": "Apply historical and philosophical frameworks to contemporary geopolitical cases, such as Russia’s war in Ukraine, conflict in the Middle East, and tensions in the Taiwan Strait.",
+          "points": 8,
+          "difficulty": "advanced",
+          "expectedSolution": "For A, just war reasoning considers the command site's military relevance, discrimination, precautions, and proportionality; attacks by the armed group do not remove civilian protections. Consequentialism compares the strike's expected security benefits, civilian losses, alternatives, and intervention risk. For B, just war reasoning examines the justification for force and restraint in its conduct; consequentialism weighs restored shipping against confrontation and wider harms. A involves immediate residential civilian risk and threatened regional intervention; B involves shipping safety, signalling, and ambiguous external commitments. Restraints might include postponement or a less harmful operation in A and negotiated transit arrangements or crisis communication in B. Evidence gaps include reliable civilian and target information in A and intentions, rules of engagement, or actual disruption in B.",
+          "rubric": [
+            "2 points: Applies just war theory and consequentialism to the proposed strike in A, one point per framework.",
+            "2 points: Applies just war theory and consequentialism to the proposed escort in B, one point per framework.",
+            "1 point: Explicitly compares civilian-protection concerns and escalation mechanisms across the cases.",
+            "1 point: Proposes a relevant restraint measure for each case.",
+            "2 points: Identifies one distinct evidence gap in each case and explains how it limits judgment."
+          ]
+        },
+        {
+          "section": "D. Contemporary Applications and Historical Analogies",
+          "prompt": "17. Suggested time: 6 minutes. Evaluate this claim: 'Because concessions failed to prevent European war in the 1930s, diplomatic compromise in any contemporary territorial crisis will also fail.' Use explicit criteria for assessing the analogy. Identify one relevant similarity and two consequential differences, including nuclear weapons in one difference. Rewrite the claim so that its conclusion does not exceed its evidence.",
+          "learningOutcome": "Assess the strengths and limitations of comparisons between the lead-up to World War II and contemporary geopolitical tensions.",
+          "points": 6,
+          "difficulty": "intermediate",
+          "expectedSolution": "Criteria should compare actors' aims, incentives, capabilities, commitments, and causal mechanisms, rather than rely on surface resemblance. A similarity could be the risk that concessions encourage further demands when an actor has expansionist aims. Differences include nuclear escalation risks and variation in institutions, economic interdependence, regional histories, or the terms of compromise. A revised claim might state that concessions can encourage further aggression under specified conditions, but whether compromise reduces or increases conflict requires case-specific evidence and comparison with alternatives.",
+          "rubric": [
+            "1 point: States explicit, causally relevant comparison criteria.",
+            "1 point: Explains a relevant similarity without assuming identical cases.",
+            "2 points: Explains two consequential differences, including nuclear weapons.",
+            "1 point: Identifies the unsupported universal inference in the original claim.",
+            "1 point: Rewrites the claim as a qualified, evidence-sensitive proposition."
+          ]
+        },
+        {
+          "section": "D. Contemporary Applications and Historical Analogies",
+          "prompt": "18. Suggested time: 8 minutes. Using one supplied contemporary scenario from Questions 15–16, construct a concise argument about the risk of wider international war and the ethical responsibilities of states. Include a claim supported by two distinct pieces of stipulated evidence or course-based mechanisms; compare two conditional escalation scenarios; address a counterargument; and recommend one conflict-prevention policy while explaining an ethical trade-off or unintended effect. Include an explicit uncertainty statement. Do not assign unsupported numerical probabilities or treat wider war as inevitable.",
+          "learningOutcome": "Construct evidence-based arguments about the risks of wider international war and the ethical responsibilities of states, without treating a future world war as inevitable.",
+          "points": 8,
+          "difficulty": "advanced",
+          "expectedSolution": "A strong argument makes a bounded claim, such as that wider-war risk depends on signalling, targeting choices, and responses rather than following automatically from the initial dispute. It supports the claim with two identifiable scenario facts or explained mechanisms. Conditional scenarios might contrast reciprocal mobilization after misinterpreted signals with restraint following clarified commitments and communication. A counterargument could hold that restraint emboldens coercion; the response should weigh credibility alongside escalation danger. A recommendation connects civilian protection or conflict prevention to a practical measure and acknowledges possible costs, such as reduced deterrent credibility or delayed assistance. The conclusion states what is unknown and what evidence could change the assessment.",
+          "rubric": [
+            "1 point: Presents a clear, bounded claim about wider-war risk.",
+            "2 points: Supports the claim with two distinct, accurately attributed facts or explained course-based mechanisms.",
+            "1 point: Compares two conditional scenarios with explicit causal links.",
+            "1 point: Presents and responds fairly to a substantive counterargument.",
+            "1 point: Recommends a relevant policy and connects it to states' ethical responsibilities.",
+            "1 point: Evaluates an ethical trade-off or plausible unintended effect.",
+            "1 point: States meaningful uncertainty and avoids inevitability or unsupported numerical probabilities."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "assignment-01-0a48e220",
+      "kind": "assignment",
+      "title": "Assignment 01: Explaining the Origins of World War II",
+      "coverage": "Explaining the Origins of World War II",
+      "description": "Self-paced assignment: Explaining the Origins of World War II. Complete five intermediate problems aligned with L01, 'Explaining the Origins of World War II.' Total: 100 points. Suggested working time: 3–4 hours. Work in order, attempt each problem before opening its hints, and revise your responses after checking the expected answers. Use lecture materials and identifiable historical sources; if no readings were supplied, locate reputable library, archival, or scholarly resources. Attribute factual claims and quotations using a consistent citation style. Include a short reference list with each response. Expected answers indicate defensible approaches, not a single mandatory interpretation. Every problem maps to the exact course learning outcome stated in its learningOutcome field; its taught topic is identified in the prompt.",
+      "status": "Draft",
+      "problemCount": 5,
+      "points": 100,
+      "difficulty": "intermediate",
+      "rubric": [
+        "Total available: 100 points, comprising five problems worth 20 points each.",
+        "Apply each problem's response rubric. Award partial credit for accurate, relevant work that does not fully meet a criterion.",
+        "Assess historical accuracy, explanatory reasoning, source use, and recognition of uncertainty rather than agreement with a preferred interpretation.",
+        "Distinguish evidence from interpretation and historical explanation from moral justification. Do not treat war as inevitable or assign unsupported numerical weights to causes.",
+        "Use traceable references. Unsupported claims and inaccurate source attribution reduce credit under the relevant evidence or accuracy criterion."
+      ],
+      "problems": [
+        {
+          "prompt": "Problem 1 — Building an explanatory timeline. Taught topic: L01, 'Interwar order and imperial expansion.' Construct a timeline of eight developments between 1919 and September 1939 that help explain the outbreak of war in Europe and Asia. Include at least three developments concerning Asia and three concerning Europe; the remaining entries may be global. For each entry, provide a date, a concise description, and 40–60 words explaining its causal significance. Finish with a 120–150-word explanation of why the European outbreak in September 1939 should not be treated as the beginning of all warfare commonly included in World War II.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 20,
+          "difficulty": "intermediate",
+          "hints": [
+            "First separate developments that changed the international environment from events involving direct military expansion.",
+            "Possible entries include the Versailles settlement, the economic crisis beginning in 1929, the Manchurian crisis, German rearmament, the wider Sino-Japanese War, and the invasion of Poland.",
+            "For each causal explanation, name a mechanism: weakened legitimacy, altered incentives, increased military capacity, territorial expansion, or reduced confidence in collective security. Explain the earlier chronology of warfare in Asia."
+          ],
+          "expectedAnswer": "One defensible timeline includes: the Treaty of Versailles in June 1919; the economic crisis beginning in 1929; Japan's seizure of Manchuria beginning in September 1931; Germany's announcement of conscription in March 1935; the remilitarization of the Rhineland in March 1936; the escalation into wider Sino-Japanese war in July 1937; the Munich Agreement in September 1938; and Germany's invasion of Poland on 1 September 1939. Explanations should connect events to mechanisms rather than merely list them. For example, economic crisis destabilized politics and strengthened some expansionist movements, but did not make aggression unavoidable. Manchuria exposed weaknesses in international responses and advanced Japanese imperial expansion. Munich changed the strategic position of Czechoslovakia and reflected choices made under military and political constraints. The conclusion should note that Britain and France declared war on Germany on 3 September 1939, while large-scale warfare in China was already underway by 1937, with significant preceding aggression in 1931. Periodization varies with the geographical and analytical frame.",
+          "rubric": [
+            "8 points: Eight accurately dated and described developments, with the required geographical distribution; award up to 1 point per entry.",
+            "6 points: Causal annotations identify plausible mechanisms and distinguish contribution from inevitability.",
+            "4 points: The concluding explanation accurately distinguishes European and Asian chronologies and explains the significance of periodization.",
+            "2 points: Clear presentation and traceable citations for the timeline."
+          ]
+        },
+        {
+          "prompt": "Problem 2 — Distinguishing types of causes. Taught topic: L01, 'Historical causation and source criticism.' Analyse Germany's invasion of Poland in September 1939 in 450–550 words. Identify two structural causes, two enabling conditions, and one immediate trigger or initiating event. Define these categories and explain how the factors interacted. Include one factor whose classification could reasonably be contested, and defend your classification. Explain why identifying a cause does not justify aggression.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 20,
+          "difficulty": "intermediate",
+          "hints": [
+            "Structural causes are relatively durable background conditions; enabling conditions make action more feasible; triggers or initiating events mark the immediate transition into conflict.",
+            "Consider the contested interwar settlement, economic instability, German expansionist aims, military capacity, earlier diplomatic responses, and the August 1939 German-Soviet pact.",
+            "Build a causal chain rather than a checklist. Distinguish the invasion initiating the war in Poland from the subsequent British and French declarations widening the European war."
+          ],
+          "expectedAnswer": "A defensible analysis treats the contested interwar settlement and economic-political destabilization as structural causes; German rearmament and the German-Soviet non-aggression pact of August 1939 as enabling conditions; and the German invasion on 1 September as the initiating event. The pact reduced the immediate risk, as perceived by German leaders, of Soviet opposition to their attack; its secret protocol envisaged spheres of influence in Eastern Europe. German leadership's expansionist and racial-imperial aims should remain central rather than being displaced by background conditions. Categories are analytical tools: expansionist aims could be classified as a persistent cause or a more proximate driver, if the choice is explained. A strong answer links leadership decisions, capacity, and diplomatic circumstances without suggesting that Versailles, economic crisis, or Polish actions compelled the invasion. Britain and France's declarations on 3 September expanded the conflict. Causal explanation describes how aggression became possible and occurred; it does not establish moral entitlement to undertake it.",
+          "rubric": [
+            "4 points: Clear, usable definitions of structural cause, enabling condition, and trigger or initiating event.",
+            "6 points: Five historically defensible factors, accurately classified and explained.",
+            "5 points: A coherent interaction between factors that preserves the significance of leadership decisions and avoids determinism.",
+            "3 points: Reasoned discussion of a contested classification and the distinction between explanation and justification.",
+            "2 points: Relevant, traceable supporting references."
+          ]
+        },
+        {
+          "prompt": "Problem 3 — Comparing explanations across regions. Taught topic: L01, 'Interwar order and imperial expansion.' Write a 500–600-word comparison of Japanese expansion in Manchuria in 1931 and Italy's invasion of Ethiopia in 1935. Assess the claim: 'Failures of collective security explain both episodes better than imperial ambitions do.' Establish what each explanation would need to show, identify two similarities and two differences, and defend a qualified conclusion using at least one specific piece of historical evidence for each case. Distinguish causes of initiating aggression from conditions that enabled its continuation.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 20,
+          "difficulty": "intermediate",
+          "hints": [
+            "Ask whether a factor explains why an aggressor wanted territory, why leaders chose to act at a particular time, or why the action was not stopped.",
+            "Compare territorial objectives, domestic political dynamics, and international responses. Do not assume that the League responded identically in both cases.",
+            "Test the claim by considering how imperial aims and expectations of a weak response could interact. A qualified conclusion need not choose one factor as universally dominant."
+          ],
+          "expectedAnswer": "A strong response argues that imperial ambitions explain important motivations for aggression, while weaknesses of collective security help explain opportunities and the failure to reverse expansion. In Manchuria, Japanese military actors, especially the Kwantung Army, pursued strategic and territorial objectives; the creation of Manchukuo in 1932 consolidated the occupation. The League's investigation and rejection of its legitimacy did not restore Chinese control, and Japan gave notice of withdrawal from the League in 1933. Italy's invasion of Ethiopia in October 1935 pursued imperial expansion and prestige. League sanctions were imposed but remained limited, including the absence of an oil embargo, and did not stop conquest. Similarities include aggression against other states and ineffective collective restraint. Differences include the relationship between military initiative and central leadership, the timing and form of League action, and the aggressors' diplomatic circumstances. The claim is too strong if it treats institutional failure as a sufficient explanation of expansionist intent. A defensible conclusion explains how motives and enabling conditions reinforced one another while acknowledging that stronger collective action's effects cannot be known with certainty.",
+          "rubric": [
+            "4 points: Explicit criteria for evaluating imperial ambitions and collective-security explanations.",
+            "6 points: Historically accurate analysis supported by specific evidence from both cases.",
+            "4 points: Two meaningful similarities and two meaningful differences, explained rather than merely listed.",
+            "4 points: A qualified conclusion distinguishing motivations for aggression from conditions enabling its continuation.",
+            "2 points: Clear organization and traceable citations."
+          ]
+        },
+        {
+          "prompt": "Problem 4 — Testing evidence and perspective. Taught topic: L01, 'Historical causation and source criticism.' Select two identifiable historical sources addressing the same origins-related event: the Manchurian crisis, the Ethiopian invasion, the Munich Agreement, or the invasion of Poland. Use sources produced by different authors or institutions; at least one must be a primary source. Sources may come from course materials or verified archival, library, or scholarly collections. Provide each source's author or issuing institution, title or document description, date, source type, and a reference sufficient to locate it. In 450–550 words, compare their perspectives, purposes, historical contexts, and evidentiary limits. Identify one causal claim they help assess, one agreement or disagreement, and one additional kind of evidence needed to test that claim. Use a brief accurately attributed quotation or precise paraphrase from each.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 20,
+          "difficulty": "intermediate",
+          "hints": [
+            "Choose sources that address a shared question, such as why a government pursued expansion or why another government avoided intervention.",
+            "A public speech can reveal official justification and intended persuasion without reliably revealing all private motives. A later historical account also requires scrutiny of its evidence and interpretive frame.",
+            "For each source, complete the sentence: 'This supports the claim that ___, but cannot by itself establish ___.' Then identify evidence that would corroborate or challenge the claim."
+          ],
+          "expectedAnswer": "Answers depend on the sources selected. A successful response supplies verifiable source identities, correctly distinguishes primary from secondary material, and compares the sources on a shared causal question. For example, a public policy statement and a documented historical analysis of Munich could help assess how security concerns shaped British policy. The statement may establish the government's publicly presented rationale, but not demonstrate that this was its only motive or that its predictions were correct. The historical analysis may reconstruct constraints and alternatives, but its claims must be evaluated against its evidence and scope. Agreement does not necessarily provide independent corroboration if one source relies on the other. Differences may reflect audience, timing, access to information, or interpretation rather than simple dishonesty. Suitable further evidence might include contemporaneous cabinet records, diplomatic correspondence, military assessments, or economic records. The response must connect source criticism to an explanation of the event, not merely label sources as biased or unbiased.",
+          "rubric": [
+            "4 points: Two identifiable sources meeting the selection requirements, with accurate metadata and source-type classification.",
+            "6 points: Specific analysis of perspective, purpose, context, and evidentiary limits for both sources.",
+            "4 points: Accurate quotations or precise paraphrases used to assess a clear causal claim and a source agreement or disagreement.",
+            "4 points: Relevant corroboration strategy and explanation of what the additional evidence could establish.",
+            "2 points: Clear comparison and consistent attribution."
+          ]
+        },
+        {
+          "prompt": "Problem 5 — Constructing a multicausal argument. Taught topic: L01, 'Historical causation and source criticism.' Write a 650–800-word analytical essay answering: 'To what extent did failures of the interwar international order make World War II possible, and why are those failures insufficient as a complete explanation?' Define what you mean by the interwar international order. Use at least two European developments and two Asian developments, explain the interaction of at least three causal factors, and address one serious counterargument. Finish with a brief uncertainty statement identifying a conclusion your evidence cannot establish. You may reuse evidence from earlier problems, but synthesize it into a new argument.",
+          "learningOutcome": "Explain the major causes, turning points, and global consequences of World War II.",
+          "points": 20,
+          "difficulty": "intermediate",
+          "hints": [
+            "Define the international order through institutions, treaties, power relationships, and norms rather than using it as a vague synonym for everything that happened after 1918.",
+            "Separate institutional weakness from the ambitions and decisions of specific actors. Connect European and Asian developments without claiming that their origins were identical.",
+            "A useful thesis may argue that institutional weaknesses created opportunities, while expansionist objectives, economic pressures, and leadership choices explain how those opportunities became wars. Test it against an alternative that gives greater weight to aggressor agency."
+          ],
+          "expectedAnswer": "A defensible thesis states that the interwar order's uneven legitimacy, selective application of sovereignty, and weak collective enforcement created important opportunities for aggression, but did not independently produce war. European evidence might include the contested Versailles settlement, the Rhineland remilitarization, Munich, and the invasion of Poland. Asian evidence might include the Manchurian crisis and the expansion of the Sino-Japanese War in 1937. The essay should show interactions among international constraints, economic-political disruption, imperial ambitions, military capacity, and decisions by particular leaders or military institutions. It should recognize that the League's limited enforcement depended partly on choices by member states and wider power relationships. A serious counterargument is that aggressors' expansionist aims and willingness to use force mattered more than institutional weakness; the response may accept their centrality while arguing that international responses influenced opportunities and perceived costs. A suitable uncertainty statement notes that evidence cannot establish that a particular stronger response would certainly have prevented war. The conclusion should offer a global, multicausal explanation without implying inevitability or equating the distinct European and Asian contexts.",
+          "rubric": [
+            "4 points: A clear thesis, a useful definition of the interwar order, and an answer to both parts of the question.",
+            "6 points: Accurate, attributed evidence covering at least two European and two Asian developments.",
+            "5 points: Explanation of interactions among at least three causal factors, with attention to agency and regional differences.",
+            "3 points: Fair treatment of a serious counterargument and an explicit, justified uncertainty statement.",
+            "2 points: Coherent essay structure and consistent references."
+          ]
+        }
+      ]
+    }
+  ],
   "contentReviewStatus": "draft"
 }
