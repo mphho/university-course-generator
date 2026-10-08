@@ -68,7 +68,7 @@ def test_responses_client_sends_configured_model_and_parses_output_text() -> Non
         return httpx.Response(200, json={"output_text": '{"answer":"ready"}'})
 
     client = ResponsesClient(
-        Settings(openai_api_key="test-key"),
+        Settings(_env_file=None, openai_api_key="test-key"),
         transport=httpx.MockTransport(respond),
     )
 
@@ -80,6 +80,35 @@ def test_responses_client_sends_configured_model_and_parses_output_text() -> Non
     assert observed["authorization"] is None
     assert observed["payload"]["model"] == "gpt-6-luna"
     assert observed["payload"]["reasoning"] == {"effort": "xhigh"}
+
+
+def test_chat_completions_client_sends_messages_and_parses_choice_content() -> None:
+    observed: dict[str, Any] = {}
+
+    def respond(request: httpx.Request) -> httpx.Response:
+        observed["url"] = str(request.url)
+        observed["payload"] = json.loads(request.content)
+        return httpx.Response(
+            200,
+            json={"choices": [{"message": {"content": '{"answer":"ready"}'}}]},
+        )
+
+    client = ResponsesClient(
+        Settings(_env_file=None, openai_api_key="test-key", openai_api_type="chat_completions"),
+        transport=httpx.MockTransport(respond),
+    )
+
+    result = asyncio.run(client.complete_json("system", "user"))
+
+    assert result == {"answer": "ready"}
+    assert observed["url"] == "https://apidev.hku.hk/openai/v1/chat/completions"
+    assert observed["payload"]["messages"] == [
+        {"role": "system", "content": "system"},
+        {"role": "user", "content": "user"},
+    ]
+    assert observed["payload"]["response_format"] == {"type": "json_object"}
+    assert observed["payload"]["reasoning_effort"] == "xhigh"
+    assert "input" not in observed["payload"]
 
 
 def test_responses_client_reports_outbound_request_progress_without_credentials() -> None:

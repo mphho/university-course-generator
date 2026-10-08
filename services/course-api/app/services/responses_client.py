@@ -31,15 +31,8 @@ class ResponsesClient:
                 "Generation is unavailable until OPENAI_API_KEY is configured.",
             )
 
-        payload = {
-            "model": self._settings.openai_model,
-            "reasoning": {"effort": self._settings.openai_reasoning_effort},
-            "input": [
-                {"role": "system", "content": [{"type": "input_text", "text": system_prompt}]},
-                {"role": "user", "content": [{"type": "input_text", "text": user_prompt}]},
-            ],
-            "text": {"format": {"type": "json_object"}},
-        }
+        payload = self._build_payload(system_prompt, user_prompt)
+        endpoint_url = self._settings.openai_endpoint_url
         activity_id = uuid4().hex
         started_at = time.perf_counter()
         self._report_activity(
@@ -47,7 +40,7 @@ class ResponsesClient:
                 "id": activity_id,
                 "label": self._request_label(payload),
                 "method": "POST",
-                "url": self._redact_url(self._settings.openai_base_url),
+                "url": self._redact_url(endpoint_url),
                 "status": "pending",
                 "startedAt": datetime.now(timezone.utc).isoformat(),
                 "requestBody": payload,
@@ -59,7 +52,7 @@ class ResponsesClient:
                 timeout=self._settings.openai_timeout_seconds,
             ) as client:
                 response = await client.post(
-                    self._settings.openai_base_url,
+                    endpoint_url,
                     headers={"api-key": self._settings.openai_api_key},
                     json=payload,
                 )
@@ -131,6 +124,27 @@ class ResponsesClient:
         )
         return result
 
+    def _build_payload(self, system_prompt: str, user_prompt: str) -> dict[str, Any]:
+        if self._settings.openai_api_type == "chat_completions":
+            return {
+                "model": self._settings.openai_model,
+                "reasoning_effort": self._settings.openai_reasoning_effort,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                "response_format": {"type": "json_object"},
+            }
+        return {
+            "model": self._settings.openai_model,
+            "reasoning": {"effort": self._settings.openai_reasoning_effort},
+            "input": [
+                {"role": "system", "content": [{"type": "input_text", "text": system_prompt}]},
+                {"role": "user", "content": [{"type": "input_text", "text": user_prompt}]},
+            ],
+            "text": {"format": {"type": "json_object"}},
+        }
+
     def _report_activity(self, activity: dict[str, Any]) -> None:
         if self._on_activity is not None:
             self._on_activity(activity)
@@ -156,11 +170,17 @@ class ResponsesClient:
 
     @staticmethod
     def _request_label(payload: dict[str, Any]) -> str:
+        default_label = (
+            "Chat completions request" if "messages" in payload else "Responses API request"
+        )
         try:
-            user_text = payload["input"][-1]["content"][0]["text"]
+            if "messages" in payload:
+                user_text = payload["messages"][-1]["content"]
+            else:
+                user_text = payload["input"][-1]["content"][0]["text"]
             request_data = json.loads(user_text)
         except (KeyError, IndexError, TypeError, ValueError):
-            return "Responses API request"
+            return default_label
         if isinstance(request_data, dict):
             schema_name = request_data.get("schemaName")
             if isinstance(schema_name, str):
@@ -168,7 +188,7 @@ class ResponsesClient:
             schema = request_data.get("schema")
             if isinstance(schema, dict) and isinstance(schema.get("title"), str):
                 return schema["title"]
-        return "Responses API request"
+        return default_label
 
     @staticmethod
     def _redact_url(url: str) -> str:
@@ -184,6 +204,16 @@ class ResponsesClient:
     def _extract_output_text(response_data: Any) -> str:
         if not isinstance(response_data, dict):
             raise TypeError("Provider response must be an object")
+        choices = response_data.get("choices")
+        if isinstance(choices, list) and choices:
+            message = choices[0].get("message") if isinstance(choices[0], dict) else None
+            content = message.get("content") if isinstance(message, dict) else None
+            if isinstance(content, str):
+                return content
+            if isinstance(content, list):
+                for part in content:
+                    if isinstance(part, dict) and isinstance(part.get("text"), str):
+                        return part["text"]
         output_text = response_data.get("output_text")
         if isinstance(output_text, str):
             return output_text

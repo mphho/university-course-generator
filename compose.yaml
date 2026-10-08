@@ -4,7 +4,8 @@ services:
       context: ./services/course-api
     environment:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://apidev.hku.hk/openai/v1/responses}
+      OPENAI_API_TYPE: ${OPENAI_API_TYPE:-responses}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-6-luna}
       OPENAI_REASONING_EFFORT: ${OPENAI_REASONING_EFFORT:-xhigh}
       OPENAI_TIMEOUT_SECONDS: ${OPENAI_TIMEOUT_SECONDS:-90}
